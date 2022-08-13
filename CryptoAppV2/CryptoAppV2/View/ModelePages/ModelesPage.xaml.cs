@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace CryptoAppV2.View
+namespace CryptoAppV2.View.ModelePages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ShellPage : Shell
+    public partial class ModelesPage : ContentPage
     {
-        public ShellPage()
+        public ModelesPage()
         {
             InitializeComponent();
         }

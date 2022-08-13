@@ -1,12 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:page="clr-namespace:CryptoAppV2.View.Home"
+             xmlns:shared="clr-namespace:CryptoAppV2.View.Shared"
+             xmlns:home="clr-namespace:CryptoAppV2"
              x:Class="CryptoAppV2.View.ShellPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
-</ContentPage>
+    <Shell.FlyoutHeader>
+        <Grid HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand">
+            <Grid Margin="0,0,0,50">
+                <shared:ShellHeader HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="20"/>
+            </Grid>
+            <Label Margin="0,0,0,20" FontSize="22" Text="Bonjour" VerticalOptions="EndAndExpand" HorizontalTextAlignment="Center" />
+        </Grid>
+    </Shell.FlyoutHeader>
+    <ShellContent Title="Accueil" IsTabStop="True" ContentTemplate="{DataTemplate home:MainPage}" />
+    <ShellContent Title="Cryptographie" IsTabStop="True" ContentTemplate="{DataTemplate page:AcceuilPage}" />
+    <ShellContent Title="Modèles" IsTabStop="True" ContentTemplate="{DataTemplate home:MainPage}" />
+    <ShellContent Title="Historiques" IsTabStop="True" ContentTemplate="{DataTemplate home:MainPage}" />
+    <ShellContent Title="Paramètres" IsTabStop="True" ContentTemplate="{DataTemplate home:MainPage}" />
+    <Shell.FlyoutFooter>
+        <Grid Margin="0,0,0,40" HorizontalOptions="CenterAndExpand" HeightRequest="100">
+            <Label Text="Wicode" HorizontalTextAlignment="Center" FontSize="22" FontAttributes="Italic" />
+        </Grid>
+    </Shell.FlyoutFooter>
+</Shell>

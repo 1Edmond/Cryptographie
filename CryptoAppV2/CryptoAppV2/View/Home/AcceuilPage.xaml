@@ -17,15 +17,12 @@
         </ControlTemplate>
 
     </ContentPage.Resources>
-    <Grid RowDefinitions="70,*">
+    <Grid RowDefinitions="30,*">
 
         <Frame HasShadow="True" CornerRadius="80" HorizontalOptions="FillAndExpand" Margin="20,10,20,0" xct:ShadowEffect.Color="Black" 
                xct:ShadowEffect.Radius="4"
                xct:ShadowEffect.Opacity="0.7" Padding="0" >
             <StackLayout HorizontalOptions="FillAndExpand" Margin="0" VerticalOptions="FillAndExpand">
-                <StackLayout BackgroundColor="#178FEB" VerticalOptions="FillAndExpand">
-                    <Label Text="Bienvenue" TextColor="White" HorizontalOptions="CenterAndExpand" FontSize="22" />
-                </StackLayout>
                 <Label Text="Liste des différents cryptosystèmes" HorizontalTextAlignment="Center"
                            Margin="0,0,0,5" VerticalTextAlignment="Center" x:Name="MyHeader" TextColor="Black" />
             </StackLayout>

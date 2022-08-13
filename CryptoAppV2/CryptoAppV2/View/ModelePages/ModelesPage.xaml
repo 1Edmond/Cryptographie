@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:db="clr-namespace:CryptoAppV2.ViewModel"
+             x:Class="CryptoAppV2.View.ModelePages.ModelesPage">
+    <ContentPage.BindingContext>
+        <db:UserModeleVm/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView ItemsSource="{Binding Modeles}" x:Name="MyToDoList"
+                      SeparatorColor="Black"
+                       
+                      >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Id}" HorizontalOptions="CenterAndExpand" WidthRequest="500" 
+                                       HorizontalTextAlignment="Center" LineHeight="1.4" MaxLines="2" LineBreakMode="TailTruncation" 
+                                       VerticalOptions="CenterAndExpand" FontSize="14" TextColor="Black" Margin="50,0" />
+                                <Label Text="{Binding Nom}" HorizontalOptions="CenterAndExpand" WidthRequest="500" 
+                                       HorizontalTextAlignment="Center" LineHeight="1.4" MaxLines="2" LineBreakMode="TailTruncation" 
+                                       VerticalOptions="CenterAndExpand" FontSize="14" TextColor="Black" Margin="50,0" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
