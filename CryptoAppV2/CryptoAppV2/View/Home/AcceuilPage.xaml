@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:local="clr-namespace:CryptoAppV2.Custom"
+              xmlns:vm="clr-namespace:CryptoAppV2.ViewModel"
+             x:Class="CryptoAppV2.View.Home.AcceuilPage">
+    <ContentPage.Resources>
+        <ControlTemplate x:Key="MyCustomTabHeader">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" WidthRequest="75" Margin="10">
+                <Image Source="{TemplateBinding Icon}" WidthRequest="20" Aspect="AspectFill" HeightRequest="20" VerticalOptions="CenterAndExpand"  />
+                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" >
+                    <Label Text="{TemplateBinding Text}" HorizontalOptions="Center" LineBreakMode="TailTruncation"  MaxLines="1" />
+                    <BoxView CornerRadius="180" IsVisible="{TemplateBinding IsSelected}" HorizontalOptions="CenterAndExpand" Color="#178FEB" WidthRequest="5" HeightRequest="5"/>
+                </StackLayout>
+            </StackLayout>
+        </ControlTemplate>
+
+    </ContentPage.Resources>
+    <Grid RowDefinitions="70,*">
+
+        <Frame HasShadow="True" CornerRadius="80" HorizontalOptions="FillAndExpand" Margin="20,10,20,0" xct:ShadowEffect.Color="Black" 
+               xct:ShadowEffect.Radius="4"
+               xct:ShadowEffect.Opacity="0.7" Padding="0" >
+            <StackLayout HorizontalOptions="FillAndExpand" Margin="0" VerticalOptions="FillAndExpand">
+                <StackLayout BackgroundColor="#178FEB" VerticalOptions="FillAndExpand">
+                    <Label Text="Bienvenue" TextColor="White" HorizontalOptions="CenterAndExpand" FontSize="22" />
+                </StackLayout>
+                <Label Text="Liste des différents cryptosystèmes" HorizontalTextAlignment="Center"
+                           Margin="0,0,0,5" VerticalTextAlignment="Center" x:Name="MyHeader" TextColor="Black" />
+            </StackLayout>
+        </Frame>
+        <xct:TabView HorizontalOptions="FillAndExpand" IsTabTransitionEnabled="True" Grid.Row="1"
+                     x:Name="MyTabView" TabStripPlacement="Top" VerticalOptions="FillAndExpand">
+            <xct:TabViewItem Text="Accueil"  ControlTemplate="{StaticResource MyCustomTabHeader}"
+                             Icon="accueil" x:Name="AccueilItem" >
+                <Grid RowDefinitions="*">
+                    <CollectionView ItemsSource="{Binding Chapitres}" SelectionMode="None" x:Name="MyCollection" >
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="30" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Padding="0" >
+                                    <Grid VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" >
+                                        <xct:Expander x:Name="MyExpander" Margin="10" ExpandAnimationLength="1500" ExpandAnimationEasing="SpringOut"
+                                                  CollapseAnimationEasing="BounceOut" CollapseAnimationLength="1500">
+                                            <xct:Expander.Header>
+                                                <Grid HorizontalOptions="FillAndExpand"  BackgroundColor="White" ColumnDefinitions="*,4*">
+                                                    <BoxView BackgroundColor="Transparent" />
+                                                    <Image  Source="{Binding AuteurImage}" HeightRequest="50" WidthRequest="50" Scale="1.5"
+                                                            VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Opacity="1" Aspect="AspectFit" >
+
+                                                    </Image>
+                                                    <Grid Grid.Column="1" BackgroundColor="White" ColumnDefinitions="3.2*,*" >
+                                                        <StackLayout VerticalOptions="CenterAndExpand" Margin="0,0,0,0">
+                                                            <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Margin="10,0" >
+                                                                <Label Text="Titre  " TextColor="{AppThemeBinding Dark=Black, Light=Black}" LineBreakMode="TailTruncation"  MaxLines="1" />
+                                                                <Label Text="{Binding Titre}" LineBreakMode="TailTruncation"  MaxLines="1" TextColor="Black" FontSize="15"  />
+                                                            </StackLayout>
+                                                            <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Margin="11,0" >
+                                                                <Label Text="Auteur    " TextColor="{AppThemeBinding Dark=Black, Light=Black}" LineBreakMode="TailTruncation"  MaxLines="1"/>
+                                                                <Label Text="{Binding AuteurName}" LineBreakMode="TailTruncation" HorizontalOptions="FillAndExpand"
+                                                                       MaxLines="1" TextColor="Black" FontSize="15"  />
+                                                            </StackLayout>
+                                                        </StackLayout>
+                                                        <StackLayout HorizontalOptions="FillAndExpand" Grid.Column="1"  VerticalOptions="CenterAndExpand" Padding="0,0,0,0" Margin="0,0,10,0">
+                                                            <Label Text="Difficulté " HorizontalOptions="CenterAndExpand" LineBreakMode="TailTruncation"  MaxLines="1" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=Black, Light=Black}" />
+                                                            <Label Text="{Binding Difficulte}" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=Black, Light=Black}" FontSize="15"  />
+                                                        </StackLayout>
+                                                    </Grid>
+                                                </Grid>
+                                            </xct:Expander.Header>
+                                            <Grid  RowDefinitions="*,4*" BackgroundColor="Transparent">
+                                                <Label Text="Détails" FontSize="25" TextColor="Black" Margin="20,30,0,0"/>
+                                                <Grid Grid.Row="1" ColumnDefinitions="3*,120" RowDefinitions="5*,120" 
+                                                  RowSpacing="-20"
+                                                  BackgroundColor="Transparent" Margin="10,-10,0,0" >
+                                                    <Label Text="{Binding Details}" TextColor="{AppThemeBinding Dark=Black, Light=Black}" HorizontalOptions="FillAndExpand"
+                                                        Grid.RowSpan="2" />
+                                                    <Frame Grid.Column="1" CornerRadius="90" Grid.Row="1" HorizontalOptions="FillAndExpand"
+                                                       VerticalOptions="FillAndExpand" Padding="0" HasShadow="True" BackgroundColor="#178FEB"
+                                                        Margin="30">
+                                                        <ImageButton Source="{FontImage FontFamily=MesFonts,Color=White, Glyph={x:Static local:MesIcons.ArrowRight},Size=52}" 
+                                                                     HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="10"
+                                                                     Command="{Binding NavigationCommand}" BackgroundColor="Transparent" CommandParameter="{Binding .}" >
+                                                        </ImageButton>
+                                                    </Frame>
+                                                </Grid>
+                                            </Grid>
+                                        </xct:Expander>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </xct:TabViewItem>
+            <xct:TabViewItem Text="Fonction" x:Name="FonctionItem" ControlTemplate="{StaticResource MyCustomTabHeader}" Icon="fonction" >
+                <ScrollView>
+                    <Grid RowDefinitions="500,90">
+                        <Frame Margin="20,20" CornerRadius="30" Padding="0" xct:ShadowEffect.Color="Black" xct:ShadowEffect.Radius="20">
+                            <Grid  RowDefinitions="*,50">
+                                <Grid BackgroundColor="Transparent" RowDefinitions="*,20" VerticalOptions="FillAndExpand">
+                                    <CarouselView IsBounceEnabled="True" IndicatorView="MyCarouselIndicator" x:Name="Mycarousel">
+                                        <CarouselView.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackLayout>
+                                                    <StackLayout VerticalOptions="CenterAndExpand" HeightRequest="120" Spacing="20" HorizontalOptions="FillAndExpand" Margin="30" Orientation="Horizontal" >
+                                                        <Frame Padding="0" HorizontalOptions="CenterAndExpand" IsVisible="{Binding Button1.Visible}" CornerRadius="20" xct:ShadowEffect.Color="Black" xct:ShadowEffect.Radius="30" >
+                                                            <Button HeightRequest="120" WidthRequest="120" BackgroundColor="#178FEB" TextColor="White" CornerRadius="1" Text="{Binding Button1.Text}"
+                                                                Command="{Binding Button1.Navigation}" 
+                                                                TextTransform="None">
+                                                            </Button>
+                                                        </Frame>
+                                                        <Frame Padding="0" HorizontalOptions="CenterAndExpand" IsVisible="{Binding Button2.Visible}" CornerRadius="20" xct:ShadowEffect.Color="Black" xct:ShadowEffect.Radius="30" >
+                                                            <Button HeightRequest="120" WidthRequest="120"
+                                                                BackgroundColor="#178FEB" TextColor="White" CornerRadius="1" Command="{Binding Button2.Navigation}" Text="{Binding Button2.Text}" TextTransform="None">
+
+                                                            </Button>
+                                                        </Frame>
+                                                    </StackLayout>
+
+                                                </StackLayout>
+                                            </DataTemplate>
+                                        </CarouselView.ItemTemplate>
+                                    </CarouselView>
+                                    <Label Grid.Row="1" Text="Page 1 / 7" TextColor="{AppThemeBinding Dark=Black, Light=Black}" HorizontalOptions="CenterAndExpand" x:Name="MyCarouselLabel" />
+                                </Grid>
+                                <IndicatorView Grid.Row="1" x:Name="MyCarouselIndicator" IsClippedToBounds="True" IndicatorColor="Gray" SelectedIndicatorColor="#178FEB" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand" WidthRequest="200" Margin="0,20" />
+
+                            </Grid>
+                        </Frame>
+                        <Frame Grid.Row="1" Padding="0" Margin="20,20"  CornerRadius="30">
+                            <StackLayout Orientation="Horizontal" >
+                                <Button VerticalOptions="FillAndExpand" HorizontalOptions="StartAndExpand" 
+                                    Text="Page précendante" FontSize="15" WidthRequest="150" x:Name="Previous"
+                                    BackgroundColor="#178FEB" TextColor="White" TextTransform="None">
+                                </Button>
+                                <Button VerticalOptions="FillAndExpand" HorizontalOptions="EndAndExpand" 
+                                    Text="Page suivante" FontSize="16" WidthRequest="150" x:Name="Next"
+                                    BackgroundColor="#178FEB" TextColor="White" TextTransform="None">
+                                </Button>
+
+                            </StackLayout>
+                        </Frame>
+
+                    </Grid>
+                </ScrollView>
+            </xct:TabViewItem>
+            <xct:TabViewItem Text="Paramètre" x:Name="SettingItem" 
+                             ControlTemplate="{StaticResource MyCustomTabHeader}" Icon="setting" >
+                <ScrollView>
+                    <Grid RowDefinitions="50,120,*">
+                        <StackLayout HeightRequest="50" HorizontalOptions="FillAndExpand" BackgroundColor="#178FEB" VerticalOptions="StartAndExpand">
+                            <Label Text="Informations utiles" VerticalOptions="CenterAndExpand"
+                   FontSize="20" TextColor="White" HorizontalTextAlignment="Center" />
+                        </StackLayout>
+                        <StackLayout Grid.Row="1" Margin="0,5,0,0">
+                            <StackLayout.BindingContext>
+                                <vm:InformationViewModel/>
+                            </StackLayout.BindingContext>
+                            <Label Text="Information" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="18" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" />
+                            <Label Text="{Binding  CryproInfo} " TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="18" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" />
+                            <BoxView Color="{AppThemeBinding Dark=White, Light=Black}" HeightRequest="1" WidthRequest="300" HorizontalOptions="CenterAndExpand" />
+                        </StackLayout>
+                        <StackLayout Grid.Row="2">
+                            <StackLayout>
+                                <Label Text="Mon compte" x:Name="ParametreMonCompteLabel" FontSize="20" HorizontalOptions="CenterAndExpand"  TextColor="{AppThemeBinding Dark=White, Light=Black}"  HorizontalTextAlignment="Center" />
+                                <BoxView Color="{AppThemeBinding Dark=White, Light=Black}" HeightRequest="1" WidthRequest="300" HorizontalOptions="CenterAndExpand" />
+                            </StackLayout>
+                            <StackLayout>
+                                <Label Text="Garder ma session active?" FontSize="20" HorizontalOptions="StartAndExpand" TextColor="{AppThemeBinding Dark=White, Light=Black}" Margin="30,0" HorizontalTextAlignment="Center" />
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Oui" VerticalOptions="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="18" Margin="80,0,0,0" />
+                                    <CheckBox  Color="#178FEB" x:Name="SessionOui" />
+                                    <CheckBox  Color="#178FEB" x:Name="SessionNon" HorizontalOptions="EndAndExpand" />
+                                    <Label Text="Non" VerticalOptions="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="18" Margin="0,0,80,0" />
+                                </StackLayout>
+                                <BoxView Color="{AppThemeBinding Dark=White, Light=Black}" HeightRequest="1" WidthRequest="300" HorizontalOptions="CenterAndExpand" />
+                            </StackLayout>
+                            <StackLayout Margin="10,0" x:Name="ChangePassWord">
+                                <Label Text="Appuyer deux fois pour changer le mot de passe par de l'application par celui que vous avez saisi lors de l'inscritpion."
+                                    FontSize="18" HorizontalTextAlignment="Center" >
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="2" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </StackLayout>
+                            <StackLayout>
+                                <StackLayout Margin="100,0">
+                                    <Button BackgroundColor="Transparent" Text="Se déconnecter"  x:Name="Deconnecte" 
+                                       TextTransform="Uppercase" FontAttributes="Italic" TextColor="{AppThemeBinding Dark=White, Light=Black}" Command="{Binding Deconnexion}" 
+                                       FontSize="20"  HorizontalOptions="CenterAndExpand">
+                                    </Button>
+                                    <BoxView Color="{AppThemeBinding Dark=White, Light=Black}" HeightRequest="1" Margin="15,-20,15,20"  HorizontalOptions="Fill" />
+                                </StackLayout>
+                                <BoxView Color="{AppThemeBinding Dark=White, Light=Black}" HeightRequest="1" WidthRequest="300" HorizontalOptions="CenterAndExpand" />
+                            </StackLayout>
+                            <Label Text="Nous Contacter" TextColor="{AppThemeBinding Dark=white, Light=Black}" HorizontalOptions="CenterAndExpand" TextDecorations="Underline" x:Name="Contacter" FontSize="18" Margin="0,10,0,0"/>
+                            <Label Text="Conditions Générales d'utilisation" TextColor="{AppThemeBinding Dark=white, Light=Black}" HorizontalOptions="CenterAndExpand" TextDecorations="Underline" x:Name="Conditions" FontSize="18" Margin="0,10,0,0"/>
+
+                            <Label Text="Astuce :" FontSize="20" Margin="20,0" TextColor="{AppThemeBinding Dark=White, Light=Black}" />
+                            <Label Text="Appuyer deux fois sur le résultat d'une opération pour le copier." FontSize="20" Margin="20,0" TextColor="{AppThemeBinding Dark=White, Light=Black}"
+                               HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" />
+
+
+                        </StackLayout>
+
+
+
+                    </Grid>
+                </ScrollView>
+
+            </xct:TabViewItem>
+        </xct:TabView>
+    </Grid>
+
+</ContentPage>
