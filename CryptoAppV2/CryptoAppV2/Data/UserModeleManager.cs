@@ -15,7 +15,8 @@ namespace CryptoAppV2.Data
         {
             Connection = new SQLiteAsyncConnection(database);
             Connection.CreateTableAsync<UserModele>().Wait();
-            Connection.InsertAsync(UserModele.BaseModel);
+            if(!Exist(UserModele.BaseModel.Nom))
+                Connection.InsertAsync(UserModele.BaseModel);
         }
         public async Task<bool> Add(UserModele entity)
         {
@@ -66,15 +67,20 @@ namespace CryptoAppV2.Data
             return true;
         }
 
-        public async Task<List<UserModele>> GetAll()
+        public List<UserModele> GetAll()
         {
             if (Connection == null)
-                return new List<UserModele>();
-          await  Connection.InsertOrReplaceAsync(UserModele.BaseModel);
-            var list = await Connection.Table<UserModele>().ToListAsync();
+                return new List<UserModele>()
+                {
+                    UserModele.BaseModel
+                };
+            var list = Connection.Table<UserModele>().ToListAsync();
             if (list == null)
-                return new List<UserModele>();
-            return list;
+                return new List<UserModele>()
+                {
+                    UserModele.BaseModel
+                };
+            return  list.Result;
         }
     }
 }

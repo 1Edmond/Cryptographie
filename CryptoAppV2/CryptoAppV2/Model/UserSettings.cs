@@ -16,42 +16,34 @@ namespace CryptoAppV2.Model
                     Application.Current.Properties.Add(Profile, "default.png");
                     Application.Current.SavePropertiesAsync();
                 }
-                UserProfile = (string)Application.Current.Properties[Profile];
-                return UserProfile;
+                return (string)Application.Current.Properties[Profile];
             } 
             set
             {
                 if (Application.Current.Properties.ContainsKey(Profile))
-                {
-                    UserProfile = value;
-                    Application.Current.Properties[Profile] = UserProfile;
-                }
+                    Application.Current.Properties[Profile] = value;
                 else
                     Application.Current.Properties.Add(Profile,value);
                 Application.Current.SavePropertiesAsync();
             }
             }
         
-        private const string Modele = "UserModele";
+        private  const string Modele = "UserModele";
         public static string UserModele
         { 
             get 
             {
                 if (!Application.Current.Properties.ContainsKey(Modele))
                 {
-                    Application.Current.Properties.Add(Modele, "BaseModele");
+                    Application.Current.Properties.Add(Modele, "Modèle de base");
                     Application.Current.SavePropertiesAsync();
                 }
-                UserModele = (string)Application.Current.Properties[Modele];
-                return UserModele;
-            } 
+                return (string)Application.Current.Properties[Modele];
+            }
             set
             {
                 if (Application.Current.Properties.ContainsKey(Modele))
-                {
-                    UserModele = value;
-                    Application.Current.Properties[Modele] = UserModele;
-                }
+                    Application.Current.Properties[Modele] = value;
                 else
                     Application.Current.Properties.Add(Modele, value);
                 Application.Current.SavePropertiesAsync();
@@ -63,15 +55,14 @@ namespace CryptoAppV2.Model
         { 
             get 
             {
-                return UserName;
+                if (!Application.Current.Properties.ContainsKey(Name))
+                    return "";
+                return (string)Application.Current.Properties[Name];
             } 
             set
             {
                 if (Application.Current.Properties.ContainsKey(Name))
-                {
-                    UserName = value;
-                    Application.Current.Properties[Name] = UserName;
-                }
+                    Application.Current.Properties[Name] = value;
                 else
                     Application.Current.Properties.Add(Name, value);
                 Application.Current.SavePropertiesAsync();
@@ -83,15 +74,14 @@ namespace CryptoAppV2.Model
         { 
             get 
             {
-                return UserPassword;
+                if (!Application.Current.Properties.ContainsKey(Password))
+                    return "";
+                return (string)Application.Current.Properties[Password];
             } 
             set
             {
                 if (Application.Current.Properties.ContainsKey(Password))
-                {
-                    UserPassword = value;
-                    Application.Current.Properties[Password] = UserPassword;
-                }
+                    Application.Current.Properties[Password] = value;
                 else
                     Application.Current.Properties.Add(Password, value);
                 Application.Current.SavePropertiesAsync();
@@ -103,15 +93,14 @@ namespace CryptoAppV2.Model
         { 
             get 
             {
-                return UserContact;
+                if (!Application.Current.Properties.ContainsKey(Contact))
+                    return "";
+                return (string)Application.Current.Properties[Contact];
             } 
             set
             {
                 if (Application.Current.Properties.ContainsKey(Contact))
-                {
-                    UserContact = value;
-                    Application.Current.Properties[Contact] = UserContact;
-                }
+                    Application.Current.Properties[Contact] = value;
                 else
                     Application.Current.Properties.Add(Contact, value);
                 Application.Current.SavePropertiesAsync();
@@ -123,15 +112,14 @@ namespace CryptoAppV2.Model
         { 
             get 
             {
-                return UserPseudo;
+                if (!Application.Current.Properties.ContainsKey(Pseudo))
+                    return "";
+                return (string)Application.Current.Properties[Pseudo];
             } 
             set
             {
                 if (Application.Current.Properties.ContainsKey(Pseudo))
-                {
-                    UserPseudo = value;
-                    Application.Current.Properties[Pseudo] = UserPseudo;
-                }
+                    Application.Current.Properties[Pseudo] = value;
                 else
                     Application.Current.Properties.Add(Pseudo, value);
                 Application.Current.SavePropertiesAsync();

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CryptoAppV2.Model
 {
+    [Table("UserModele")]
     public class UserModele
     {
         public static UserModele BaseModel
@@ -12,7 +14,9 @@ namespace CryptoAppV2.Model
             {
                 return new UserModele()
                 {
-                    Nom = "BaseModele",
+                    Nom = "Modèle de base",
+                    DateAjout = DateTime.Now ,
+                    ModeleValue = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z",
                     Valeur = new Dictionary<int, char>()
                     {
                         {65 , 'A' },
@@ -45,10 +49,35 @@ namespace CryptoAppV2.Model
                 };
             }
         }
-
+        [PrimaryKey, AutoIncrement]
         public int Id{ get; set; }
         public string Nom { get; set; }
+        [Ignore]
         public Dictionary<int, char> Valeur { get; set; }
+        public bool IsUsed { 
+            get 
+            {
+                if (Nom == UserSettings.UserModele)
+                    return true;
+                return false;
+            }
+         }
+        public int NbrElement { get
+            {
+                return ModeleValue.Split(',').Length;
+            }
+        }
+
+        public DateTime DateAjout { get; set; }
+
+        public string Avatar { 
+            get 
+            {
+                return Nom.Substring(0,1).ToUpper();
+            }
+        }
+
+        public string ModeleValue { get; set; } = String.Empty;
         public UserModele()
         {
             Valeur = new Dictionary<int, char>();

@@ -15,6 +15,8 @@ namespace CryptoAppV2.View
         public ShellPage()
         {
             InitializeComponent();
+            var bt = new Button();
+            
         }
     }
 }

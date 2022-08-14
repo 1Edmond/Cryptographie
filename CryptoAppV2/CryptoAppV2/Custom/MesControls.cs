@@ -8,6 +8,9 @@ namespace CryptoAppV2.Custom
 {
     public static class MesControls
     {
+
+        public static bool IsModele(this string text) => text.Contains(",") ? true : false;
+
         public static void MyEntryFocus(this Entry entry, Frame frame)
         {
             entry.Focused += delegate

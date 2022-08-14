@@ -38,13 +38,11 @@ namespace CryptoAppV2
             get
             {
                 if (_UserModeleManager == null)
-                    _UserModeleManager = new UserModeleManager(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DBNAME));
+                    _UserModeleManager = new UserModeleManager(database);
                 return _UserModeleManager;
             }
             set
             {
-                if (value == null)
-                    value = new UserModeleManager(database);
                 _UserModeleManager = value;
             }
         }
@@ -53,9 +51,9 @@ namespace CryptoAppV2
         public App()
         {
             InitializeComponent();
+           // UserHistoriqueManager = new UserHistoriqueManager(database);
             UserModeleManager = new UserModeleManager(database);
-            UserHistoriqueManager = new UserHistoriqueManager(database);
-            var navigationPage = new ModelesPage();
+            var navigationPage = new ShellPage();
             MainPage = navigationPage;
         }
 

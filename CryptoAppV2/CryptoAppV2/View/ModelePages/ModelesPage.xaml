@@ -2,31 +2,89 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:db="clr-namespace:CryptoAppV2.ViewModel"
+             xmlns:local="clr-namespace:CryptoAppV2.Custom"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="CryptoAppV2.View.ModelePages.ModelesPage">
     <ContentPage.BindingContext>
         <db:UserModeleVm/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <ListView ItemsSource="{Binding Modeles}" x:Name="MyToDoList"
-                      SeparatorColor="Black"
-                       
-                      >
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Id}" HorizontalOptions="CenterAndExpand" WidthRequest="500" 
-                                       HorizontalTextAlignment="Center" LineHeight="1.4" MaxLines="2" LineBreakMode="TailTruncation" 
-                                       VerticalOptions="CenterAndExpand" FontSize="14" TextColor="Black" Margin="50,0" />
-                                <Label Text="{Binding Nom}" HorizontalOptions="CenterAndExpand" WidthRequest="500" 
-                                       HorizontalTextAlignment="Center" LineHeight="1.4" MaxLines="2" LineBreakMode="TailTruncation" 
-                                       VerticalOptions="CenterAndExpand" FontSize="14" TextColor="Black" Margin="50,0" />
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <Grid Margin="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" Spacing="0" HorizontalOptions="FillAndExpand">
+                        <Entry Placeholder="Le nom du modèle" MinimumWidthRequest="180" WidthRequest="180"
+                                HorizontalTextAlignment="Center" Text="{Binding NewModeleNomInput}"  />
+                        <Entry Placeholder="Les données du modèle : A,B,C,D..." MinimumWidthRequest="180" WidthRequest="180"
+                                HorizontalTextAlignment="Center" Text="{Binding NewModeleValueInput}" />
+                        <Label Text="{Binding InputValidation}"
+                                    LineHeight="2" LineBreakMode="TailTruncation"
+                                    x:Name="InputValidationLabel"
+                                    Opacity="1" TextColor="{Binding InputValidationColor}"  HorizontalTextAlignment="Center" >
+                        </Label>
+                    </StackLayout>
+                    <Button Text="Ajouter" FontSize="10" Grid.Column="1" BackgroundColor="#4ba3c3" VerticalOptions="EndAndExpand" 
+                            CornerRadius="100" Command="{Binding AddCommand}"
+                             HorizontalOptions="EndAndExpand" TextColor="White"
+                            WidthRequest="70" HeightRequest="70" />
+                </Grid>
+            <RefreshView IsRefreshing="{Binding IsRefreshing}" RefreshColor="#4ba3c3" x:Name="Myrefresh" Command="{Binding RefreshCommand}">
+                <CollectionView ItemsSource="{Binding Modeles}" SelectionMode="None" x:Name="MyCollection" >
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame HasShadow="True" BackgroundColor="#F1F1F1" CornerRadius="22">
+                                <Grid>
+                                    <xct:Expander ExpandAnimationLength="1500" ExpandAnimationEasing="SpringOut" 
+                                                  CollapseAnimationEasing="BounceOut" CollapseAnimationLength="1500">
+                                        <xct:Expander.Header>
+                                            <Grid HeightRequest="50" Margin="0,0,0,20" ColumnDefinitions="*,3*">
+                                                <xct:AvatarView Text="{Binding Avatar}" HorizontalOptions="CenterAndExpand" Color="#4ba3c3" VerticalOptions="CenterAndExpand" />
+                                                <StackLayout Orientation="Horizontal" Grid.Column="1" 
+                                                         VerticalOptions="CenterAndExpand" >
+                                                    <Label Text="{Binding Nom}" HorizontalOptions="CenterAndExpand" 
+                                            HorizontalTextAlignment="Center" LineHeight="1.4" MaxLines="2" LineBreakMode="TailTruncation" 
+                                                 FontSize="16" TextColor="Gray" FontAttributes="Bold"  />
+                                                    <CheckBox Color="#4ba3c3" IsChecked="{Binding IsUsed}"
+                                                          x:Name="ModeleCheckBox"
+                                                          CheckedChanged="ModeleCheckBox_CheckedChanged" />
+
+                                                </StackLayout>
+                                            </Grid>
+                                        </xct:Expander.Header>
+                                        <Grid RowDefinitions="0.5*,0.5*,1.5*,2*" HeightRequest="200" Margin="0,10" >
+                                            <StackLayout Orientation="Horizontal"  Margin="10,0">
+                                                <Label Text="Date d'ajout" HorizontalOptions="StartAndExpand" HorizontalTextAlignment="Center"   FontSize="16" FontAttributes="Italic" TextColor="Gray"  />
+                                                <Label Text="{Binding DateAjout}" TextColor="Gray" FontAttributes="Bold" FontSize="16" HorizontalTextAlignment="Center"  />
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal"  Grid.Row="1"  Margin="10,0">
+                                                <Label Text="Nombre d'éléments"  FontSize="16" HorizontalTextAlignment="Center"  FontAttributes="Italic" TextColor="Gray" HorizontalOptions="StartAndExpand" />
+                                                <Label Text="{Binding NbrElement}" TextColor="Gray" FontAttributes="Bold" HorizontalTextAlignment="Center"  FontSize="16" />
+                                            </StackLayout>
+
+                                            <StackLayout VerticalOptions="EndAndExpand"  Margin="10,0" Grid.Row="2" Orientation="Horizontal"  Spacing="20">
+                                                <Label Text="Données du modèle : " HorizontalTextAlignment="Center"  FontSize="16" FontAttributes="Italic" TextColor="Gray"  />
+                                                <Label Text="{Binding ModeleValue}" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" TextColor="Gray" FontAttributes="Bold" FontSize="16" />
+                                            </StackLayout>
+                                            <ImageButton Grid.Row="3" CornerRadius="50" HeightRequest="40" BackgroundColor="Transparent"
+                                                     WidthRequest="40" HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand"
+                                                     Command="{Binding Path=BindingContext.DeleteCommand, Source={x:Reference MyCollection}}"
+                                                     CommandParameter="{Binding .}"
+                                                     Source="{FontImage FontFamily=MesFonts,Color=Gray, Glyph={x:Static local:MesIcons.DeleteCircle},Size=52}" />
+                                        </Grid>
+                                    </xct:Expander>
+                                </Grid>
+                            </Frame>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Shell xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:page="clr-namespace:CryptoAppV2.View.Home"
+             xmlns:crypto="clr-namespace:CryptoAppV2.View.Home"
+             xmlns:modeles="clr-namespace:CryptoAppV2.View.ModelePages"
              xmlns:shared="clr-namespace:CryptoAppV2.View.Shared"
              xmlns:home="clr-namespace:CryptoAppV2"
              x:Class="CryptoAppV2.View.ShellPage">
@@ -13,11 +14,11 @@
             <Label Margin="0,0,0,20" FontSize="22" Text="Bonjour" VerticalOptions="EndAndExpand" HorizontalTextAlignment="Center" />
         </Grid>
     </Shell.FlyoutHeader>
-    <ShellContent Title="Accueil" IsTabStop="True" ContentTemplate="{DataTemplate home:MainPage}" />
-    <ShellContent Title="Cryptographie" IsTabStop="True" ContentTemplate="{DataTemplate page:AcceuilPage}" />
-    <ShellContent Title="Modèles" IsTabStop="True" ContentTemplate="{DataTemplate home:MainPage}" />
-    <ShellContent Title="Historiques" IsTabStop="True" ContentTemplate="{DataTemplate home:MainPage}" />
-    <ShellContent Title="Paramètres" IsTabStop="True" ContentTemplate="{DataTemplate home:MainPage}" />
+    <ShellContent Title="Accueil" Icon="accueil" IsTabStop="True" ContentTemplate="{DataTemplate home:MainPage}" />
+    <ShellContent Title="Cryptographie"  Icon="accueil"  IsTabStop="True" ContentTemplate="{DataTemplate crypto:AcceuilPage}" />
+    <ShellContent Title="Modèles"  Icon="accueil" IsTabStop="True" ContentTemplate="{DataTemplate modeles:ModelesPage}" />
+    <ShellContent Title="Historiques"  Icon="accueil" IsTabStop="True" ContentTemplate="{DataTemplate home:MainPage}" />
+    <ShellContent Title="Paramètres" Icon="setting" IsTabStop="True" ContentTemplate="{DataTemplate home:MainPage}" />
     <Shell.FlyoutFooter>
         <Grid Margin="0,0,0,40" HorizontalOptions="CenterAndExpand" HeightRequest="100">
             <Label Text="Wicode" HorizontalTextAlignment="Center" FontSize="22" FontAttributes="Italic" />
