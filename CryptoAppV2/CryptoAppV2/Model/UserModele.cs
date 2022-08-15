@@ -17,35 +17,7 @@ namespace CryptoAppV2.Model
                     Nom = "Modèle de base",
                     DateAjout = DateTime.Now ,
                     ModeleValue = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z",
-                    Valeur = new Dictionary<int, char>()
-                    {
-                        {65 , 'A' },
-                        {66 , 'B' },
-                        {67 , 'C' },
-                        {68 , 'D' },
-                        {69 , 'E' },
-                        {70 , 'F' },
-                        {71 , 'G' },
-                        {72 , 'H' },
-                        {73 , 'I' },
-                        {74 , 'J' },
-                        {75 , 'K' },
-                        {76 , 'L' },
-                        {77 , 'M' },
-                        {78 , 'N' },
-                        {79 , 'O' },
-                        {80 , 'P' },
-                        {81 , 'Q' },
-                        {82 , 'R' },
-                        {83 , 'S' },
-                        {84 , 'T' },
-                        {85 , 'U' },
-                        {86 , 'V' },
-                        {87 , 'W' },
-                        {88 , 'X' },
-                        {89 , 'Y' },
-                        {90 , 'Z' },
-                    }
+                   
                 };
             }
         }
@@ -53,7 +25,16 @@ namespace CryptoAppV2.Model
         public int Id{ get; set; }
         public string Nom { get; set; }
         [Ignore]
-        public Dictionary<int, char> Valeur { get; set; }
+        public Dictionary<int, char> Valeur { 
+            get
+            {
+                var temp = new Dictionary<int, char>();
+                var newValue = ModeleValue.Split(',');
+                for (int i = 0; i < newValue.Length; i++)
+                    temp[i] = Convert.ToChar(newValue[i]);
+                return temp;
+            }
+        }
         public bool IsUsed { 
             get 
             {
@@ -80,7 +61,7 @@ namespace CryptoAppV2.Model
         public string ModeleValue { get; set; } = String.Empty;
         public UserModele()
         {
-            Valeur = new Dictionary<int, char>();
+           
         }
     }
 }

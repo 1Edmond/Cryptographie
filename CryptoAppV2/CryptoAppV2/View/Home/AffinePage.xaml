@@ -87,18 +87,24 @@
                                     </StackLayout>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" 
-                                             Margin="0,30,0,0">
-                                    <Label Text="base = " FontSize="30" VerticalTextAlignment="Center" Margin="50,0,0,0"/>
+                                             Margin="0,20,0,0">
+                                    <Label Text="Modèle = " FontSize="30" VerticalTextAlignment="Center" Margin="50,0,0,0"/>
                                     <Frame CornerRadius="50" HeightRequest="25" WidthRequest="120"
-                                           xct:ShadowEffect.Color="Black" x:Name="CodageBaseFrame"
-                                           xct:ShadowEffect.Opacity="0.3" Padding="0,0,0,-10"  >
-                                        <Entry HeightRequest="0" Margin="16,-10,0,0"  FontSize="17" Text="26"
-                                               Keyboard="Numeric" ClearButtonVisibility="WhileEditing" x:Name="CodageBaseEntry" 
-                                               TextColor="Black"/>
+                                           xct:ShadowEffect.Color="Black" x:Name="CodageModeleFrame"
+                                           xct:ShadowEffect.Opacity="0.3" Padding="0,0,0,-10">
+                                        <StackLayout HorizontalOptions="CenterAndExpand">
+                                            <Picker ItemsSource="{Binding Modeles}" x:Name="CodagePicker" HorizontalOptions="FillAndExpand"
+                                                     ItemDisplayBinding="{Binding Nom}" WidthRequest="120"
+                                                     Title="Liste de vos modèles">
+                                                <Picker.BindingContext>
+                                                    <vm:UserModeleVm/>
+                                                </Picker.BindingContext>
+                                            </Picker>
+                                        </StackLayout>
                                     </Frame>
                                 </StackLayout>
                             </StackLayout>
-                            <StackLayout HorizontalOptions="CenterAndExpand" Grid.Row="2" WidthRequest="550" VerticalOptions="FillAndExpand">
+                            <StackLayout Grid.Row="2" WidthRequest="550" VerticalOptions="FillAndExpand">
                                 <StackLayout Margin="0,0,0,0" VerticalOptions="StartAndExpand" HorizontalOptions="CenterAndExpand" WidthRequest="290">
                                     <Frame CornerRadius="50" HeightRequest="50" x:Name="CodingFrame" xct:ShadowEffect.Color="Black"
                                      xct:ShadowEffect.Opacity="0.3" Padding="0,0,0,-10" >
@@ -186,14 +192,19 @@
                                     </StackLayout>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" 
-                                             Margin="0,30,0,0">
-                                    <Label Text="base = " FontSize="30" VerticalTextAlignment="Center" Margin="50,0,0,0"/>
+                                             Margin="0,20,0,0">
+                                    <Label Text="Modèle = " FontSize="30" VerticalTextAlignment="Center" Margin="50,0,0,0"/>
                                     <Frame CornerRadius="50" HeightRequest="25" WidthRequest="120"
-                                           xct:ShadowEffect.Color="Black" x:Name="DecodageBaseFrame"
+                                           xct:ShadowEffect.Color="Black" x:Name="DecodageModeleFrame"
                                            xct:ShadowEffect.Opacity="0.3" Padding="0,0,0,-10"  >
-                                        <Entry HeightRequest="0" Margin="16,-10,0,0"  FontSize="17" Text="26"
-                                               Keyboard="Numeric" ClearButtonVisibility="WhileEditing" x:Name="DecodageBaseEntry" 
-                                               TextColor="Black"/>
+                                        <StackLayout HorizontalOptions="CenterAndExpand">
+                                            <Picker ItemsSource="{Binding Modeles}" Title="Liste de vos modèles"  x:Name="DecodagePicker" HorizontalOptions="FillAndExpand"
+                                                     ItemDisplayBinding="{Binding Nom}"  WidthRequest="120">
+                                                <Picker.BindingContext>
+                                                    <vm:UserModeleVm/>
+                                                </Picker.BindingContext>
+                                            </Picker>
+                                        </StackLayout>
                                     </Frame>
                                 </StackLayout>
                             </StackLayout>

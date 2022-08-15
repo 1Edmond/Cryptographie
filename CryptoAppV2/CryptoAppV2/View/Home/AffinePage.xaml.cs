@@ -31,6 +31,9 @@ namespace CryptoAppV2.View.Home
             NavigationPage.SetHasNavigationBar(this, false);
             AnimateCodageCaroussel();
             AnimateDecodageCaroussel();
+
+           
+
             CodageResultStack.IsVisible = false;
             #region Codage
             #region Comportement de la Variable a
@@ -71,19 +74,17 @@ namespace CryptoAppV2.View.Home
 
             #region Comportement de la variable Base
 
-            MesControls.MyEntryFocus(CodageBaseEntry, CodageBaseFrame);
-            CodageBaseEntry.Unfocused += delegate
+            MesControls.MyPickerFocus(CodagePicker, CodageModeleFrame);
+
+            #region Picker
+            CodagePicker.SelectedItem = App.UserModeleManager.GetByName(UserSettings.UserModele);
+            var tempd = CodagePicker.SelectedItem; 
+            CodagePicker.SelectedIndexChanged += async delegate
             {
-                if (String.IsNullOrEmpty(CodageBaseEntry.Text))
-                    CodageBaseEntry.Text = "26";
+                var selectedItem = CodagePicker.SelectedItem as UserModele;
+                await this.DisplayToastAsync($"La base du modèle choisi est {App.UserModeleManager.GetByName(selectedItem.Nom).Valeur.Keys.Count}.");
             };
-            CodageBaseEntry.Completed += async delegate
-            {
-                if (String.IsNullOrEmpty(CodingEntry.Text))
-                    CodingEntry.Focus();
-                else
-                    await Codage(CodingEntry);
-            };
+            #endregion
 
             #endregion
 
@@ -99,9 +100,11 @@ namespace CryptoAppV2.View.Home
             };
             EtapeCodageBtn.Clicked += async delegate
             {
+               UserModele tem = CodagePicker.SelectedItem as UserModele;
                 await this.Navigation.PushModalAsync(new EtapePage($"Codage de {CodingEntry.Text} avec : a = {CodageAEntry.Text}" +
                     $", b = {CodageBEntry.Text}" +
-                    $", base = {CodageBaseEntry.Text}", "Codage de Affine", etapesCodage.ToList()));
+                    $", modèle = {tem.Nom}" +
+                    $", base = {App.UserModeleManager.GetByName(tem.Nom).Valeur.Keys.Count}", "Codage de Affine", etapesCodage.ToList()));
                 await DeleteAnimation(BtnCodage, EtapeCodageBtn);
             };
 
@@ -182,20 +185,7 @@ namespace CryptoAppV2.View.Home
             #region Comportement de la variable Base
 
 
-            MesControls.MyEntryFocus(DecodageBaseEntry, DecodageBaseFrame);
-            DecodageBaseEntry.Unfocused += delegate
-            {
-                if (String.IsNullOrEmpty(DecodageBaseEntry.Text))
-                    DecodageBaseEntry.Text = "26";
-            };
-            DecodageBaseEntry.Completed += async delegate
-            {
-                if (String.IsNullOrEmpty(DecodingEntry.Text))
-                    DecodingEntry.Focus();
-                else
-                    await Decodage(DecodingEntry);
-
-            };
+            MesControls.MyPickerFocus(DecodagePicker, DecodageModeleFrame);
 
             #endregion
 
@@ -213,9 +203,11 @@ namespace CryptoAppV2.View.Home
             };
             EtapeDecodageBtn.Clicked += async delegate
             {
+                UserModele tem = CodagePicker.SelectedItem as UserModele;
                 await this.Navigation.PushModalAsync(new EtapePage($"Décodage de {DecodingEntry.Text} avec : a = {DecodageAEntry.Text}" +
                     $", b = {DecodageBEntry.Text}" +
-                    $", base = {DecodageBaseEntry.Text}", "Décodage Affine", etapesDecodage.ToList()));
+                    $", modèle = {tem.Nom}" +
+                    $", base = {App.UserModeleManager.GetByName(tem.Nom)?.Valeur.Keys.Count}", "Décodage Affine", etapesDecodage.ToList()));
                 await DeleteAnimation(BtnDecodage, EtapeDecodageBtn);
             };
             _ = DeleteAnimation(BtnDecodage, EtapeDecodageBtn);
@@ -251,27 +243,35 @@ namespace CryptoAppV2.View.Home
                     await DisplayAlert("Erreur", "Vous devez saisir le text à coder", "Ok");
                 else
                 {
-                    if (Fonction.PremierEntreEux(int.Parse(CodageAEntry.Text.SubstringInteger()), int.Parse(CodageBaseEntry.Text.SubstringInteger())))
+                    UserModele tem = CodagePicker.SelectedItem as UserModele;
+                    entry.Text = entry.Text.ToUpper();
+                    if (entry.Text.IsInModele(tem.Nom))
                     {
-                        CodageResultStack.IsVisible = true;
-                        etapesCodage.Clear();
-                        var result = CryptoCode.CodageAffine(entry.Text, int.Parse(CodageAEntry.Text.SubstringInteger()),
-                            int.Parse(CodageBEntry.Text.SubstringInteger()));
-                        CodageResult.Text = "Le résultat du codage est " + result;
-                        var temp = CryptoEtape.CodageAffine(entry.Text.SubstringString(), int.Parse(CodageAEntry.Text.SubstringInteger()),
-                            int.Parse(CodageBEntry.Text.SubstringInteger()), int.Parse(CodageBaseEntry.Text.SubstringInteger()));
-                        temp.ForEach(x =>
+                        if (Fonction.PremierEntreEux(int.Parse(CodageAEntry.Text.SubstringInteger()), App.UserModeleManager.GetByName(tem.Nom).Valeur.Keys.Count))
                         {
-                            etapesCodage.Add(x);
-                        });
-                        codageResult = result;
-                        await ActivateAndAnimeBtn(BtnCodage, EtapeCodageBtn);
+                            CodageResultStack.IsVisible = true;
+                            etapesCodage.Clear();
+                            var result = CryptoCode.CodageAffine(entry.Text, int.Parse(CodageAEntry.Text.SubstringInteger()),
+                                int.Parse(CodageBEntry.Text.SubstringInteger()),tem.Nom);
+                            CodageResult.Text = "Le résultat du codage est " + result;
+                            var temp = CryptoEtape.CodageAffine(entry.Text.SubstringString(), int.Parse(CodageAEntry.Text.SubstringInteger()),
+                                int.Parse(CodageBEntry.Text.SubstringInteger()), tem.Nom);
+                            temp.ForEach(x =>
+                            {
+                                etapesCodage.Add(x);
+                            });
+                            codageResult = result;
+                            await ActivateAndAnimeBtn(BtnCodage, EtapeCodageBtn);
+                        }
+                        else
+                        {
+                            await DisplayAlert("Erreur", "La variable a et la base doivent être premier entre eux.", "Ok");
+                            await DeleteAnimation(BtnCodage, EtapeCodageBtn);
+                        }
+
                     }
                     else
-                    {
-                        await DisplayAlert("Erreur", "La variable a et la base doivent être premier entre eux.", "Ok");
-                        await DeleteAnimation(BtnCodage, EtapeCodageBtn);
-                    }
+                        await DisplayAlert("Erreur", "Une ou des caractères du texte ne sont pas présentes dans la base choisie.", "Ok");
 
                 }
             }
@@ -290,29 +290,36 @@ namespace CryptoAppV2.View.Home
                     await DisplayAlert("Erreur", "Vous devez saisir le text à décoder", "Ok");
                 else
                 {
-
-                    if (Fonction.PremierEntreEux(int.Parse(DecodageAEntry.Text.SubstringInteger()), int.Parse(DecodageBaseEntry.Text.SubstringInteger())))
+                    UserModele tem = DecodagePicker.SelectedItem as UserModele;
+                    entry.Text = entry.Text.ToUpper();
+                    if (entry.Text.IsInModele(tem.Nom))
                     {
-                        DecodageResultStack.IsVisible = true;
-                        etapesDecodage.Clear();
-                        var result = CryptoCode.DecodageAffine(entry.Text, int.Parse(DecodageAEntry.Text.SubstringInteger()),
-                            int.Parse(DecodageBEntry.Text.SubstringInteger()));
-
-                        DecodageResult.Text = "Le résultat du décodage est " + result;
-                        var temp = CryptoEtape.DecodageAffine(entry.Text.SubstringString(), int.Parse(DecodageAEntry.Text.SubstringInteger()),
-                            int.Parse(DecodageBEntry.Text.SubstringInteger()), int.Parse(DecodageBaseEntry.Text.SubstringInteger()));
-                        temp.ForEach(x =>
+                        if (Fonction.PremierEntreEux(int.Parse(DecodageAEntry.Text.SubstringInteger()), App.UserModeleManager.GetByName(tem.Nom).Valeur.Keys.Count))
                         {
-                            etapesDecodage.Add(x);
-                        });
-                        decodageResult = result;
-                        await ActivateAndAnimeBtn(BtnDecodage, EtapeDecodageBtn);
+                            DecodageResultStack.IsVisible = true;
+                            etapesDecodage.Clear();
+                            var result = CryptoCode.DecodageAffine(entry.Text, int.Parse(DecodageAEntry.Text.SubstringInteger()),
+                                int.Parse(DecodageBEntry.Text.SubstringInteger()), tem.Nom);
+
+                            DecodageResult.Text = "Le résultat du décodage est " + result;
+                            var temp = CryptoEtape.DecodageAffine(entry.Text.SubstringString(), int.Parse(DecodageAEntry.Text.SubstringInteger()),
+                                int.Parse(DecodageBEntry.Text.SubstringInteger()), tem.Nom);
+                            temp.ForEach(x =>
+                            {
+                                etapesDecodage.Add(x);
+                            });
+                            decodageResult = result;
+                            await ActivateAndAnimeBtn(BtnDecodage, EtapeDecodageBtn);
+                        }
+                        else
+                        {
+                            await DisplayAlert("Erreur", "La variable a et la base doivent être premier entre eux", "Ok");
+                            await DeleteAnimation(BtnDecodage, EtapeDecodageBtn);
+                        }
                     }
                     else
-                    {
-                        await DisplayAlert("Erreur", "La variable a et la base doivent être premier entre eux", "Ok");
-                        await DeleteAnimation(BtnDecodage, EtapeDecodageBtn);
-                    }
+                       await DisplayAlert("Erreur", "Une ou des caractères du texte ne sont pas présentes dans la base choisie.", "Ok");
+                   
                 }
             }
             catch (Exception ex)

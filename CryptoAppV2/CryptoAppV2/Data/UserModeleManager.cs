@@ -43,6 +43,12 @@ namespace CryptoAppV2.Data
                 return null;
             return Connection.GetAsync<UserModele>(entity).Result;
         }
+       public UserModele GetByName(string Nom)
+        {
+            if (Connection == null)
+                return null;
+            return Connection.Table<UserModele>().Where(u => u.Nom == Nom).FirstAsync().Result;
+        }
 
         public async Task<bool> Update(UserModele entity)
         {

@@ -9,7 +9,42 @@ namespace CryptoAppV2.Custom
     public static class MesControls
     {
 
-        public static bool IsModele(this string text) => text.Contains(",") ? true : false;
+        public static bool IsModele(this string text)
+        {
+            bool rep = true;
+            if (text.Contains(","))
+            {
+                var temp = text.Split(',');
+                foreach (var item in temp)
+                    if (item.Length != 1)
+                        rep = false;
+            }else
+                rep = false;
+            return rep;
+                
+        }
+
+        public static int Getkey(this Dictionary<int ,char> Dictionnaire , char element)
+        {
+            foreach (KeyValuePair<int,char> item in Dictionnaire)
+                if (item.Value == element)
+                    return item.Key;
+            return -1;
+        }
+
+        public static bool IsInModele(this string text,string modeleName)
+        {
+            text = text.ToUpper();
+            var modele = App.UserModeleManager.GetByName(modeleName);
+            var rep = true;
+            foreach (var car in  text)
+                if (!modele.Valeur.ContainsValue(car))
+                {
+                    rep = false;
+                    break;
+                }
+            return rep;
+        }
 
         public static void MyEntryFocus(this Entry entry, Frame frame)
         {
@@ -87,6 +122,20 @@ namespace CryptoAppV2.Custom
                     return false;
             return true;
         }
+
+        internal static void MyPickerFocus(Picker codagePicker, Frame codageModeleFrame)
+        {
+            codagePicker.Focused += delegate
+            {
+                codageModeleFrame.BorderColor = Color.FromHex("#178FEB");
+            };
+            codagePicker.Unfocused += delegate
+            {
+                codageModeleFrame.BorderColor = Color.White;
+            };
+
+        }
+
         public static string SubstringInteger(this string texte) => texte.Contains(",") ? texte.Substring(0, texte.IndexOf(",")) : texte;
 
         public static bool IsOnlyInteger(this string texte)

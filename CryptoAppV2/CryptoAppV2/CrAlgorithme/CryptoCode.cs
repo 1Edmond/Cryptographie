@@ -1,4 +1,5 @@
-﻿using CryptoAppV2.Model;
+﻿using CryptoAppV2.Custom;
+using CryptoAppV2.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,34 +11,37 @@ namespace CryptoAppV2.CrAlgorithme
     public class CryptoCode
     {
         private static CryptoFonction MesFonctions = new CryptoFonction();
-        UserModele userModele = UserModele.BaseModel;
+        UserModele userModele = App.UserModeleManager.GetByName(UserSettings.UserModele);
 
-        public string CodageAffine(string message, int a = 1, int b = 3)
+        public string CodageAffine(string message, int a = 1, int b = 3, string modele = "Modèle de base")
         {
             int valCar = 0;
             string code = String.Empty;
-            var tmep = message.Length;
+            var temp = App.UserModeleManager.GetByName(modele);
             message = message.ToUpper();
             foreach (char car in message)
             {
-                valCar = (car * a + b - 65) % userModele.Valeur.Keys.Count;
-                code += userModele.Valeur[valCar];
+                valCar = (temp.Valeur.Getkey(car) * a + b) % temp.Valeur.Keys.Count;
+                while (valCar < 0)
+                    valCar += temp.Valeur.Keys.Count;
+                code += temp.Valeur[valCar];
             }
             return code;
         } // Etape faite
 
-        public string DecodageAffine(string message, int a = 1, int b = 3)
+        public string DecodageAffine(string message, int a = 1, int b = 3, string modele = "Modèle de base")
         {
             int valCar = 0;
             string decode = String.Empty;
-            a = MesFonctions.InverseModulo(a, userModele.Valeur.Keys.Count);
+            var temp = App.UserModeleManager.GetByName(modele);
+            a = MesFonctions.InverseModulo(a, temp.Valeur.Keys.Count);
             message.ToUpper();
             foreach (char car in message)
             {
-                valCar = (a * (car - b) - 65) % userModele.Valeur.Keys.Count;
+                valCar = (a * (temp.Valeur.Getkey(car) - b)) % temp.Valeur.Keys.Count;
                 while (valCar < 0)
-                    valCar = valCar + userModele.Valeur.Keys.Count;
-                decode += userModele.Valeur[valCar]; ;
+                    valCar = valCar + temp.Valeur.Keys.Count;
+                decode += temp.Valeur[valCar]; ;
 
             }
             return decode;

@@ -1,4 +1,5 @@
-﻿using CryptoAppV2.Model;
+﻿using CryptoAppV2.Custom;
+using CryptoAppV2.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,28 +16,36 @@ namespace CryptoAppV2.CrAlgorithme
         {
 
         }
-        public List<Etape> CodageAffine(string message, int a = 1, int b = 3, int LaBase = 26)
+        public List<Etape> CodageAffine(string message, int a = 1, int b = 3, string modele = "Modèle de base")
         {
             List<Etape> result = new List<Etape>();
+            var Usermodele = App.UserModeleManager.GetByName(modele);
+            int LaBase = Usermodele.Valeur.Keys.Count;
+            message = message.ToUpper();
             foreach (char c in message)
             {
-                var MyTemp = MesFonctions.Chiffrement(c.ToString(), LaBase);
-                var MyTemp1 = Crypto.CodageAffine(c.ToString(), a, b);
-                var MyTemp2 = MesFonctions.Chiffrement(Crypto.CodageAffine(c.ToString(), a, b));
-                result.Add(new Etape() { Info = $"Correspondant de {c} = {MyTemp[0]} : {MyTemp[0]} x {a} + {b} % {LaBase} = {MyTemp2[0]} => {MyTemp1}" });
+                var CorrespondCar = Usermodele.Valeur.Getkey(c);
+                var MyTemp1 = Crypto.CodageAffine(c.ToString(), a, b,modele);
+                var car = Convert.ToChar(MyTemp1);
+                var CorrespondCode = Usermodele.Valeur.Getkey(Convert.ToChar(car));
+                //var resultTem = (CorrespondCar * a + b) % LaBase;
+                result.Add(new Etape() { Info = $"Correspondant de {c} = {CorrespondCar} : {CorrespondCar} x {a} + {b} % {LaBase} = {CorrespondCode} => {MyTemp1}" });
             }
             return result;
         }
-        public List<Etape> DecodageAffine(string message, int a = 1, int b = 3, int LaBase = 26)
+        public List<Etape> DecodageAffine(string message, int a = 1, int b = 3, string modele = "Modèle de base")
         {
             List<Etape> result = new List<Etape>();
+            var Usermodele = App.UserModeleManager.GetByName(modele);
+            int LaBase = App.UserModeleManager.GetByName(modele).Valeur.Keys.Count;
+            message = message.ToUpper();
             foreach (char c in message)
             {
-                var MyTemp = MesFonctions.Chiffrement(c.ToString(), LaBase);
                 var d = MesFonctions.InverseModulo(a, LaBase);
-                var MyTemp1 = Crypto.DecodageAffine(c.ToString(), a, b);
-                var MyTemp2 = MesFonctions.Chiffrement(Crypto.DecodageAffine(c.ToString(), a, b));
-                result.Add(new Etape { Info = $"Correspondant de {c} : {MyTemp[0]} x {d} - {b} % {LaBase} =  {MyTemp2[0]} : {MyTemp1}" });
+                var CorrespondCar = Usermodele.Valeur.Getkey(c);
+                var CorrespondCode = Usermodele.Valeur.Getkey(Convert.ToChar(Crypto.DecodageAffine(c.ToString(), a, b, modele)));
+                var MyTemp = Crypto.DecodageAffine(c.ToString(), a, b, modele);
+                result.Add(new Etape { Info = $"Correspondant de {c} = {CorrespondCar} : {CorrespondCar} x {d} - {b} % {LaBase} =  {CorrespondCode} : {MyTemp}" });
             }
             return result;
         }

@@ -19,6 +19,7 @@ namespace CryptoAppV2.ViewModel
 
         public UserModeleManager manager = App.UserModeleManager;
 
+       
         public UserModeleVm()
         {
             var dos =  manager.GetAll();
