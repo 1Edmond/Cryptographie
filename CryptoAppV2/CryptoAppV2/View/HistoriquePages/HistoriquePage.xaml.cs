@@ -7,17 +7,14 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace CryptoAppV2.View
+namespace CryptoAppV2.View.HistoriquePages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ShellPage : Shell
+    public partial class HistoriquePage : ContentPage
     {
-        public ShellPage()
+        public HistoriquePage()
         {
             InitializeComponent();
-            var bt = new Button();
-            
-            
         }
     }
 }

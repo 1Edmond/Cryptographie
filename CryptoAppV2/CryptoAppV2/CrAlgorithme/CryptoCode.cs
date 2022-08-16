@@ -3,6 +3,7 @@ using CryptoAppV2.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace CryptoAppV2.CrAlgorithme
@@ -98,20 +99,25 @@ namespace CryptoAppV2.CrAlgorithme
             return result;
         } // Etape faite
 
-        public string CodageHill(string message, string matrice, string special = "x")
+        public string CodageHill(string message, string matrice, string special = "x", string modele = "Modèle de base")
         {
             string result = "";
             var Blocs = new List<String>();
             var newMatrice = MesFonctions.TransformationEnMatrice(matrice);
             var Realmatrice = new List<String>();
+            userModele = App.UserModeleManager.GetByName(modele);
             while (message.Length % newMatrice.Keys.Count != 0)
                 message += special;
             foreach (KeyValuePair<int, List<string>> keyValuePair in newMatrice)
                 Realmatrice.Add(String.Join(",", keyValuePair.Value));
             for (int i = 0; i < message.Length; i += newMatrice.Keys.Count)
             {
-                var chiffrement = MesFonctions.Chiffrement(message.Substring(i, newMatrice.Keys.Count));
-                Blocs.Add($"{String.Join(",", chiffrement)}");
+               // var chiffrement = MesFonctions.Chiffrement(message.Substring(i, newMatrice.Keys.Count));
+                var tem = new List<int>();
+                var bloc = message.Substring(i, newMatrice.Keys.Count);
+                foreach (char item in bloc)
+                    tem.Add(userModele.Valeur.Getkey(item));
+                Blocs.Add($"{String.Join(",", tem)}");
             }
             for (int i = 0; i < Blocs.Count; i++)
             {
@@ -140,11 +146,12 @@ namespace CryptoAppV2.CrAlgorithme
             return result;
         }
 
-        public string DecodageHill(string message, string matrice, string special = "x")
+        public string DecodageHill(string message, string matrice, string special = "x", string modele = "Modèle de base")
         {
             int compteur = 0;
             (string a, string b, string c, string d) = ("", "", "", "");
             var temp = MesFonctions.TransformationEnMatrice(matrice);
+            userModele = App.UserModeleManager.GetByName(modele);
             foreach (KeyValuePair<int, List<String>> keyValuePair in temp)
             {
                 var Ligne = keyValuePair.Value;
@@ -156,8 +163,7 @@ namespace CryptoAppV2.CrAlgorithme
             }
             var InverseDet = MesFonctions.InverseModulo(int.Parse(MesFonctions.MatriceDeterminant(matrice)), userModele.Valeur.Keys.Count);
             string MatriceInverse = $"{InverseDet * int.Parse(d)},{InverseDet * (-int.Parse(b))};{InverseDet * (-int.Parse(c))},{InverseDet * int.Parse(a)}";
-            string result = CodageHill(message, MatriceInverse, special);
-
+            string result = CodageHill(message, MatriceInverse, special, userModele.Nom);
             return result;
         }
 

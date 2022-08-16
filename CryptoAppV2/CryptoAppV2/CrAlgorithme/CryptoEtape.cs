@@ -1,5 +1,6 @@
 ﻿using CryptoAppV2.Custom;
 using CryptoAppV2.Model;
+using CryptoAppV2.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -459,9 +460,10 @@ namespace CryptoAppV2.CrAlgorithme
                 new Etape { Info = $"Le message codé est constituer de c1 et c2."},
             };
         } // A supprimer
-        public List<Etape> CodageDeHill(string message, string matrice, string n, string special = "x")
+        public List<Etape> CodageDeHill(string message, string matrice, string n, string special = "x", string modele = "Modèle de base")
         {
             var NewMatrice = MesFonctions.TransformationEnMatrice(matrice);
+            var userModele = App.UserModeleManager.GetByName(modele);
             var result = new List<Etape>()
             {
                 new Etape { Info = $"Le dégré de la matrice {matrice} est {NewMatrice.Keys.Count},"},
@@ -477,8 +479,12 @@ namespace CryptoAppV2.CrAlgorithme
             var Blocs = new List<String>();
             for (int i = 0; i < message.Length; i += NewMatrice.Keys.Count)
             {
-                var chiffrement = MesFonctions.Chiffrement(message.Substring(i, NewMatrice.Keys.Count));
-                Blocs.Add($"{String.Join(",", chiffrement)}");
+              //  var chiffrement = MesFonctions.Chiffrement(message.Substring(i, NewMatrice.Keys.Count));
+                var tem = new List<int>();
+                var bloc = message.Substring(i, NewMatrice.Keys.Count);
+                foreach (char item in bloc)
+                    tem.Add(userModele.Valeur.Getkey(item));
+                Blocs.Add($"{String.Join(",", tem)}");
             }
             result.Add(new Etape { Info = $"Les différents blocs sont : {String.Join("; ", Blocs)}." });
             var RealMatrice = NewMatrice.Values.ToList();
@@ -510,13 +516,13 @@ namespace CryptoAppV2.CrAlgorithme
             result.Add(new Etape { Info = $"Les résultats trouvés sont : {String.Join("", ListeResult)} " });
             ChiffrementListe.ForEach(x =>
             {
-                result.Add(new Etape { Info = $"Le correspondant de {x} est {Convert.ToChar(x + 65)}" });
+                result.Add(new Etape { Info = $"Le correspondant de {x} est {userModele.Valeur[x]}" });
             });
 
 
             return result;
         }
-        public List<Etape> DecodageDeHill(string message, string matrice, string n, string special = "x")
+        public List<Etape> DecodageDeHill(string message, string matrice, string n, string special = "x", string modele = "Modèle de base")
         {
             int compteur = 0;
             (string a, string b, string c, string d) = ("", "", "", "");
@@ -533,7 +539,7 @@ namespace CryptoAppV2.CrAlgorithme
             var det = int.Parse(MesFonctions.MatriceDeterminant(matrice));
             var InverseDet = MesFonctions.InverseModulo(det, int.Parse(n));
             string MatriceInverse = $"{InverseDet * int.Parse(d)},{InverseDet * (-int.Parse(b))};{InverseDet * (-int.Parse(c))},{InverseDet * int.Parse(a)}";
-            var result = new List<Etape>(CodageDeHill(message, MatriceInverse, n, special));
+            var result = new List<Etape>(CodageDeHill(message, MatriceInverse, n, special, modele));
             result.Insert(0, new Etape
             {
                 Info = $"Le déterminant de la matrice {matrice} est {MesFonctions.MatriceDeterminant(matrice)}."

@@ -34,10 +34,8 @@ namespace CryptoAppV2.View.Home
             AnimateCodageCaroussel();
             AnimateDecodageCaroussel();
             #region Gestion des Annimations de focus
-            CodageBaseEntry.MyEntryFocus(CodageBaseFrame);
             CodageMatriceEntry.MyEntryFocus(CodageMatriceFrame);
             CodageTextEntry.MyEntryFocus(CodageTextFrame);
-            DecodageBaseEntry.MyEntryFocus(DecodageBaseFrame);
             DecodageMatriceEntry.MyEntryFocus(DecodageMatriceFrame);
             DecodageTextEntry.MyEntryFocus(DecodageTextFrame);
             #endregion
@@ -73,21 +71,8 @@ namespace CryptoAppV2.View.Home
             #region Codage
             CodageMatriceEntry.Completed += async delegate
             {
-                if (string.IsNullOrEmpty(CodageBaseEntry.Text))
-                    CodageBaseEntry.Focus();
-                else
-                    if (String.IsNullOrEmpty(CodageTextEntry.Text))
-                    CodageTextEntry.Focus();
-                else
-                    await Codage();
-            };
-            CodageBaseEntry.Completed += async delegate
-            {
                 if (String.IsNullOrEmpty(CodageTextEntry.Text))
                     CodageTextEntry.Focus();
-                else
-                    if (String.IsNullOrEmpty(CodageMatriceEntry.Text))
-                    CodageMatriceEntry.Focus();
                 else
                     await Codage();
             };
@@ -95,9 +80,6 @@ namespace CryptoAppV2.View.Home
             {
                 if (String.IsNullOrEmpty(CodageMatriceEntry.Text))
                     CodageMatriceEntry.Focus();
-                else
-                    if (String.IsNullOrWhiteSpace(CodageBaseEntry.Text))
-                    CodageBaseEntry.Focus();
                 else
                     await Codage();
             };
@@ -107,41 +89,30 @@ namespace CryptoAppV2.View.Home
             };
             EtapeCodageBtn.Clicked += async delegate
             {
+                var item = CodagePicker.SelectedItem as UserModele;
+                var userModele = App.UserModeleManager.GetByName(item.Nom);
                 await this.Navigation.PushModalAsync(new EtapePage($"Codage de {CodageTextEntry.Text} avec la matrice A = {CodageMatriceEntry.Text}" +
-                    $", base = {CodageBaseEntry.Text}", "Codage de Hill", etapesCodage.ToList()));
+                    $", modèle = {item.Nom} " +
+                    $", base = {userModele.Valeur.Keys.Count}", "Codage de Hill", etapesCodage.ToList()));
                 await DeleteAnimation(BtnCodage, EtapeCodageBtn);
             };
-
+            CodagePicker.SelectedItem = App.UserModeleManager.GetByName(UserSettings.UserModele);
+            DecodagePicker.SelectedItem = App.UserModeleManager.GetByName(UserSettings.UserModele);
             #endregion
 
             #region Décodage
             DecodageMatriceEntry.Completed += async delegate
             {
-                if (String.IsNullOrEmpty(DecodageBaseEntry.Text))
-                    DecodageBaseEntry.Focus();
-                else
                     if (String.IsNullOrEmpty(DecodageTextEntry.Text))
                     DecodageTextEntry.Focus();
                 else
                     await Decodage();
             };
-            DecodageBaseEntry.Completed += async delegate
+
+            DecodageTextEntry.Completed += async delegate
             {
                 if (String.IsNullOrEmpty(DecodageTextEntry.Text))
                     DecodageTextEntry.Focus();
-                else
-                    if (String.IsNullOrEmpty(DecodageMatriceEntry.Text))
-                    DecodageMatriceEntry.Focus();
-                else
-                    await Decodage();
-            };
-            DecodageTextEntry.Completed += async delegate
-            {
-                if (String.IsNullOrEmpty(DecodageMatriceEntry.Text))
-                    DecodageBaseEntry.Focus();
-                else
-                    if (String.IsNullOrEmpty(DecodageBaseEntry.Text))
-                    DecodageBaseEntry.Focus();
                 else
                     await Decodage();
             };
@@ -155,8 +126,11 @@ namespace CryptoAppV2.View.Home
             };
             EtapeDecodageBtn.Clicked += async delegate
             {
+                var item = DecodagePicker.SelectedItem as UserModele;
+                var userModele = App.UserModeleManager.GetByName(item.Nom);
                 await this.Navigation.PushModalAsync(new EtapePage($"Décodage de {DecodageTextEntry.Text} avec la matrice = {DecodageMatriceEntry.Text}" +
-                    $", base = {DecodageBaseEntry.Text}", "Décodage de Hill", etapesDecodage.ToList()));
+                    $" modèle = {userModele.Nom}, "+
+                    $", base = {userModele.Valeur.Keys.Count}", "Décodage de Hill", etapesDecodage.ToList()));
                 await DeleteAnimation(BtnDecodage, EtapeDecodageBtn);
             };
             #endregion
@@ -168,6 +142,7 @@ namespace CryptoAppV2.View.Home
         {
             try
             {
+                UserModele tem = CodagePicker.SelectedItem as UserModele;
                 if (String.IsNullOrEmpty(DecodageMatriceEntry.Text))
                 {
 
@@ -175,11 +150,10 @@ namespace CryptoAppV2.View.Home
                     await DeleteAnimation(BtnDecodage, EtapeDecodageBtn);
                 }
                 else
-                    if (String.IsNullOrEmpty(DecodageBaseEntry.Text))
+                    if (!DecodageTextEntry.Text.IsInModele(tem.Nom))
                 {
-                    await DisplayAlert("Erreur", "Veuillez saisir la base.", "Ok");
-                    await DeleteAnimation(BtnDecodage, EtapeDecodageBtn);
-
+                    await DisplayAlert("Erreur", "La base choisie ne contient pas tous les caractères du text saisi.", "Ok");
+                    await DeleteAnimation(BtnCodage, EtapeCodageBtn);
                 }
                 else
                     if (String.IsNullOrEmpty(DecodageTextEntry.Text))
@@ -189,7 +163,7 @@ namespace CryptoAppV2.View.Home
                 }
                 else
                 {
-                    (var matrice, string LaBase, string text) = (cryptoFonction.TransformationEnMatrice(DecodageMatriceEntry.Text), DecodageBaseEntry.Text.SubstringInteger(), DecodageTextEntry.Text);
+                    (var matrice, string LaBase, string text) = (cryptoFonction.TransformationEnMatrice(DecodageMatriceEntry.Text), tem.Valeur.Keys.Count.ToString(), DecodageTextEntry.Text);
                     if (cryptoFonction.IsSquareMatrice(DecodageMatriceEntry.Text))
                     {
                         if (int.Parse(cryptoFonction.MatriceDeterminant(DecodageMatriceEntry.Text)) != 0)
@@ -217,9 +191,9 @@ namespace CryptoAppV2.View.Home
                             }
                             if (String.IsNullOrEmpty(specialCaractere))
                                 specialCaractere = "x";
-                            string result = cryptoCode.DecodageHill(text, DecodageMatriceEntry.Text,  specialCaractere);
+                            string result = cryptoCode.DecodageHill(text, DecodageMatriceEntry.Text,  specialCaractere,tem.Nom);
                             decodageResult = result;
-                            var etapes = cryptoEtape.DecodageDeHill(text, DecodageMatriceEntry.Text, LaBase, specialCaractere);
+                            var etapes = cryptoEtape.DecodageDeHill(text, DecodageMatriceEntry.Text, LaBase, specialCaractere,tem.Nom);
                             etapesDecodage.Clear();
                             DecodageResult.Text = $"La solution du décodage est : {result}";
                             etapes.ForEach(x =>
@@ -257,16 +231,17 @@ namespace CryptoAppV2.View.Home
         {
             try
             {
-                if (String.IsNullOrEmpty(CodageMatriceEntry.Text))
+                UserModele tem = CodagePicker.SelectedItem as UserModele;
+                    if (String.IsNullOrEmpty(CodageMatriceEntry.Text))
                 {
 
                     await DisplayAlert("Erreur", "Veuillez saisir la matrice de codage.", "Ok");
                     await DeleteAnimation(BtnCodage, EtapeCodageBtn);
                 }
                 else
-                    if (String.IsNullOrEmpty(CodageBaseEntry.Text))
+                    if (!CodageTextEntry.Text.IsInModele(tem.Nom))
                 {
-                    await DisplayAlert("Erreur", "Veuillez saisir la base.", "Ok");
+                    await DisplayAlert("Erreur", "La base choisie ne contient pas tous les caractères du text saisi.", "Ok");
                     await DeleteAnimation(BtnCodage, EtapeCodageBtn);
 
                 }
@@ -278,7 +253,7 @@ namespace CryptoAppV2.View.Home
                 }
                 else
                 {
-                    (var matrice, string LaBase, string text) = (cryptoFonction.TransformationEnMatrice(CodageMatriceEntry.Text), CodageBaseEntry.Text.SubstringInteger(), CodageTextEntry.Text);
+                    (var matrice, string LaBase, string text) = (cryptoFonction.TransformationEnMatrice(CodageMatriceEntry.Text), tem.Valeur.Keys.Count.ToString(), CodageTextEntry.Text);
                     if (cryptoFonction.IsSquareMatrice(CodageMatriceEntry.Text))
                     {
                         if (int.Parse(cryptoFonction.MatriceDeterminant(CodageMatriceEntry.Text)) != 0)
@@ -306,9 +281,10 @@ namespace CryptoAppV2.View.Home
                             }
                             if (String.IsNullOrEmpty(specialCaractere))
                                 specialCaractere = "x";
-                            string result = cryptoCode.CodageHill(text, CodageMatriceEntry.Text, specialCaractere);
+                            text = text.ToUpper();
+                            string result = cryptoCode.CodageHill(text, CodageMatriceEntry.Text, specialCaractere,tem.Nom);
                             codageResult = result;
-                            var etapes = cryptoEtape.CodageDeHill(text, CodageMatriceEntry.Text, LaBase, specialCaractere);
+                            var etapes = cryptoEtape.CodageDeHill(text, CodageMatriceEntry.Text, LaBase, specialCaractere,tem.Nom);
                             etapesCodage.Clear();
                             CodageResult.Text = $"La solution du codage est : {result}";
                             etapes.ForEach(x =>

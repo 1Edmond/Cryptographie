@@ -56,6 +56,21 @@ namespace CryptoAppV2.ViewModel
 
         });
 
+        UserModele selectedModel = App.UserModeleManager.GetByName(UserSettings.UserModele);
+        public UserModele SelectedItem { get 
+            {
+                return selectedModel;
+            } 
+            set {
+                if(SelectedItem != value)
+                {
+                    selectedModel = value;
+                    OnPropertyChanged(nameof(SelectedItem));
+                }
+
+            } 
+        }
+
         public ICommand RefreshCommand => new Command(async () =>
         {
             IsRefreshing = true;
