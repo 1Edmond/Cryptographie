@@ -18,7 +18,24 @@
     <Shell.SearchHandler>
         <handler:MySearchHandler Placeholder="Recherchez une historique" CancelButtonColor="Red" Keyboard="Text"
                                  SearchBoxVisibility="Collapsible"
-                                 DisplayMemberName="Libelle"/>
+                                 DisplayMemberName="Libelle">
+            <handler:MySearchHandler.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10" Margin="0,10"
+                          ColumnDefinitions="0.15*,0.85*">
+                        <Label Grid.Column="0"
+                               Text="{Binding Libelle}" LineHeight="2" LineBreakMode="TailTruncation" FontSize="15"
+                               FontAttributes="Bold" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"
+                               VerticalOptions="Center" />
+                        <Label Grid.Column="1"
+                               Text="{Binding Description}" FontSize="15"
+                               FontAttributes="Bold" LineHeight="2" LineBreakMode="TailTruncation"
+                               VerticalOptions="Center" />
+                    </Grid>
+                </DataTemplate>
+            </handler:MySearchHandler.ItemTemplate>
+        </handler:MySearchHandler>
+
     </Shell.SearchHandler>
     <ContentPage.Resources>
         <Style TargetType="Label">
@@ -26,10 +43,26 @@
             <Setter Property="LineHeight" Value="2" />
             <Setter Property="LineBreakMode" Value="TailTruncation" />
         </Style>
+         <Style TargetType="Frame">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="LightSkyBlue" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
-            <CollectionView ItemsSource="{Binding Historiques}" 
+            <CollectionView ItemsSource="{Binding Historiques}" SelectionChangedCommand="{Binding OnHistoriqueSelected}"
+                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference MyCollection}}"
                             Margin="10,10,10,0" HorizontalOptions="FillAndExpand" BackgroundColor="White"
                             SelectionMode="Single" x:Name="MyCollection" >
                 <CollectionView.ItemsLayout>

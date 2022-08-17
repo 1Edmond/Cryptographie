@@ -47,14 +47,24 @@ namespace CryptoAppV2.Data
         {
             if (Connection == null)
                 return new List<UserHistorique>();
-            var list = Connection.Table<UserHistorique>().ToListAsync();
+            var list = Connection.Table<UserHistorique>().OrderByDescending(x => x.DateOperation).ToListAsync();
             return list.Result;
         }
 
-        public async Task<IEnumerable<UserHistorique>> GetByValue(string text)
-                    => Connection == null ? null : await Connection.Table<UserHistorique>()
-                        .Where(x => x.Libelle == text || x.Description == text)
-                        .ToListAsync();
-        
+        public async Task<List<UserHistorique>> GetByValue(string text)
+        {
+            if (Connection == null)
+                return new List<UserHistorique>();
+            var result = await Connection.Table<UserHistorique>().
+                Where(x => x.Libelle.Contains(text) || x.Description.Contains(text)).ToListAsync();
+            return result;
+        }
+
+        public async Task<UserHistorique> GetByLibelle(string his)
+        {
+            if (Connection == null)
+                return null;
+            return await Connection.Table<UserHistorique>().Where(x => x.Libelle == his).FirstAsync();
+        }
     }
 }

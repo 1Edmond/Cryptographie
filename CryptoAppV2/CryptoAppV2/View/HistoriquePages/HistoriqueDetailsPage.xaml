@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ht="clr-namespace:CryptoAppV2.ViewModel"
+             x:Class="CryptoAppV2.View.HistoriquePages.HistoriqueDetailsPage">
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand"
+                     HorizontalOptions="StartAndExpand">
+            <Label Text="Historique détails" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" 
+                   HorizontalTextAlignment="Center" TextColor="White" FontSize="18"/>
+        </StackLayout>
+    </Shell.TitleView>
+    <ContentPage.BindingContext>
+        <ht:UserHistoriqueDetailsVm />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid RowDefinitions="*,3*">
+            <Grid HorizontalOptions="FillAndExpand" RowDefinitions="*,*" ColumnSpacing="0" >
+                <Grid.Resources>
+                    <ResourceDictionary>
+                        <Style TargetType="Label">
+                            <Setter Property="FontSize" Value="16" />
+                        </Style>
+                    </ResourceDictionary>
+                </Grid.Resources>
+                <Grid ColumnDefinitions="*,*" ColumnSpacing="0" Margin="20,20,20,0">
+                    <Grid>
+                        <StackLayout HorizontalOptions="StartAndExpand">
+                            <Label Text="Libelle" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" />
+                            <Label Text="Libelle" x:Name="Libelle" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" />
+                        </StackLayout>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <StackLayout HorizontalOptions="EndAndExpand">
+                            <Label Text="Date de l'opération" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" />
+                            <Label Text="Libelle" x:Name="DateOperation" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" />
+                        </StackLayout>
+                    </Grid>
+                    
+                </Grid>
+                <Grid Margin="20,0,20,0" Grid.Row="1" HorizontalOptions="CenterAndExpand">
+                    <StackLayout HorizontalOptions="CenterAndExpand">
+                        <Label Text="Description" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" />
+                        <Label Text="Libelledvndvndjvndvndvjn" x:Name="Description" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1" Margin="20,0,20,0" RowDefinitions="0.1*,*">
+                <StackLayout HorizontalOptions="CenterAndExpand">
+                    <Label Text="Le résultat de l'opération est " HorizontalTextAlignment="Center" x:Name="Result" FontSize="16" />
+                </StackLayout>
+                <CollectionView x:Name="MyCollection" Grid.Row="1" SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                               ItemSpacing="30"   />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <Label Text="{Binding Info}" FontSize="17"
+                                           TextColor="{AppThemeBinding Dark=white, Light=Black}" VerticalOptions="CenterAndExpand"
+                                           HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

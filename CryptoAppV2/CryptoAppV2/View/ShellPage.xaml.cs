@@ -22,14 +22,15 @@ namespace CryptoAppV2.View
             Routing.RegisterRoute("AffinePage", typeof(AffinePage));
             Routing.RegisterRoute("EtapePage", typeof(EtapePage));
             Routing.RegisterRoute("AcceuilPage", typeof(AcceuilPage));
-            Routing.RegisterRoute("HistoriquePage", typeof(HistoriquePage));
-            Routing.RegisterRoute("MainPage", typeof(MainPage));
             Routing.RegisterRoute("HillPage", typeof(HillPage));
             Routing.RegisterRoute("MerkleHellmanPage", typeof(MerkleHellmanPage));
             Routing.RegisterRoute("RSAPage", typeof(RSAPage));
             Routing.RegisterRoute("VernamPage", typeof(VernamPage));
             Routing.RegisterRoute("ModelesPage", typeof(ModelesPage));
             Routing.RegisterRoute("VigenerePage", typeof(VigenerePage));
+            Routing.RegisterRoute("MainPage", typeof(MainPage));
+            Routing.RegisterRoute("HistoriquePage", typeof(HistoriquePage));
+            Routing.RegisterRoute("HistoriqueDetailsPage", typeof(HistoriqueDetailsPage));
             ParametreItem.Command = new Command(async () =>
             {
                 await Shell.Current.GoToAsync("MainPage");
