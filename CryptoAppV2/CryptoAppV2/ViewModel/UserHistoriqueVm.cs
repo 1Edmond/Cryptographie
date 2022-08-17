@@ -22,5 +22,6 @@ namespace CryptoAppV2.ViewModel
         }
 
 
+
     }
 }

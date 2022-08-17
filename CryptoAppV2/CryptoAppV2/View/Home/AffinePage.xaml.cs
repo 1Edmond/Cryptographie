@@ -253,6 +253,20 @@ namespace CryptoAppV2.View.Home
                             etapesCodage.Clear();
                             var result = CryptoCode.CodageAffine(entry.Text, int.Parse(CodageAEntry.Text.SubstringInteger()),
                                 int.Parse(CodageBEntry.Text.SubstringInteger()),tem.Nom);
+                            await App.UserHistoriqueManager.Add(new UserHistorique()
+                            {
+                                DateOperation = DateTime.Now,
+                                Libelle = "Codage Affine",
+                                Description = $"Codage affine avec a = {int.Parse(CodageAEntry.Text)}, b = {int.Parse(CodageBEntry.Text)}, modèle = {tem.Nom}",
+                                Data = entry.TransformHistoriqueData(
+                                    "Affine", "Codage",
+                                    new Dictionary<string, string>()
+                                        {
+                                            { "a" , $"{CodageAEntry.Text}" },
+                                            { "b" , $"{CodageBEntry.Text}" },
+                                            { "modele" , $"{tem.Nom}" },
+                                        })
+                           });
                             CodageResult.Text = "Le résultat du codage est " + result;
                             var temp = CryptoEtape.CodageAffine(entry.Text.SubstringString(), int.Parse(CodageAEntry.Text.SubstringInteger()),
                                 int.Parse(CodageBEntry.Text.SubstringInteger()), tem.Nom);
@@ -300,8 +314,21 @@ namespace CryptoAppV2.View.Home
                             etapesDecodage.Clear();
                             var result = CryptoCode.DecodageAffine(entry.Text, int.Parse(DecodageAEntry.Text.SubstringInteger()),
                                 int.Parse(DecodageBEntry.Text.SubstringInteger()), tem.Nom);
-
                             DecodageResult.Text = "Le résultat du décodage est " + result;
+                            await App.UserHistoriqueManager.Add(new UserHistorique()
+                            {
+                                DateOperation = DateTime.Now,
+                                Libelle = "Décodage Affine",
+                                Description = $"Décodage affine avec a = {int.Parse(DecodageAEntry.Text)}, b = {int.Parse(DecodageBEntry.Text)}, modèle = {tem.Nom}",
+                                Data = entry.TransformHistoriqueData(
+                                   "Affine", "Decodage",
+                                   new Dictionary<string, string>()
+                                       {
+                                            { "a" , $"{DecodageAEntry.Text}" },
+                                            { "b" , $"{DecodageBEntry.Text}" },
+                                            { "modele" , $"{tem.Nom}" },
+                                       })
+                            });
                             var temp = CryptoEtape.DecodageAffine(entry.Text.SubstringString(), int.Parse(DecodageAEntry.Text.SubstringInteger()),
                                 int.Parse(DecodageBEntry.Text.SubstringInteger()), tem.Nom);
                             temp.ForEach(x =>

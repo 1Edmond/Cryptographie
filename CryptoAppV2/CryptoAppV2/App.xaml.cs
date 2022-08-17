@@ -51,7 +51,7 @@ namespace CryptoAppV2
         public App()
         {
             InitializeComponent();
-           // UserHistoriqueManager = new UserHistoriqueManager(database);
+            UserHistoriqueManager = new UserHistoriqueManager(database);
             UserModeleManager = new UserModeleManager(database);
             var navigationPage = new ShellPage();
             MainPage = navigationPage;

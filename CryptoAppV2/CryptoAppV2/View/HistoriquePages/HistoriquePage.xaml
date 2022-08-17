@@ -2,7 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:CryptoAppV2.ViewModel"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:handler="clr-namespace:CryptoAppV2.Model"
              x:Class="CryptoAppV2.View.HistoriquePages.HistoriquePage">
+    <ContentPage.BindingContext>
+        <vm:UserHistoriqueVm/>
+    </ContentPage.BindingContext>
     <Shell.TitleView>
         <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand"
                      HorizontalOptions="StartAndExpand">
@@ -10,12 +15,54 @@
                    HorizontalTextAlignment="Center" TextColor="White" FontSize="18"/>
         </StackLayout>
     </Shell.TitleView>
+    <Shell.SearchHandler>
+        <handler:MySearchHandler Placeholder="Recherchez une historique" CancelButtonColor="Red" Keyboard="Text"
+                                 SearchBoxVisibility="Collapsible"
+                                 DisplayMemberName="Libelle"/>
+    </Shell.SearchHandler>
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="LineHeight" Value="2" />
+            <Setter Property="LineBreakMode" Value="TailTruncation" />
+        </Style>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
-            <Grid.BindingContext>
-                <vm:UserHistoriqueVm/>
-            </Grid.BindingContext>
-            
+            <CollectionView ItemsSource="{Binding Historiques}" 
+                            Margin="10,10,10,0" HorizontalOptions="FillAndExpand" BackgroundColor="White"
+                            SelectionMode="Single" x:Name="MyCollection" >
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="20" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame HasShadow="True" BackgroundColor="#F1F1F1" Padding="0" x:Name="Myframe" HeightRequest="115"
+                               CornerRadius="70">
+                            <Grid RowDefinitions="*,*" Margin="20,20,20,0"
+                                  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                <StackLayout Orientation="Horizontal">
+                                    <StackLayout
+                                                 HorizontalOptions="StartAndExpand">
+                                        <Label Text="Date de l'opération" FontSize="16" />
+                                        <Label Text="{Binding DateOperation}" FontAttributes="Bold" />
+                                    </StackLayout>
+                                    <StackLayout HorizontalOptions="EndAndExpand">
+                                        <Label Text="Libelle" HorizontalOptions="CenterAndExpand" FontSize="16" />
+                                        <Label Text="{Binding Libelle}" FontAttributes="Bold" />
+                                    </StackLayout>
+                                </StackLayout>
+                                <StackLayout Grid.Row="1" Orientation="Horizontal">
+                                    <Label Text="Description" />
+                                    <Label Text="{Binding Description}" FontAttributes="Bold"
+                                           HorizontalTextAlignment="Center"
+                                           HorizontalOptions="CenterAndExpand" />
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

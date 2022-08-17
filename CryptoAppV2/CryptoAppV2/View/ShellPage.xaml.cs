@@ -1,4 +1,5 @@
-﻿using CryptoAppV2.View.Home;
+﻿using CryptoAppV2.View.HistoriquePages;
+using CryptoAppV2.View.Home;
 using CryptoAppV2.View.ModelePages;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace CryptoAppV2.View
             Routing.RegisterRoute("AffinePage", typeof(AffinePage));
             Routing.RegisterRoute("EtapePage", typeof(EtapePage));
             Routing.RegisterRoute("AcceuilPage", typeof(AcceuilPage));
+            Routing.RegisterRoute("HistoriquePage", typeof(HistoriquePage));
             Routing.RegisterRoute("MainPage", typeof(MainPage));
             Routing.RegisterRoute("HillPage", typeof(HillPage));
             Routing.RegisterRoute("MerkleHellmanPage", typeof(MerkleHellmanPage));
@@ -45,7 +47,7 @@ namespace CryptoAppV2.View
             });
             HistoriquesItem.Command = new Command(async () =>
             {
-                await Current.GoToAsync("MainPage");
+                await Current.GoToAsync("HistoriquePage");
                 Current.FlyoutIsPresented = false;
             });
         }

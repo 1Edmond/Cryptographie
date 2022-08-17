@@ -12,6 +12,7 @@ namespace CryptoAppV2.Model
         public int Id { get; set; }
         public string Libelle { get; set; }
         public string Description { get; set; }
+        public string Data { get; set; }
         public DateTime DateOperation { get; set; }
     }
 }

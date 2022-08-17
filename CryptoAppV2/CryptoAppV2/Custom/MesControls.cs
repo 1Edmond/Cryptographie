@@ -24,6 +24,8 @@ namespace CryptoAppV2.Custom
                 
         }
 
+        public static string TransformHistoriqueData(this Entry entry, string nom, string type, Dictionary<string,string > data) => $"{nom};{type};{entry.Text};{String.Join(",", data.Keys)}:{String.Join(",", data.Values)}";
+        
         public static int Getkey(this Dictionary<int ,char> Dictionnaire , char element)
         {
             foreach (KeyValuePair<int,char> item in Dictionnaire)
