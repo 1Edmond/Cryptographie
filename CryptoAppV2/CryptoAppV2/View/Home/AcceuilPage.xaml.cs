@@ -26,13 +26,13 @@ namespace CryptoAppV2.View.Home
 
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
-            BindingContext = new CryptoChapitreVm(Navigation, this);
+            BindingContext = new CryptoChapitreVm();
             MyTabView.Scrolled += delegate
             {
                 if (AccueilItem.IsSelected)
-                    MyHeader.Text = "Liste des différents cryptosystèmes";
+                    MyHeader.Text = "Les différents cryptosystèmes";
                 else if (FonctionItem.IsSelected)
-                    MyHeader.Text = "Liste des différentes fonctions";
+                    MyHeader.Text = "Les différentes fonctions";
                 else
                     MyHeader.Text = "Paramètre";
             };

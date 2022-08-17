@@ -11,14 +11,9 @@ namespace CryptoAppV2.ViewModel
     {
         public List<CryptoChapitre> Chapitres { get; set; }
 
-        public INavigation MyNavigation { get; set; }
 
-
-
-        public CryptoChapitreVm(INavigation navigation, Page page)
+        public CryptoChapitreVm()
         {
-
-            MyNavigation = navigation;
 
             Chapitres = new List<CryptoChapitre>()
             {
@@ -32,12 +27,7 @@ namespace CryptoAppV2.ViewModel
                     AuteurName = "Inconnu",
                     NavigationCommand = new Command(async () =>
                     {
-                       var a = page.FadeTo(0,1200);
-                        await navigation.PushModalAsync(new AffinePage());
-                        await a.ContinueWith((ord) =>
-                        {
-                            page.Opacity = 1;
-                        });
+                       await Shell.Current.GoToAsync("AffinePage");
                     })
                 },
                 new CryptoChapitre() {
@@ -53,12 +43,7 @@ namespace CryptoAppV2.ViewModel
                     AuteurImage = "Joseph",
                     NavigationCommand = new Command(async () =>
                     {
-                        var a = page.FadeTo(0,1200);
-                        await navigation.PushModalAsync(new VernamPage());
-                        await a.ContinueWith((ord) =>
-                        {
-                            page.Opacity = 1;
-                        });
+                         await Shell.Current.GoToAsync("VernamPage");
                     })
                 },
                 new CryptoChapitre() {
@@ -74,14 +59,7 @@ namespace CryptoAppV2.ViewModel
                     AuteurImage="Vigenere",
                     NavigationCommand = new Command(async () =>
                     {
-                        var a = page.FadeTo(0,1200);
-
-                        await navigation.PushModalAsync(new VigenerePage());
-
-                         await a.ContinueWith((ord) =>
-                        {
-                            page.Opacity = 1;
-                        });
+                       await Shell.Current.GoToAsync("VigenerePage");
                     })
                 },
                 new CryptoChapitre() {
@@ -95,12 +73,7 @@ namespace CryptoAppV2.ViewModel
                     AuteurImage="Hill",
                     NavigationCommand = new Command(async () =>
                     {
-                        var a = page.FadeTo(0,1200);
-                        await navigation.PushModalAsync(new HillPage());
-                         await a.ContinueWith((ord) =>
-                        {
-                            page.Opacity = 1;
-                        });
+                        await Shell.Current.GoToAsync("HillPage");
                     })
                 },
                 new CryptoChapitre() {
@@ -116,12 +89,7 @@ namespace CryptoAppV2.ViewModel
                     AuteurImage = "CryptoImg",
                     NavigationCommand = new Command(async () =>
                     {
-                        var a = page.FadeTo(0,1200);
-                        await navigation.PushModalAsync(new MerkleHellmanPage());
-                         await a.ContinueWith((ord) =>
-                        {
-                            page.Opacity = 1;
-                        });
+                        await Shell.Current.GoToAsync("MerkleHellmanPage");
                     })
                 },
                 new CryptoChapitre() {
@@ -137,12 +105,7 @@ namespace CryptoAppV2.ViewModel
                     AuteurImage = "CryptoImg",
                     NavigationCommand = new Command(async () =>
                     {
-                        var a = page.FadeTo(0,1200);
-                        await navigation.PushModalAsync(new RSAPage());
-                         await a.ContinueWith((ord) =>
-                        {
-                            page.Opacity = 1;
-                        });
+                        await Shell.Current.GoToAsync("RSAPage");
                     })
                 },
 /*

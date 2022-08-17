@@ -4,6 +4,7 @@
                    xmlns:vm="clr-namespace:CryptoAppV2.ViewModel"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:local="clr-namespace:CryptoAppV2.Custom"
+             Shell.PresentationMode="ModalAnimated"
              x:Class="CryptoAppV2.View.Home.HillPage">
     <ContentPage.Resources>
         <ControlTemplate x:Key="MyCustomTabHeader">

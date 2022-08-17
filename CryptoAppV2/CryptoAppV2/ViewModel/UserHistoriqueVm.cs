@@ -10,7 +10,6 @@ namespace CryptoAppV2.ViewModel
 {
     public class UserHistoriqueVm
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         public ObservableCollection<UserHistorique> Historiques { get; private set; }
 
         public UserHistoriqueManager manager = App.UserHistoriqueManager;

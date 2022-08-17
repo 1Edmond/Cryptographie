@@ -71,7 +71,7 @@ namespace CryptoAppV2.ViewModel
             } 
         }
 
-        public ICommand RefreshCommand => new Command(async () =>
+        public ICommand RefreshCommand => new Command(() =>
         {
             IsRefreshing = true;
             OnPropertyChanged(nameof(IsRefreshing));

@@ -4,7 +4,17 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:local="clr-namespace:CryptoAppV2.Custom"
               xmlns:vm="clr-namespace:CryptoAppV2.ViewModel"
+             Shell.NavBarIsVisible="True"
              x:Class="CryptoAppV2.View.Home.AcceuilPage">
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal" Margin="10,0" VerticalOptions="CenterAndExpand"
+                     HorizontalOptions="FillAndExpand">
+            <Label Text="CryptoGraphie : " VerticalOptions="CenterAndExpand" TextColor="White" FontSize="16"/>
+            <Label Text="Accueil" VerticalOptions="CenterAndExpand"
+                   HorizontalTextAlignment="Center" TextColor="White" x:Name="MyHeader"
+                   HorizontalOptions="CenterAndExpand" FontSize="16"/>
+        </StackLayout>
+    </Shell.TitleView>
     <ContentPage.Resources>
         <ControlTemplate x:Key="MyCustomTabHeader">
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" WidthRequest="75" Margin="10">
@@ -17,17 +27,8 @@
         </ControlTemplate>
 
     </ContentPage.Resources>
-    <Grid RowDefinitions="30,*">
-
-        <Frame HasShadow="True" CornerRadius="80" HorizontalOptions="FillAndExpand" Margin="20,10,20,0" xct:ShadowEffect.Color="Black" 
-               xct:ShadowEffect.Radius="4"
-               xct:ShadowEffect.Opacity="0.7" Padding="0" >
-            <StackLayout HorizontalOptions="FillAndExpand" Margin="0" VerticalOptions="FillAndExpand">
-                <Label Text="Liste des différents cryptosystèmes" HorizontalTextAlignment="Center"
-                           Margin="0,0,0,5" VerticalTextAlignment="Center" x:Name="MyHeader" TextColor="Black" />
-            </StackLayout>
-        </Frame>
-        <xct:TabView HorizontalOptions="FillAndExpand" IsTabTransitionEnabled="True" Grid.Row="1"
+    <Grid RowDefinitions="*">
+        <xct:TabView HorizontalOptions="FillAndExpand" IsTabTransitionEnabled="True"
                      x:Name="MyTabView" TabStripPlacement="Top" VerticalOptions="FillAndExpand">
             <xct:TabViewItem Text="Accueil"  ControlTemplate="{StaticResource MyCustomTabHeader}"
                              Icon="accueil" x:Name="AccueilItem" >

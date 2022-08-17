@@ -3,6 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:CryptoAppV2.ViewModel"
              x:Class="CryptoAppV2.View.HistoriquePages.HistoriquePage">
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand"
+                     HorizontalOptions="StartAndExpand">
+            <Label Text="Historiques" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" 
+                   HorizontalTextAlignment="Center" TextColor="White" FontSize="18"/>
+        </StackLayout>
+    </Shell.TitleView>
     <ContentPage.Content>
         <Grid>
             <Grid.BindingContext>

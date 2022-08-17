@@ -5,6 +5,13 @@
              xmlns:local="clr-namespace:CryptoAppV2.Custom"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="CryptoAppV2.View.ModelePages.ModelesPage">
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand"
+                     HorizontalOptions="StartAndExpand">
+            <Label Text="Modèles" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" 
+                   HorizontalTextAlignment="Center" TextColor="White" FontSize="18"/>
+        </StackLayout>
+    </Shell.TitleView>
     <ContentPage.BindingContext>
         <db:UserModeleVm/>
     </ContentPage.BindingContext>

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoAppV2.Android", "Cryp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoAppV2.iOS", "CryptoAppV2\CryptoAppV2.iOS\CryptoAppV2.iOS.csproj", "{1EF11181-B733-4133-93C9-CCE0337BDD32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoAppV2", "CryptoAppV2\CryptoAppV2\CryptoAppV2.csproj", "{5130F9F3-0FBE-4077-8403-8A742F2D79B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoAppV2", "CryptoAppV2\CryptoAppV2\CryptoAppV2.csproj", "{5130F9F3-0FBE-4077-8403-8A742F2D79B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
