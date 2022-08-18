@@ -16,5 +16,7 @@ namespace CryptoAppV2.View.HistoriquePages
         {
             InitializeComponent();
         }
+
+       
     }
 }

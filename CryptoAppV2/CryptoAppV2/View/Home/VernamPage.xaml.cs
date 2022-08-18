@@ -1,5 +1,6 @@
 ﻿using CryptoAppV2.CrAlgorithme;
 using CryptoAppV2.Custom;
+using CryptoAppV2.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CryptoAppV2.View.Home
 {
@@ -174,6 +176,18 @@ namespace CryptoAppV2.View.Home
                             CodageResultCle.Text = CodageCleEntry.Text;
                             CodageResultTest.Text = CodageTextEntry.Text;
                             CodageResultSolution.Text = result;
+                            await App.UserHistoriqueManager.Add(new UserHistorique()
+                            {
+                                DateOperation = DateTime.Now,
+                                Libelle = "Codage de Vernam",
+                                Description = $"Codage de Vernam avec la clé = {CodageCleEntry.Text}",
+                                Data = CodageTextEntry.Text.TransformHistoriqueData(
+                                        "Vernam", "Codage",
+                                        new Dictionary<string, string>()
+                                            {
+                                                { "cle" , $"{CodageCleEntry.Text}" },
+                                            })
+                            });
 #pragma warning disable CS0618 // Le type ou le membre est obsolète
                             CodageResult.GestureRecognizers.Add(new TapGestureRecognizer(async (ord) => { await Clipboard.SetTextAsync(result).ContinueWith(async (ord1) => await this.DisplayToastAsync("Résultat du codage copié avec succès.", 3000)); })
                             { NumberOfTapsRequired = 2 });
@@ -211,6 +225,18 @@ namespace CryptoAppV2.View.Home
                             DecodageResult.GestureRecognizers.Add(new TapGestureRecognizer(async (ord) => { await Clipboard.SetTextAsync(result).ContinueWith(async (ord1) => await this.DisplayToastAsync("Résultat du décodage copié avec succès.", 3000)); })
                             { NumberOfTapsRequired = 2 });
 #pragma warning restore CS0618 // Le type ou le membre est obsolète
+                            await App.UserHistoriqueManager.Add(new UserHistorique()
+                            {
+                                DateOperation = DateTime.Now,
+                                Libelle = "Décodage de Vernam",
+                                Description = $"Décodage de Vernam avec la clé = {DecodageCleEntry.Text}",
+                                Data = DecodageTextEntry.Text.TransformHistoriqueData(
+                                       "Vernam", "Decodage",
+                                       new Dictionary<string, string>()
+                                           {
+                                                { "cle" , $"{DecodageCleEntry.Text}" },
+                                           })
+                            });
                             MyDecodageBoxView.WidthRequest = 10 * result.Length;
                             DecodageResultOperation.Text = "+";
                             DecodageResultCle.Text = DecodageCleEntry.Text;

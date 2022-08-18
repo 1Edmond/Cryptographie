@@ -258,7 +258,7 @@ namespace CryptoAppV2.View.Home
                                 DateOperation = DateTime.Now,
                                 Libelle = "Codage Affine",
                                 Description = $"Codage affine avec a = {int.Parse(CodageAEntry.Text)}, b = {int.Parse(CodageBEntry.Text)}, modèle = {tem.Nom}",
-                                Data = entry.TransformHistoriqueData(
+                                Data = entry.Text.TransformHistoriqueData(
                                     "Affine", "Codage",
                                     new Dictionary<string, string>()
                                         {
@@ -320,7 +320,7 @@ namespace CryptoAppV2.View.Home
                                 DateOperation = DateTime.Now,
                                 Libelle = "Décodage Affine",
                                 Description = $"Décodage affine avec a = {int.Parse(DecodageAEntry.Text)}, b = {int.Parse(DecodageBEntry.Text)}, modèle = {tem.Nom}",
-                                Data = entry.TransformHistoriqueData(
+                                Data = entry.Text.TransformHistoriqueData(
                                    "Affine", "Decodage",
                                    new Dictionary<string, string>()
                                        {

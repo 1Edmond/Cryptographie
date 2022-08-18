@@ -184,7 +184,7 @@
                                         </StackLayout>
                                     </StackLayout>
                                     <StackLayout  Spacing="0" HorizontalOptions="CenterAndExpand" WidthRequest="250">
-                                        <Label Text="Text à coder" Margin="0,0,0,5" HorizontalOptions="CenterAndExpand"  FontSize="18"/>
+                                        <Label Text="Text à décoder" Margin="0,0,0,5" HorizontalOptions="CenterAndExpand"  FontSize="18"/>
                                         <Frame CornerRadius="50" HeightRequest="50" xct:ShadowEffect.Color="Black"
                                                 xct:ShadowEffect.Opacity="0.3" Padding="0,0,0,-10" x:Name="DecodageTextFrame" >
                                             <Entry HeightRequest="0" Margin="16,-10,0,0" x:Name="DecodageTextEntry" FontSize="17"

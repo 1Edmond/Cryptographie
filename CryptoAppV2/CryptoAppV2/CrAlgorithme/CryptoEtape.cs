@@ -10,8 +10,8 @@ namespace CryptoAppV2.CrAlgorithme
 {
     public class CryptoEtape
     {
-        private CryptoFonction MesFonctions = new CryptoFonction();
-        private CryptoCode Crypto = new CryptoCode();
+        private readonly CryptoFonction MesFonctions = new CryptoFonction();
+        private readonly CryptoCode Crypto = new CryptoCode();
 
         public CryptoEtape()
         {
@@ -170,7 +170,7 @@ namespace CryptoAppV2.CrAlgorithme
                 });
                 result.Add(new Etape()
                 {
-                    Info = $"{correspondant} = {String.Join("", MesFonctions.SacADos(cle, correspondant)).Replace(",", " + ")} => {temp} en binaire "
+                    Info = $"{correspondant} = {String.Join("", MesFonctions.SacADos(cle, correspondant)).Replace(",", " + ")} => {temp} suivant la clé"
                 });
 
             });
@@ -460,10 +460,11 @@ namespace CryptoAppV2.CrAlgorithme
                 new Etape { Info = $"Le message codé est constituer de c1 et c2."},
             };
         } // A supprimer
-        public List<Etape> CodageDeHill(string message, string matrice, string n, string special = "x", string modele = "Modèle de base")
+        public List<Etape> CodageDeHill(string message, string matrice, string special = "x", string modele = "Modèle de base")
         {
             var NewMatrice = MesFonctions.TransformationEnMatrice(matrice);
             var userModele = App.UserModeleManager.GetByName(modele);
+            string n = $"{userModele.Valeur.Keys.Count}";
             var result = new List<Etape>()
             {
                 new Etape { Info = $"Le dégré de la matrice {matrice} est {NewMatrice.Keys.Count},"},
@@ -522,7 +523,7 @@ namespace CryptoAppV2.CrAlgorithme
 
             return result;
         }
-        public List<Etape> DecodageDeHill(string message, string matrice, string n, string special = "x", string modele = "Modèle de base")
+        public List<Etape> DecodageDeHill(string message, string matrice, string special = "x", string modele = "Modèle de base")
         {
             int compteur = 0;
             (string a, string b, string c, string d) = ("", "", "", "");
@@ -536,10 +537,11 @@ namespace CryptoAppV2.CrAlgorithme
                     (c, d) = (Ligne[0], Ligne[1]);
                 compteur++;
             }
+            var userModele = App.UserModeleManager.GetByName(modele);
             var det = int.Parse(MesFonctions.MatriceDeterminant(matrice));
-            var InverseDet = MesFonctions.InverseModulo(det, int.Parse(n));
+            var InverseDet = MesFonctions.InverseModulo(det, userModele.Valeur.Keys.Count);
             string MatriceInverse = $"{InverseDet * int.Parse(d)},{InverseDet * (-int.Parse(b))};{InverseDet * (-int.Parse(c))},{InverseDet * int.Parse(a)}";
-            var result = new List<Etape>(CodageDeHill(message, MatriceInverse, n, special, modele));
+            var result = new List<Etape>(CodageDeHill(message, MatriceInverse, special, modele));
             result.Insert(0, new Etape
             {
                 Info = $"Le déterminant de la matrice {matrice} est {MesFonctions.MatriceDeterminant(matrice)}."

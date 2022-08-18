@@ -178,11 +178,11 @@ namespace CryptoAppV2.View.Home
                 if (MyCodageCaroussel.Position > 0)
                     MyCodageCaroussel.Position--;
                 else
-                    MyCodageCaroussel.Position = 6;
+                    MyCodageCaroussel.Position = 8;
             };
             NextCodageCarousselBtn.Clicked += delegate
             {
-                if (MyCodageCaroussel.Position == 6)
+                if (MyCodageCaroussel.Position == 8)
                     MyCodageCaroussel.Position = 0;
                 else
                     MyCodageCaroussel.Position++;
@@ -192,11 +192,11 @@ namespace CryptoAppV2.View.Home
                 if (MyDecodageCaroussel.Position > 0)
                     MyDecodageCaroussel.Position--;
                 else
-                    MyDecodageCaroussel.Position = 6;
+                    MyDecodageCaroussel.Position = 8;
             };
             NextDecodageCarousselBtn.Clicked += delegate
             {
-                if (MyDecodageCaroussel.Position == 6)
+                if (MyDecodageCaroussel.Position == 8)
                     MyDecodageCaroussel.Position = 0;
                 else
                     MyDecodageCaroussel.Position++;
@@ -233,6 +233,21 @@ namespace CryptoAppV2.View.Home
                                                 var result = CryptoCode.CodageBinaireMerkleHellman(text, cle, n, m);
                                                 CodageResult.Text = "Le résultat du codage est " + result;
                                                 var temp = CryptoEtape.CodageMerkleHellman(text, cle, n, m);
+                                                await App.UserHistoriqueManager.Add(new UserHistorique()
+                                                {
+                                                    DateOperation = DateTime.Now,
+                                                    Libelle = "Codage de Merkle Hellman",
+                                                    Description = $"Codage de Merkle Hellman avec la clé = {cle}, n =                                       {n}, m = {m}",
+                                                    Data = text.TransformHistoriqueData(
+                                                     "Merkle Hellman", "Codage",
+                                                     new Dictionary<string, string>()
+                                                         {
+                                                                { "cle" , $"{cle}" },
+                                                                { "n" , $"{n}" },
+                                                                { "m" , $"{m}" },
+                                                         })
+                                                });
+
                                                 temp.ForEach(x =>
                                                 {
                                                     etapesCodage.Add(x);
@@ -332,6 +347,20 @@ namespace CryptoAppV2.View.Home
                                             {
                                                 etapesDecodage.Add(x);
                                             });
+                                            await App.UserHistoriqueManager.Add(new UserHistorique()
+                                            {
+                                                DateOperation = DateTime.Now,
+                                                Libelle = "Décodage de Merkle Hellman",
+                                                Description = $"Décodage de Merkle Hellman avec la clé = {cle}, n =                                       {n}, m = {m}",
+                                                Data = text.TransformHistoriqueData(
+                                                    "Merkle Hellman", "Decodage",
+                                                    new Dictionary<string, string>()
+                                                        {
+                                                                { "cle" , $"{cle}" },
+                                                                { "n" , $"{n}" },
+                                                                { "m" , $"{m}" },
+                                                        })
+                                            });
                                             decodageResult = result;
                                             await ActivateAndAnimeBtn(BtnDecodage, EtapeDecodageBtn);
                                         }
@@ -396,7 +425,7 @@ namespace CryptoAppV2.View.Home
             Timer timer = new Timer(10000) { AutoReset = true, Enabled = true };
             timer.Elapsed += (s, e) =>
             {
-                if (MyCodageCaroussel.Position == 6)
+                if (MyCodageCaroussel.Position == 7)
                     MyCodageCaroussel.Position = 0;
                 MyCodageCaroussel.Position++;
             };
@@ -406,7 +435,7 @@ namespace CryptoAppV2.View.Home
             Timer timer = new Timer(10000) { AutoReset = true, Enabled = true };
             timer.Elapsed += (s, e) =>
             {
-                if (MyDecodageCaroussel.Position == 6)
+                if (MyDecodageCaroussel.Position == 7)
                     MyDecodageCaroussel.Position = 0;
                 MyDecodageCaroussel.Position++;
             };

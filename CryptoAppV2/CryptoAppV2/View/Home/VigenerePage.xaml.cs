@@ -12,6 +12,7 @@ using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CryptoAppV2.View.Home
 {
@@ -145,6 +146,18 @@ namespace CryptoAppV2.View.Home
                             {
                                 codageEtapes.Add(x);
                             });
+                            await App.UserHistoriqueManager.Add(new UserHistorique()
+                            {
+                                DateOperation = DateTime.Now,
+                                Libelle = "Codage de Vigenère",
+                                Description = $"Codage de Vigenère avec la clé = {CodageCleEntry.Text}",
+                                Data = text.TransformHistoriqueData(
+                                      "Vigenere", "Codage",
+                                      new Dictionary<string, string>()
+                                          {
+                                                { "cle" , $"{CodageCleEntry.Text}" },
+                                          })
+                            });
                             await ActivateAndAnimeBtn(BtnCodage, EtapeCodageBtn);
 
                         }
@@ -190,6 +203,18 @@ namespace CryptoAppV2.View.Home
                             temp.ForEach(x =>
                             {
                                 decodageEtapes.Add(x);
+                            });
+                            await App.UserHistoriqueManager.Add(new UserHistorique()
+                            {
+                                DateOperation = DateTime.Now,
+                                Libelle = "Décodage de Vigenère",
+                                Description = $"Décodage de Vigenère avec la clé = {DecodageCleEntry.Text}",
+                                Data = DecodageTextEntry.Text.TransformHistoriqueData(
+                                      "Vigenere", "Decodage",
+                                      new Dictionary<string, string>()
+                                          {
+                                                { "cle" , $"{DecodageCleEntry.Text}" },
+                                          })
                             });
                             decodageResult = result;
                             await ActivateAndAnimeBtn(BtnDecodage, EtapeDecodageBtn);

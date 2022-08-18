@@ -193,6 +193,19 @@ namespace CryptoAppV2.View.Home
                                         decodageResult = result;
                                         DecodageResult.Text = "Le résultat du décodage est " + result;
                                         var temp = cryptoEtape.DecodageRSA(text, n, e);
+                                        await App.UserHistoriqueManager.Add(new UserHistorique()
+                                        {
+                                            DateOperation = DateTime.Now,
+                                            Libelle = "Décodage RSA",
+                                            Description = $"Décodage RSA avec n = {n}, e = {e}",
+                                            Data = text.TransformHistoriqueData(
+                                                    "RSA", "Decodage",
+                                                    new Dictionary<string, string>()
+                                                        {
+                                                            { "n" , $"{n}" },
+                                                            { "e" , $"{e}" },
+                                                        })
+                                        });
                                         temp.ForEach(x =>
                                         {
                                             etapesDecodage.Add(x);
@@ -273,6 +286,19 @@ namespace CryptoAppV2.View.Home
                                         temp.ForEach(x =>
                                         {
                                             etapesCodage.Add(x);
+                                        });
+                                        await App.UserHistoriqueManager.Add(new UserHistorique()
+                                        {
+                                            DateOperation = DateTime.Now,
+                                            Libelle = "Codage RSA",
+                                            Description = $"Codage RSA avec n = {n}, e = {e}",
+                                            Data = text.TransformHistoriqueData(
+                                                  "RSA", "Codage",
+                                                  new Dictionary<string, string>()
+                                                      {
+                                                            { "n" , $"{n}" },
+                                                            { "e" , $"{e}" },
+                                                      })
                                         });
                                         await ActivateAndAnimeBtn(BtnCodage, EtapeCodageBtn);
 

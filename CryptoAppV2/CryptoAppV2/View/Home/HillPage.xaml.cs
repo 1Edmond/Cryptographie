@@ -193,12 +193,26 @@ namespace CryptoAppV2.View.Home
                                 specialCaractere = "x";
                             string result = cryptoCode.DecodageHill(text, DecodageMatriceEntry.Text,  specialCaractere,tem.Nom);
                             decodageResult = result;
-                            var etapes = cryptoEtape.DecodageDeHill(text, DecodageMatriceEntry.Text, LaBase, specialCaractere,tem.Nom);
+                            var etapes = cryptoEtape.DecodageDeHill(text, DecodageMatriceEntry.Text, specialCaractere,tem.Nom);
                             etapesDecodage.Clear();
                             DecodageResult.Text = $"La solution du décodage est : {result}";
                             etapes.ForEach(x =>
                             {
                                 etapesDecodage.Add(x);
+                            });
+                            await App.UserHistoriqueManager.Add(new UserHistorique()
+                            {
+                                DateOperation = DateTime.Now,
+                                Libelle = "Décodage de Hill",
+                                Description = $"Décodage de Hill avec la matrice = {DecodageMatriceEntry.Text} modèle = {tem.Nom}",
+                                Data = text.TransformHistoriqueData(
+                                  "Hill", "Decodage",
+                                  new Dictionary<string, string>()
+                                      {
+                                            { "matrice" , $"{DecodageMatriceEntry.Text}" },
+                                            { "special" , $"{specialCaractere}" },
+                                            { "modele" , $"{tem.Nom}" },
+                                      })
                             });
                             await ActivateAndAnimeBtn(BtnDecodage, EtapeDecodageBtn);
                             DecodageResult.IsVisible = true;
@@ -284,12 +298,26 @@ namespace CryptoAppV2.View.Home
                             text = text.ToUpper();
                             string result = cryptoCode.CodageHill(text, CodageMatriceEntry.Text, specialCaractere,tem.Nom);
                             codageResult = result;
-                            var etapes = cryptoEtape.CodageDeHill(text, CodageMatriceEntry.Text, LaBase, specialCaractere,tem.Nom);
+                            var etapes = cryptoEtape.CodageDeHill(text, CodageMatriceEntry.Text, specialCaractere,tem.Nom);
                             etapesCodage.Clear();
                             CodageResult.Text = $"La solution du codage est : {result}";
                             etapes.ForEach(x =>
                             {
                                 etapesCodage.Add(x);
+                            });
+                            await App.UserHistoriqueManager.Add(new UserHistorique()
+                            {
+                                DateOperation = DateTime.Now,
+                                Libelle = "Codage de Hill",
+                                Description = $"Codage de Hill avec la matrice = {CodageMatriceEntry.Text} modèle = {tem.Nom}",
+                                Data = text.TransformHistoriqueData(
+                                 "Hill", "Codage",
+                                 new Dictionary<string, string>()
+                                     {
+                                            { "matrice" , $"{CodageMatriceEntry.Text}" },
+                                            { "special" , $"{specialCaractere}" },
+                                            { "modele" , $"{tem.Nom}" },
+                                     })
                             });
                             await ActivateAndAnimeBtn(BtnCodage, EtapeCodageBtn);
                             CodageResult.IsVisible = true;

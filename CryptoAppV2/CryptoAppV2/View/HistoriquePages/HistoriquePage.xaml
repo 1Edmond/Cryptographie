@@ -61,38 +61,70 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
-            <CollectionView ItemsSource="{Binding Historiques}" SelectionChangedCommand="{Binding OnHistoriqueSelected}"
-                            SelectionChangedCommandParameter="{Binding SelectedItem, Source={x:Reference MyCollection}}"
+            <CollectionView ItemsSource="{Binding Historiques}"
                             Margin="10,10,10,0" HorizontalOptions="FillAndExpand" BackgroundColor="White"
-                            SelectionMode="Single" x:Name="MyCollection" >
+                            SelectionMode="None" x:Name="MyCollection" >
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical" ItemSpacing="20" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame HasShadow="True" BackgroundColor="#F1F1F1" Padding="0" x:Name="Myframe" HeightRequest="115"
+                        <SwipeView BackgroundColor="#F1F1F1" xct:CornerRadiusEffect.CornerRadius="70">
+                            <SwipeView.LeftItems>
+                                <SwipeItems Mode="Execute">
+                                    <SwipeItemView Command="{Binding Path=BindingContext.OnHistoriqueDetailsSwipe,
+                                        Source={x:Reference Name=MyCollection}}" CommandParameter="{Binding .}">
+                                        <StackLayout Margin="10"
+                                                     VerticalOptions="CenterAndExpand"
+                                                     HorizontalOptions="StartAndExpand">
+                                            <Label Text="Détails"
+                                                   FontAttributes="Bold"
+                                                   VerticalOptions="CenterAndExpand"
+                                                   HorizontalOptions="Start" />
+                                        </StackLayout>
+                                    </SwipeItemView>
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+                            <SwipeView.RightItems>
+                                <SwipeItems Mode="Execute">
+                                    <SwipeItemView Command="{Binding Path=BindingContext.OnHistoriqueDeleteSwipe,
+                                        Source={x:Reference Name=MyCollection}}" CommandParameter="{Binding .}">
+                                        <StackLayout Margin="10"
+                                                     VerticalOptions="CenterAndExpand"
+                                                     HorizontalOptions="StartAndExpand">
+                                            <Label Text="Supprimer"
+                                                   FontAttributes="Bold"
+                                                   TextColor="#B72355"
+                                                   VerticalOptions="CenterAndExpand"
+                                                   HorizontalOptions="Start" />
+                                        </StackLayout>
+                                    </SwipeItemView>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Frame HasShadow="True" BackgroundColor="#F1F1F1" Padding="0" x:Name="Myframe" HeightRequest="115"
                                CornerRadius="70">
-                            <Grid RowDefinitions="*,*" Margin="20,20,20,0"
+                                <Grid RowDefinitions="*,*" Margin="20,20,20,0"
                                   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                                <StackLayout Orientation="Horizontal">
-                                    <StackLayout
+                                    <StackLayout Orientation="Horizontal">
+                                        <StackLayout
                                                  HorizontalOptions="StartAndExpand">
-                                        <Label Text="Date de l'opération" FontSize="16" />
-                                        <Label Text="{Binding DateOperation}" FontAttributes="Bold" />
+                                            <Label Text="Date de l'opération" FontSize="16" />
+                                            <Label Text="{Binding DateOperation}" FontAttributes="Bold" />
+                                        </StackLayout>
+                                        <StackLayout HorizontalOptions="EndAndExpand">
+                                            <Label Text="Libelle" HorizontalOptions="CenterAndExpand" FontSize="16" />
+                                            <Label Text="{Binding Libelle}" FontAttributes="Bold" />
+                                        </StackLayout>
                                     </StackLayout>
-                                    <StackLayout HorizontalOptions="EndAndExpand">
-                                        <Label Text="Libelle" HorizontalOptions="CenterAndExpand" FontSize="16" />
-                                        <Label Text="{Binding Libelle}" FontAttributes="Bold" />
-                                    </StackLayout>
-                                </StackLayout>
-                                <StackLayout Grid.Row="1" Orientation="Horizontal">
-                                    <Label Text="Description" />
-                                    <Label Text="{Binding Description}" FontAttributes="Bold"
+                                    <StackLayout Grid.Row="1" Orientation="Horizontal">
+                                        <Label Text="Description" />
+                                        <Label Text="{Binding Description}" FontAttributes="Bold"
                                            HorizontalTextAlignment="Center"
                                            HorizontalOptions="CenterAndExpand" />
-                                </StackLayout>
-                            </Grid>
-                        </Frame>
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+                        </SwipeView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

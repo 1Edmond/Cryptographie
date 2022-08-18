@@ -7,13 +7,15 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 
 namespace CryptoAppV2.ViewModel
 {
     [QueryProperty(nameof(HistoriqueLibelle), nameof(HistoriqueLibelle))]
-    public class UserHistoriqueVm
+    public class UserHistoriqueVm : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         public ObservableCollection<UserHistorique> Historiques { get; private set; }
 
         public UserHistoriqueManager manager = App.UserHistoriqueManager;
@@ -26,8 +28,7 @@ namespace CryptoAppV2.ViewModel
         public UserHistoriqueVm()
         {
             manager = new UserHistoriqueManager(App.database);
-            var dos = manager.GetAll();
-            OnHistoriqueSelected = new Command(async (ord) =>
+            OnHistoriqueDetailsSwipe = new Command(async (ord) =>
             {
                 if (ord == null)
                     return;
@@ -35,10 +36,34 @@ namespace CryptoAppV2.ViewModel
                 var url = $"{nameof(HistoriqueDetailsPage)}?HistoriqueId={userHistorique.Id}";
                 await Shell.Current.GoToAsync(url);
             });
+            OnHistoriqueDeleteSwipe = new Command(async (ord) =>
+            {
+                if (ord == null)
+                    return;
+                UserHistorique userHistorique = ord as UserHistorique;
+               await manager.Delete(userHistorique);
+                var doss = manager.GetAll();
+                Historiques = new ObservableCollection<UserHistorique>(doss);
+                OnPropertyChanged(nameof(Historiques));
+               await Shell.Current.DisplayToastAsync("Suppression de l'historique réussie.");
+            });
+            var dos = manager.GetAll();
             Historiques = new ObservableCollection<UserHistorique>(dos);
         }
 
-        public ICommand OnHistoriqueSelected { get; set; }
+        protected void OnPropertyChanged(string propertyName)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            else
+                return;
+        }
+
+
+        public ICommand OnHistoriqueDetailsSwipe { get; set; }
+        
+        public ICommand OnHistoriqueDeleteSwipe { get; set; }
 
 
     }
