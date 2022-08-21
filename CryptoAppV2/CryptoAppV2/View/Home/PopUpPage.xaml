@@ -4,6 +4,7 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
                    HorizontalOptions="CenterAndExpand"
              Size="300,550"
+           xmlns:vm="clr-namespace:CryptoAppV2.ViewModel"
              VerticalOptions="CenterAndExpand"
              x:Class="CryptoAppV2.View.Home.PopUpPage">
 
@@ -265,9 +266,13 @@
                                                x:Name="ChiffrementBaseFrame"
                                                xct:ShadowEffect.Color="Black"
                                                xct:ShadowEffect.Opacity="0.3" Padding="0,0,0,-10" >
-                                <Entry HeightRequest="0" Margin="16,-10,0,0"  FontSize="17" x:Name="ChiffrementBaseEntry"
-                                                   Keyboard="Numeric" ClearButtonVisibility="WhileEditing" HorizontalTextAlignment="Center"
-                                                   TextColor="Black"/>
+                                <Picker ItemsSource="{Binding Modeles}" SelectedItem="{Binding SelectedItem}" Title="Liste de vos modèles" 
+                                                        x:Name="ChiffrementBaseEntry" HorizontalOptions="FillAndExpand"
+                                                     ItemDisplayBinding="{Binding Nom}"  >
+                                    <Picker.BindingContext>
+                                        <vm:UserModeleVm/>
+                                    </Picker.BindingContext>
+                                </Picker>
                             </Frame>
                         </StackLayout>
                     </StackLayout>

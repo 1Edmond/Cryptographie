@@ -66,5 +66,8 @@ namespace CryptoAppV2.Data
                 return null;
             return await Connection.Table<UserHistorique>().Where(x => x.Libelle == his).FirstAsync();
         }
+
+        public async Task<int> Count() => await Task.FromResult(Connection.Table<UserHistorique>().CountAsync().Result);
+       
     }
 }

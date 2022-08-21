@@ -2,6 +2,7 @@
 using CryptoAppV2.View;
 using CryptoAppV2.View.Home;
 using CryptoAppV2.View.ModelePages;
+using CryptoAppV2.View.SettingsPages;
 using System;
 using System.IO;
 using Xamarin.Forms;
@@ -53,7 +54,7 @@ namespace CryptoAppV2
             InitializeComponent();
             UserHistoriqueManager = new UserHistoriqueManager(database);
             UserModeleManager = new UserModeleManager(database);
-            var navigationPage = new ShellPage();
+            var navigationPage = new ProfilPage();
             MainPage = navigationPage;
         }
 

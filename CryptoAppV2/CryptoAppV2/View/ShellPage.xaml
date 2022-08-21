@@ -6,24 +6,31 @@
              xmlns:shared="clr-namespace:CryptoAppV2.View.Shared"
              xmlns:hiso="clr-namespace:CryptoAppV2.View.HistoriquePages"
              xmlns:home="clr-namespace:CryptoAppV2"
+             Shell.ForegroundColor="White"
              x:Class="CryptoAppV2.View.ShellPage">
-  
+   
     <Shell.FlyoutHeader>
         <Grid HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand">
             <Grid Margin="0,0,0,50">
                 <shared:ShellHeader HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="20"/>
             </Grid>
-            <Label Margin="0,0,0,20" FontSize="22" Text="Bonjour" VerticalOptions="EndAndExpand" HorizontalTextAlignment="Center" />
+            <Label Margin="0,0,0,20" FontSize="22" Text="Pseudo"
+                   FontAttributes="Bold" TextColor="Black"
+                   VerticalOptions="EndAndExpand" HorizontalTextAlignment="Center" />
         </Grid>
     </Shell.FlyoutHeader>
-    <ShellContent Title="Acceuil" Icon="accueil" ContentTemplate="{DataTemplate home:MainPage}" />
-    <MenuItem Text="Cryptographie" IconImageSource="cryptography" x:Name="CryptographieItem" />
-    <MenuItem Text="Modeles" IconImageSource="abc" x:Name="ModelesItem" />
-    <MenuItem Text="Historiques" IconImageSource="refresh" x:Name="HistoriquesItem" />
-    <MenuItem Text="Paramètres" IconImageSource="setting" x:Name="ParametreItem"/>
+    <ShellContent Title="Acceuil" Icon="home" ContentTemplate="{DataTemplate home:MainPage}"/>
+    <MenuItem Text="Cryptographie" IconImageSource="encode" x:Name="CryptographieItem"/>
+    <MenuItem Text="Modeles" IconImageSource="model" x:Name="ModelesItem"/>
+    <MenuItem Text="Historiques" IconImageSource="history" x:Name="HistoriquesItem" />
+    <MenuItem Text="Paramètres" IconImageSource="settings" x:Name="ParametreItem"/>
     <Shell.FlyoutFooter>
-        <Grid Margin="0,0,0,40" HorizontalOptions="CenterAndExpand" HeightRequest="100">
-            <Label Text="Wicode" HorizontalTextAlignment="Center" FontSize="22" FontAttributes="Italic" />
+        <Grid Margin="0,0,0,40" HorizontalOptions="CenterAndExpand" HeightRequest="170">
+            <Button Text="Se déconnecter" TextColor="White"
+                            FontSize="18" x:Name="LogOut" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" Margin="0,0,0,20"
+                            BackgroundColor="#268ce0" TextTransform="None" CornerRadius="40"/>
+            <Label Text="Wicode" Margin="0,70,0,0" TextColor="#268ce0" VerticalOptions="CenterAndExpand"
+                   HorizontalTextAlignment="Center" FontSize="22" FontAttributes="Italic,Bold" />
         </Grid>
     </Shell.FlyoutFooter>
 </Shell>

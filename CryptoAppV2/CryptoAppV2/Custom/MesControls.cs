@@ -60,6 +60,18 @@ namespace CryptoAppV2.Custom
             };
 
         }
+        public static void MyEntryFocusPicker(this Picker entry, Frame frame)
+        {
+            entry.Focused += delegate
+            {
+                frame.BorderColor = Color.FromHex("#178FEB");
+            };
+            entry.Unfocused += delegate
+            {
+                frame.BorderColor = Color.White;
+            };
+
+        }
         public static int ProduitRSaList(this List<string> maLise)
         {
             int produit = 1;

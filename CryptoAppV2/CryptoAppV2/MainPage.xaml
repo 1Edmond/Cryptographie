@@ -4,22 +4,45 @@
              xmlns:controls="clr-namespace:CryptoAppV2.View.Shared"
              x:Class="CryptoAppV2.MainPage">
 
-    <StackLayout>
+    <StackLayout BackgroundColor="White">
+        <StackLayout.Resources>
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{AppThemeBinding Dark=Gray, Light=Gray}" />
+            </Style>
+            <Style TargetType="BoxView">
+                <Setter  Property="Color" Value="#333535"/>
+            </Style>
+        </StackLayout.Resources>
         <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
-            <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+            <Label Text="Cryptographie" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
         </Frame>
-        <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-        <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0"/>
-        <Label FontSize="16" Padding="30,24,30,0">
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span Text="Learn more at "/>
-                        <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
+        <Label Text="Présentation de l'application" FontSize="Title" Padding="30,10,30,10"/>
+        <Label HorizontalTextAlignment="Start"
+            Text="Il s'agit d'une petite application ayant pour but d'aider les étudiants d'IAI à mieux comprendre le cours et les exercices du cours de Cryptogaphie de la deuxième année." 
+               FontSize="16" Padding="30,0"/>
+        <StackLayout Margin="30">
+            <Label Text="Fonctionnalités de l'application" FontSize="Title"  />
+            <StackLayout Orientation="Horizontal" >
+                <BoxView WidthRequest="10" CornerRadius="180" HeightRequest="10" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" />
+                <Label Text="L'aplication présente certains chapitres vus au cours de cryptographie plus certaines fonctions de résolution de problèmes courantes du cours." 
+                       FontSize="16" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" >
+                <BoxView  WidthRequest="10" CornerRadius="180" HeightRequest="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
+                <Label Text="L'aplication fournit des étapes ou des informations sur chaque opérations qui lui demandé de réaliser." 
+                       FontSize="16" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" >
+                <BoxView WidthRequest="10" CornerRadius="180" HeightRequest="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
+                <Label Text="Vous pouvez ajouter vos propres caractères pour certaines opérations et ainsi constituer votre propre base de caractères." 
+                       FontSize="16" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" >
+                <BoxView WidthRequest="10" CornerRadius="180" HeightRequest="10" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
+                <Label Text="Un historique de vos opérations vous est généré, vous pouvez les supprimer ou avoir un détails sur l'opération que vous aviez faites. Défilez à droite un historique pour voir les détails de l'opération et à gauche pour le supprimer." 
+                       FontSize="16" />
+            </StackLayout>
+        </StackLayout>
     </StackLayout>
 
 </ContentPage>

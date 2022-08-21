@@ -69,7 +69,7 @@
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <SwipeView BackgroundColor="#F1F1F1" xct:CornerRadiusEffect.CornerRadius="70">
+                        <SwipeView BackgroundColor="#F1F1F1" xct:CornerRadiusEffect.CornerRadius="30">
                             <SwipeView.LeftItems>
                                 <SwipeItems Mode="Execute">
                                     <SwipeItemView Command="{Binding Path=BindingContext.OnHistoriqueDetailsSwipe,
@@ -102,7 +102,7 @@
                                 </SwipeItems>
                             </SwipeView.RightItems>
                             <Frame HasShadow="True" BackgroundColor="#F1F1F1" Padding="0" x:Name="Myframe" HeightRequest="115"
-                               CornerRadius="70">
+                               CornerRadius="30">
                                 <Grid RowDefinitions="*,*" Margin="20,20,20,0"
                                   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                                     <StackLayout Orientation="Horizontal">

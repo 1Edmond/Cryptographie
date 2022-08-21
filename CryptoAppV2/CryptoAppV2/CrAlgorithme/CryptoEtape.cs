@@ -4,6 +4,7 @@ using CryptoAppV2.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace CryptoAppV2.CrAlgorithme
@@ -291,9 +292,9 @@ namespace CryptoAppV2.CrAlgorithme
             var sol = MesFonctions.RSASignature(message, n, e);
             var result = new List<Etape>()
             {
-                new Etape { Info = $"La clé privé est {d}."},
+                new Etape { Info = $"La clé privée est {d}."},
                 new Etape { Info = $"La formule est sig(m) = m ˆ d % n,"},
-                new Etape { Info = $"avec d la clé privé."},
+                new Etape { Info = $"avec d la clé privée."},
                 new Etape { Info = $"Ce qui donne sig({message}) = {message} ˆ {d} % {n}."},
                 new Etape { Info = $"sig({message}) = {sol}."},
             };
@@ -337,7 +338,7 @@ namespace CryptoAppV2.CrAlgorithme
                 var ligne2 = matrice.Split(';')[1];
                 result.Add(new Etape { Info = $"La matrice saisie est : \n{String.Join(" ", ligne1.Split(','))}\n{String.Join(" ", ligne2.Split(','))}" });
                 result.Add(new Etape { Info = $"Le déterminant est obtenu en faisant {a} x {d} - {b} x {c}," });
-                result.Add(new Etape { Info = $"nous avons ainsi {int.Parse(a) * int.Parse(d)} - {int.Parse(d) * int.Parse(c)}" });
+                result.Add(new Etape { Info = $"nous avons ainsi {int.Parse(a) * int.Parse(d)} - {int.Parse(b) * int.Parse(c)}" });
             }
             else
             {
@@ -558,6 +559,20 @@ namespace CryptoAppV2.CrAlgorithme
             return result;
         }
 
-
+        public List<Etape> ChiffrementModele(string text, string nom)
+        {
+            var result = new List<Etape>();
+            var modele = App.UserModeleManager.GetByName(nom);
+            for (int i = 0; i < text.Length; i++)
+                if (i != text.Length - 1)
+                    result.Add( new Etape() { Info = $"{text[i]} => {modele.Valeur.Getkey(text[i])}," });
+                else
+                    result.Add( new Etape() { Info = $"{text[i]} => {modele.Valeur.Getkey(text[i])}" });
+            result.Insert(0, new Etape()
+            {
+                Info = $"Le modèle choisi est {modele.Nom}, sa base est {modele.NbrElement}"
+            });
+            return result;
+        }
     }
 }

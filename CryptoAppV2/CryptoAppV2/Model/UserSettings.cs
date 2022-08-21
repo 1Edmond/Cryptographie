@@ -56,7 +56,10 @@ namespace CryptoAppV2.Model
             get 
             {
                 if (!Application.Current.Properties.ContainsKey(Name))
-                    return "";
+                {
+                    Application.Current.Properties.Add(Name, "");
+                    Application.Current.SavePropertiesAsync();
+                }
                 return (string)Application.Current.Properties[Name];
             } 
             set
@@ -75,7 +78,10 @@ namespace CryptoAppV2.Model
             get 
             {
                 if (!Application.Current.Properties.ContainsKey(Password))
-                    return "";
+                {
+                    Application.Current.Properties.Add(Password, "");
+                    Application.Current.SavePropertiesAsync();
+                }
                 return (string)Application.Current.Properties[Password];
             } 
             set
@@ -94,7 +100,10 @@ namespace CryptoAppV2.Model
             get 
             {
                 if (!Application.Current.Properties.ContainsKey(Contact))
-                    return "";
+                {
+                    Application.Current.Properties.Add(Contact, "");
+                    Application.Current.SavePropertiesAsync();
+                }
                 return (string)Application.Current.Properties[Contact];
             } 
             set
@@ -113,7 +122,10 @@ namespace CryptoAppV2.Model
             get 
             {
                 if (!Application.Current.Properties.ContainsKey(Pseudo))
-                    return "";
+                {
+                    Application.Current.Properties.Add(Pseudo, "");
+                    Application.Current.SavePropertiesAsync();
+                }
                 return (string)Application.Current.Properties[Pseudo];
             } 
             set

@@ -287,7 +287,17 @@ namespace CryptoAppV2.CrAlgorithme
             return InverseDet < 0 ? "" : MatriceInverse;
         }
 
-
-
+         public string ChiffrementModele(string text, string nom)
+        {
+            var modele = App.UserModeleManager.GetByName(nom);
+            var result = "";
+            for (int i = 0; i < text.Length; i++)
+            
+                if(i  != text.Length -1)
+                    result += $"{modele.Valeur.Getkey(text[i])},";
+                else
+                    result += $"{modele.Valeur.Getkey(text[i])}";
+            return result;
+        }
     }
 }

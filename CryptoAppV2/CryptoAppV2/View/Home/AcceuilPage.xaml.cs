@@ -31,12 +31,10 @@ namespace CryptoAppV2.View.Home
             {
                 if (AccueilItem.IsSelected)
                     MyHeader.Text = "Les différents cryptosystèmes";
-                else if (FonctionItem.IsSelected)
-                    MyHeader.Text = "Les différentes fonctions";
                 else
-                    MyHeader.Text = "Paramètre";
+                    MyHeader.Text = "Les différentes fonctions";
             };
-            if (Application.Current.Properties.ContainsKey(Session))
+           /* if (Application.Current.Properties.ContainsKey(Session))
             {
                 string session = (string)Application.Current.Properties[Session];
                 if (session == "Oui")
@@ -89,7 +87,6 @@ namespace CryptoAppV2.View.Home
             }
             );
 
-
             if (Application.Current.Properties.ContainsKey(Password))
             {
                 if (!Application.Current.Properties[Password].ToString().Equals("none"))
@@ -100,7 +97,7 @@ namespace CryptoAppV2.View.Home
 
             if (OnBackButtonPressed())
                 Environment.Exit(0);
-
+            
             #region Paramètre
             SessionOui.CheckedChanged += async delegate
             {
@@ -148,7 +145,7 @@ namespace CryptoAppV2.View.Home
             });
             #endregion
 
-
+*/
             #region Fonction
 
             #region My carousel action
@@ -190,7 +187,7 @@ namespace CryptoAppV2.View.Home
                 Application.Current.Properties[Password] = "none";
                 await Application.Current.SavePropertiesAsync();
                 await this.DisplayToastAsync("Mot de passe modifié avec succès", 5000);
-                ChangePassWord.IsVisible = false;
+                //ChangePassWord.IsVisible = false;
             }
 
 

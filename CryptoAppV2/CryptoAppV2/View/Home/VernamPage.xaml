@@ -33,10 +33,10 @@
                 <xct:TabView HorizontalOptions="FillAndExpand" IsTabTransitionEnabled="True" Grid.Row="1"
                                  x:Name="MyTabView" TabStripPlacement="Top" VerticalOptions="FillAndExpand">
                     <xct:TabViewItem ControlTemplate="{StaticResource MyCustomTabHeader}" Text="Codage" x:Name="CodageItem" Icon="fermer">
-                        <Grid RowDefinitions="2*,*,100">
+                        <Grid RowDefinitions="2.5*,*,100">
                             <StackLayout>
                                 <Frame Padding="10,10" CornerRadius="30" BackgroundColor="#178FEB" xct:ShadowEffect.Color="Black"
-                                       HeightRequest="100"
+                                       HeightRequest="120"
                                        xct:ShadowEffect.Opacity="1" Margin="10,10,10,0" >
                                     <StackLayout Margin="0" BackgroundColor="#178FEB" HeightRequest="80" HorizontalOptions="FillAndExpand">
                                         <StackLayout Orientation="Horizontal" Margin="20,0">
@@ -70,7 +70,7 @@
                                         <Frame CornerRadius="50" HeightRequest="50" xct:ShadowEffect.Color="Black"
                                                  xct:ShadowEffect.Opacity="0.3" Padding="0,0,0,-10" x:Name="CodageCleFrame" >
                                             <Entry HeightRequest="0" Margin="16,-10,0,0" x:Name="CodageCleEntry" FontSize="17"
-                                                    Keyboard="Text" TextColor="Black" ClearButtonVisibility="WhileEditing" />
+                                                    Keyboard="Text" Placeholder="Saisissez la clé de codage" TextColor="Black" ClearButtonVisibility="WhileEditing" />
                                         </Frame>
                                     </StackLayout>
                                     <StackLayout  Spacing="0" HorizontalOptions="CenterAndExpand" WidthRequest="250">
@@ -78,7 +78,7 @@
                                         <Frame CornerRadius="50" HeightRequest="50" xct:ShadowEffect.Color="Black"
                                                 xct:ShadowEffect.Opacity="0.3" Padding="0,0,0,-10" x:Name="CodageTextFrame" >
                                             <Entry HeightRequest="0" Margin="16,-10,0,0" x:Name="CodageTextEntry" FontSize="17"
-                                                    Keyboard="Text" TextColor="Black" ClearButtonVisibility="WhileEditing" />
+                                                    Keyboard="Text" Placeholder="Saisissez le texte à coder" TextColor="Black" ClearButtonVisibility="WhileEditing" />
                                         </Frame>
                                     </StackLayout>
 
@@ -100,9 +100,9 @@
                     </xct:TabViewItem>
 
                     <xct:TabViewItem ControlTemplate="{StaticResource MyCustomTabHeader}" Text="Décodage" x:Name="DecodageItem" Icon="debloque">
-                        <Grid RowDefinitions="2*,*,100">
+                        <Grid RowDefinitions="2.5*,*,100">
                             <StackLayout>
-                                <Frame Padding="10,10" CornerRadius="30" HeightRequest="100" BackgroundColor="#178FEB" xct:ShadowEffect.Color="Black" xct:ShadowEffect.Opacity="1" Margin="10,10,10,0" >
+                                <Frame Padding="10,10" CornerRadius="30" HeightRequest="120" BackgroundColor="#178FEB" xct:ShadowEffect.Color="Black" xct:ShadowEffect.Opacity="1" Margin="10,10,10,0" >
                                     <StackLayout Margin="0" BackgroundColor="#178FEB" HeightRequest="80" HorizontalOptions="FillAndExpand">
                                         <StackLayout Orientation="Horizontal" Margin="20,0">
                                             <ImageButton Source="{FontImage FontFamily=MesFonts,Color=White, Glyph={x:Static local:MesIcons.ArrowLeft}}" x:Name="BackDecodageCarousselBtn" VerticalOptions="CenterAndExpand" BackgroundColor="Transparent">
@@ -135,15 +135,15 @@
                                         <Frame CornerRadius="50" HeightRequest="50" xct:ShadowEffect.Color="Black"
                                                  xct:ShadowEffect.Opacity="0.3" Padding="0,0,0,-10" x:Name="DecodageCleFrame" >
                                             <Entry HeightRequest="0" Margin="16,-10,0,0" x:Name="DecodageCleEntry" FontSize="17"
-                                                    Keyboard="Text" TextColor="Black" ClearButtonVisibility="WhileEditing" />
+                                                    Keyboard="Text" Placeholder="Saisissez la clé de décodage" TextColor="Black" ClearButtonVisibility="WhileEditing" />
                                         </Frame>
                                     </StackLayout>
                                     <StackLayout  Spacing="0" HorizontalOptions="CenterAndExpand" WidthRequest="250">
-                                        <Label Text="Text à coder" Margin="20,0,0,5"  FontSize="18"/>
+                                        <Label Text="Text à décoder" Margin="20,0,0,5"  FontSize="18"/>
                                         <Frame CornerRadius="50" HeightRequest="50" xct:ShadowEffect.Color="Black"
                                                 xct:ShadowEffect.Opacity="0.3" Padding="0,0,0,-10" x:Name="DecodageTextFrame" >
                                             <Entry HeightRequest="0" Margin="16,-10,0,0" x:Name="DecodageTextEntry" FontSize="17"
-                                                    Keyboard="Text" TextColor="Black" ClearButtonVisibility="WhileEditing" />
+                                                    Keyboard="Text" Placeholder="Saisissez le texte à décoder" TextColor="Black" ClearButtonVisibility="WhileEditing" />
                                         </Frame>
                                     </StackLayout>
 

@@ -88,5 +88,7 @@ namespace CryptoAppV2.Data
                 };
             return  list.Result;
         }
+
+        public async Task<int> Count() => await Task.FromResult(Connection.Table<UserModele>().CountAsync().Result);
     }
 }

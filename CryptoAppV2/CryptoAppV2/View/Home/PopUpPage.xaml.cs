@@ -138,21 +138,11 @@ namespace CryptoAppV2.View.Home
                 case "Chhiffrement":
                     {
                         Chiffrement.IsVisible = true;
-                        MesControls.MyEntryFocus(ChiffrementBaseEntry, ChiffrementBaseFrame);
+                        MesControls.MyEntryFocusPicker(ChiffrementBaseEntry, ChiffrementBaseFrame);
                         MesControls.MyEntryFocus(ChiffrementCaractereEntry, ChiffrementCaractereFrame);
-                        ChiffrementBaseEntry.Completed += async delegate
-                        {
-                            if (String.IsNullOrEmpty(ChiffrementCaractereEntry.Text))
-                                ChiffrementCaractereEntry.Focus();
-                            else
-                                await ChiffrementField();
-                        };
                         ChiffrementCaractereEntry.Completed += async delegate
                         {
-                            if (String.IsNullOrEmpty(ChiffrementBaseEntry.Text))
-                                ChiffrementBaseEntry.Focus();
-                            else
-                                await ChiffrementField();
+                            await ChiffrementField();
                         };
                         Valider.Clicked += async delegate
                         {
@@ -185,7 +175,7 @@ namespace CryptoAppV2.View.Home
                         };
                     }
                     break;
-                case "Clé privée (RSA)":
+                case "Clé publique (RSA)":
                     {
 
                         RSAPrive.IsVisible = true;
@@ -213,7 +203,7 @@ namespace CryptoAppV2.View.Home
 
                     }
                     break;
-                case "Clé privée (Merkle-Hellman)":
+                case "Clé publique (Merkle-Hellman)":
                     {
                         MerklePrive.IsVisible = true;
                         MesControls.MyEntryFocus(MerklePriveMEntry, MerklePriveMFrame);
@@ -751,36 +741,41 @@ namespace CryptoAppV2.View.Home
         {
             try
             {
-                if (!String.IsNullOrEmpty(ChiffrementBaseEntry.Text) && !String.IsNullOrEmpty(ChiffrementCaractereEntry.Text))
+                var selection = ChiffrementBaseEntry.SelectedItem as UserModele;
+                if (selection != null && !String.IsNullOrEmpty(ChiffrementCaractereEntry.Text))
                 {
-                    var text = ChiffrementCaractereEntry.Text;
-                    if (text.IsOnlyAphabet())
-                    {
-                        var nbr = int.Parse(ChiffrementBaseEntry.Text.SubstringInteger());
-                        if (nbr <= 0) nbr *= -1;
-                        ChiffrementStack.IsVisible = true;
-                        var result = Fonction.Chiffrement(text, nbr);
-                        ChiffrementResult.Text = $"Le chiffrement de {text} donne {String.Join(", ", result)}";
-                        var etapes = Etapes.Chiffrement(text, nbr);
-                        ChiffrementEtape.BindingContext = this;
-                        ChiffrementEtape.ItemsSource = etapes;
-                        ChiffrementListeResult.Text = $"La solution est donc {String.Join(", ", result)}.";
-                        ChiffrementEtape.ScrollTo(etapes.Last(), ScrollToPosition.End, true);
-                        await Task.Delay(2000);
-                        ChiffrementEtape.ScrollTo(etapes.First(), ScrollToPosition.MakeVisible | ScrollToPosition.Start, true);
-                        await Task.Delay(2000);
-                        ChiffrementResult.GestureRecognizers.Add(new TapGestureRecognizer()
+                    var modele = App.UserModeleManager.GetByName(selection.Nom);
+                    var text = ChiffrementCaractereEntry.Text.ToUpper();
+                        if (text.IsInModele(modele.Nom))
                         {
-                            NumberOfTapsRequired = 2,
-                            Command = new Command(async () =>
+                            var nbr = modele.NbrElement;
+                            if (nbr <= 0) nbr *= -1;
+                            ChiffrementStack.IsVisible = true;
+                            var result = Fonction.ChiffrementModele(text, modele.Nom);
+                            ChiffrementResult.Text = $"Le chiffrement de {text} donne {String.Join(", ", result)}";
+                            var etapes = Etapes.ChiffrementModele(text, modele.Nom);
+                            ChiffrementEtape.BindingContext = this;
+                            ChiffrementEtape.ItemsSource = etapes;
+                            ChiffrementListeResult.Text = $"La solution est donc {String.Join(", ", result)}.";
+                            ChiffrementEtape.ScrollTo(etapes.Last(), ScrollToPosition.End, true);
+                            await Task.Delay(2000);
+                            ChiffrementEtape.ScrollTo(etapes.First(), ScrollToPosition.MakeVisible | ScrollToPosition.Start, true);
+                            await Task.Delay(2000);
+                            ChiffrementResult.GestureRecognizers.Add(new TapGestureRecognizer()
                             {
-                                await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith(async (ord) =>
-                                  await BtnFrame.DisplayToastAsync("Résultat copié avec succès.", 3000));
-                            })
-                        });
-                    }
-                    else
-                        await BtnFrame.DisplayToastAsync("L'on ne peut chiffrer que des caractères.", 3000);
+                                NumberOfTapsRequired = 2,
+                                Command = new Command(async () =>
+                                {
+                                    await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith(async (ord) =>
+                                      await BtnFrame.DisplayToastAsync("Résultat copié avec succès.", 3000));
+                                })
+                            });
+
+                        }
+                        else
+                        {
+                            await BtnFrame.DisplayToastAsync("Le modèle choisi ne contient pas tous les caractères du texte.", 3000);
+                        }
                 }
                 else
                     await BtnFrame.DisplayToastAsync("Erreur vous devez saisir les données", 3000);
@@ -877,7 +872,7 @@ namespace CryptoAppV2.View.Home
                                     {
                                         if (Fonction.PremierEntreEux(listeS, n))
                                         {
-                                            MerklePrive.IsVisible = true;
+                                            MerklePriveStack.IsVisible = true;
                                             var result = Fonction.MerkleHellmanClePublique(suite, n.ToString(), m.ToString());
                                             MerklePriveResult.Text = $"La solution est {result}.";
                                             var etapes = Etapes.MerkleHelmanClePublique(suite, n.ToString(), m.ToString());
@@ -992,7 +987,7 @@ namespace CryptoAppV2.View.Home
                         if (nbr < 0) nbr *= -1;
                         AffineBonneCleStack.IsVisible = true;
                         var result = Fonction.AffineBonneCle($"{nbr}");
-                        AffineBonneCleResult.Text = $"Le diviseur de {nbr} est {String.Join(",", result)}";
+                        AffineBonneCleResult.Text = $"La solution est {String.Join(",", result)}";
                         var etapes = Etapes.BonneCleAffine(nbr.ToString());
                         AffineBonneCleEtape.BindingContext = this;
                         AffineBonneCleEtape.ItemsSource = etapes;

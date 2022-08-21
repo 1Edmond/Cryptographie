@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CryptoAppV2.View.SettingsPages.ProfilPage">
+    <Shell.TitleView>
+        <StackLayout Orientation="Horizontal" Margin="10,0" VerticalOptions="CenterAndExpand"
+                     HorizontalOptions="FillAndExpand">
+            <Label Text="Vos informations" HorizontalTextAlignment="Center"
+                   VerticalOptions="CenterAndExpand" TextColor="White" FontSize="15"/>
+        </StackLayout>
+    </Shell.TitleView>
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="{AppThemeBinding Dark=Gray, Light=Gray}" />
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid RowDefinitions="*,3*" Margin="10">
+                <Grid>
+                    <Image Source="accueil" />
+                    <Frame CornerRadius="60" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" Padding="0"
+                           VerticalOptions="EndAndExpand" Margin="0,0,30,-20">
+                        <ImageButton Source="refresh" BackgroundColor="Transparent"
+                                     WidthRequest="50"
+                                     x:Name="ImageUpdate" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+                    </Frame>
+                </Grid>
+                <Grid Grid.Row="1" Margin="20,10" RowDefinitions="*,*,*" >
+                    <StackLayout>
+                        <StackLayout>
+                            <Label Text="Nom" FontSize="22" />
+                            <Entry x:Name="Nom" IsEnabled="False" FontSize="22" Placeholder="Votre nom" />
+                        </StackLayout> 
+                        <StackLayout>
+                            <Label Text="Contact" FontSize="22" />
+                            <Entry x:Name="Contact" IsEnabled="False" FontSize="22" Placeholder="Votre contact" />
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout Grid.Row="1">
+                        <StackLayout>
+                            <Label Text="Pseudo" FontSize="22" />
+                            <Entry x:Name="Pseudo" IsEnabled="False" FontSize="22" Placeholder="Votre pseudo" />
+                        </StackLayout>
+                        <StackLayout>
+                            <Label Text="Mot de passe" FontSize="22" />
+                            <Entry x:Name="Password" IsEnabled="False" Keyboard="Text" IsPassword="True" FontSize="22" Placeholder="Votre mot de passe" />
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout Grid.Row="2" HorizontalOptions="CenterAndExpand" Spacing="80" Orientation="Horizontal" VerticalOptions="CenterAndExpand">
+                        <Button Text="Modifier" TextTransform="None" x:Name="BtnModifier" CornerRadius="90"
+                                BackgroundColor="#268ce0" TextColor="White" />
+                        <Button Text="Annuler" TextTransform="None" IsVisible="False" x:Name="BtnAnnuler" CornerRadius="90"
+                                BackgroundColor="#268ce0" TextColor="White" />
+                    </StackLayout>
+                </Grid>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

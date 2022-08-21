@@ -69,15 +69,15 @@ namespace CryptoAppV2.ViewModel
                 },
                 new MesFonctions() {
                     Button1 = new BtnFonction() {
-                        Text = "Calculer la clé privée (RSA).",
+                        Text = "Calculer la clé publique (RSA).",
                         Navigation = new Command(() => {
-                            navigation.ShowPopup(new PopUpPage("Clé privée (RSA)")); // Fait
+                            navigation.ShowPopup(new PopUpPage("Clé publique (RSA)")); // Fait
                         })
                     },
                     Button2 = new BtnFonction() {
-                        Text = "Calculer la clé privée (Merkle-Hellman).",
+                        Text = "Calculer la clé publique (Merkle-Hellman).",
                         Navigation = new Command(() => {
-                            navigation.ShowPopup(new PopUpPage("Clé privée (Merkle-Hellman)")); //Fait
+                            navigation.ShowPopup(new PopUpPage("Clé publique (Merkle-Hellman)")); //Fait
                         })
                     }
                 },
@@ -145,7 +145,7 @@ namespace CryptoAppV2.ViewModel
                         })
                     },
                     Button2 = new BtnFonction() {
-                        Text = "Calculer la Clé privée (El-Gammal)",
+                        Text = "Calculer la Clé publique (El-Gammal)",
                         Navigation = new Command(() => {
                             navigation.ShowPopup(new PopUpPage("Décomposition en facteurs premiers")); //
                         }),

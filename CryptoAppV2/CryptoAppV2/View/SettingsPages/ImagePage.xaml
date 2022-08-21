@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CryptoAppV2.ViewModel"
+             x:Class="CryptoAppV2.View.SettingsPages.ImagePage">
+    <ContentPage.Content>
+        <Grid>
+            <CollectionView ItemsSource="{Binding Images}"
+                            Margin="10,10,10,0" HorizontalOptions="FillAndExpand" BackgroundColor="White"
+                            SelectionMode="None" x:Name="MyCollection" >
+                <CollectionView.BindingContext>
+                    <vm:ImagesVm/>
+                </CollectionView.BindingContext>
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="20" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Image Grid.Column="0" Source="{Binding Image1}" >
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="2" Command="{Binding Path=BindingContext.ChangeProfile,
+                                        Source={x:Reference Name=MyCollection}}" />
+                                </Image.GestureRecognizers>
+                            </Image>
+                            <Image Grid.Column="1" Source="{Binding Image2}" >
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="2" Command="{Binding Path=BindingContext.ChangeProfile,
+                                        Source={x:Reference Name=MyCollection}}" />
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

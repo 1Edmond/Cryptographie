@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CryptoAppV2.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,6 @@ namespace CryptoAppV2.View.Home
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UseCasePage : ContentPage
     {
-        const string Password = "pass";
         public UseCasePage()
         {
             InitializeComponent();
@@ -26,7 +26,7 @@ namespace CryptoAppV2.View.Home
             {
                 Environment.Exit(0);
             };
-            if (Application.Current.Properties.ContainsKey(Password))
+            if (UserSettings.UserName != "")
                 CondiditionFrame.IsVisible = false;
         }
     }
