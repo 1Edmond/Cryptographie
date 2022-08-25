@@ -1,5 +1,6 @@
 ﻿using CryptoAppV2.Data;
 using CryptoAppV2.View;
+using CryptoAppV2.View.Auth;
 using CryptoAppV2.View.Home;
 using CryptoAppV2.View.ModelePages;
 using CryptoAppV2.View.SettingsPages;
@@ -54,8 +55,9 @@ namespace CryptoAppV2
             InitializeComponent();
             UserHistoriqueManager = new UserHistoriqueManager(database);
             UserModeleManager = new UserModeleManager(database);
-            var navigationPage = new ProfilPage();
-            MainPage = navigationPage;
+            //var navigationPage = new ProfilPage();
+            //MainPage = navigationPage;
+            MainPage = new PayementPage();
         }
 
         protected override void OnStart()

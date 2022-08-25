@@ -1,12 +1,113 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:vm="clr-namespace:CryptoAppV2.ViewModel"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CryptoAppV2.View.Auth.SignInPage">
+    <ContentPage.BindingContext>
+        <vm:InformationViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="{AppThemeBinding Dark=Black, Light=Black}" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="TextColor" Value="{AppThemeBinding Dark=Black, Light=Black}" />
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="TextColor" Value="{AppThemeBinding Dark=Black, Light=Black}"/>
+            <Setter Property="PlaceholderColor" Value="{AppThemeBinding Dark=Gray, Light=Gray}"/>
+        </Style>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+
+            <Grid RowDefinitions="1.2*,2*,80" Padding="0">
+                <Frame Padding="0" CornerRadius="20" Margin="0,-20,0,0">
+                    <Grid VerticalOptions="FillAndExpand" HeightRequest="200" WidthRequest="200"
+                     BackgroundColor="#178FEB" Padding="0">
+                        <IndicatorView HorizontalOptions="CenterAndExpand" VerticalOptions="Start"
+                               x:Name="MyCarousselIndicator" SelectedIndicatorColor="White" Margin="0,50,0,0"
+                               IndicatorColor="Gray" IndicatorsShape="Circle" />
+                        <StackLayout Margin="10,0"  VerticalOptions="FillAndExpand">
+                            <CarouselView ItemsSource="{Binding Infos}" x:Name="Mycaroussel" IndicatorView="MyCarousselIndicator">
+                                <CarouselView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout VerticalOptions="CenterAndExpand">
+                                            <Label Text="{Binding Description}" TextColor="White"
+                                           VerticalOptions="CenterAndExpand"
+                                           VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="20"/>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </CarouselView.ItemTemplate>
+                            </CarouselView>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+                <Frame BackgroundColor="White" CornerRadius="30" Padding="0" Grid.Row="1" Margin="20,-70,20,0">
+                    <ScrollView>
+                        <Grid  Margin="10,50,10,0">
+                            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="Start">
+                                <Label Text="Veuillez renseigner les informations suivantes. Ensuite vous serez redirigé sur une page qui vous demadera une référence de transaction TMonney." 
+                                   FontSize="Subtitle"
+                                   HorizontalTextAlignment="Center" />
+                            </StackLayout>
+                            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Spacing="20" WidthRequest="200">
+                                <StackLayout HorizontalOptions="Fill">
+                                    <Label Text="Votre nom" FontSize="Medium" HorizontalOptions="Center" />
+                                    <Frame Padding="0,0,0,-10" CornerRadius="90" x:Name="NomFrame">
+                                        <Entry Keyboard="Text"
+                                       HorizontalTextAlignment="Center"
+                                       Placeholder="Nom" x:Name="NomEntry"
+                                       ClearButtonVisibility="WhileEditing" />
+                                    </Frame>
+                                </StackLayout>
+                                <StackLayout HorizontalOptions="Fill">
+                                    <Label Text="Votre prénom" FontSize="Medium" HorizontalOptions="Center" />
+                                    <Frame Padding="0,0,0,-10" CornerRadius="90" x:Name="PrenomFrame">
+                                        <Entry Keyboard="Text"
+                                       Placeholder="Prénom" x:Name="PrenomEntry"
+                                       HorizontalTextAlignment="Center"
+                                       ClearButtonVisibility="WhileEditing" />
+                                    </Frame>
+                                </StackLayout>
+                                <StackLayout HorizontalOptions="Fill">
+                                    <Label Text="Votre contact" FontSize="Medium" HorizontalOptions="Center" />
+                                    <Frame Padding="0,0,0,-10" CornerRadius="90" x:Name="TelephoneFrame">
+                                        <Entry Keyboard="Telephone" x:Name="TelephoneEntry"
+                                       HorizontalTextAlignment="Center"
+                                       ClearButtonVisibility="WhileEditing" Placeholder="Numéro de téléphone" />
+                                    </Frame>
+                                </StackLayout>
+                            </StackLayout>
+                            <StackLayout  Margin="0,0,0,20" VerticalOptions="End">
+                                <Frame Padding="0" CornerRadius="90" HasShadow="True">
+                                    <Button BackgroundColor="Transparent" Text="S'enrégistrer" 
+                                    x:Name="BtnEnregistrer"
+                                    TextColor="#178FEB" TextTransform="None" FontSize="25">
+                                    </Button>
+                                </Frame>
+                            </StackLayout>
+                        </Grid>
+                    </ScrollView>
+                </Frame>
+
+                <Frame Grid.Row="2" Padding="0" BackgroundColor="#178FEB" CornerRadius="30" Margin="10,0,10,10">
+                    <StackLayout VerticalOptions="FillAndExpand" Orientation="Horizontal">
+                        <Image HorizontalOptions="CenterAndExpand"  Source="powerOff" Margin="0,10,-100,5" Aspect="AspectFill">
+                        </Image>
+                        <Button BackgroundColor="Transparent" Text="Quitter" Margin="0,0,100,0" x:Name="BtnExit"
+                            TextColor="White" VerticalOptions="CenterAndExpand" TextTransform="None" FontSize="25">
+                        </Button>
+                    </StackLayout>
+                </Frame>
+
+
+            </Grid>
+            <StackLayout BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" IsVisible="False" x:Name="MyWaitAnnimation" VerticalOptions="FillAndExpand">
+                <ActivityIndicator Color="#178FEB" HorizontalOptions="CenterAndExpand" IsRunning="True" VerticalOptions="CenterAndExpand"  />
+            </StackLayout>
+        </Grid>
+
     </ContentPage.Content>
 </ContentPage>

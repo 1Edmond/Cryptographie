@@ -18,7 +18,6 @@ namespace CryptoAppV2.View.SettingsPages
             InitializeComponent();
             UserName.Text = UserSettings.UserName;
             UserNumber.Text = UserSettings.UserContact;
-            UserPseudo.Text = UserSettings.UserPseudo;
             ModeleCount.Text =  $"{App.UserModeleManager.Count().Result}";
             HistoriqueCount.Text = $"{App.UserHistoriqueManager.Count().Result}";
         }

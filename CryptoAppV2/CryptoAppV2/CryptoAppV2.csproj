@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="View\Auth\LoginPage.xaml">
+    <EmbeddedResource Update="View\Auth\PayementPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\Auth\SignInPage.xaml">

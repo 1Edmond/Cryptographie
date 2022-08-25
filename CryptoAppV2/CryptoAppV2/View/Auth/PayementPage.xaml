@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="CryptoAppV2.View.Auth.PayementPage">
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="{AppThemeBinding Dark=Black, Light=Black}" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="TextColor" Value="{AppThemeBinding Dark=Black, Light=Black}" />
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="TextColor" Value="{AppThemeBinding Dark=Black, Light=Black}"/>
+            <Setter Property="PlaceholderColor" Value="{AppThemeBinding Dark=Gray, Light=Gray}"/>
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid RowDefinitions="1.4*,0.4*,2*" BackgroundColor="#90f1f1f1">
+            <Frame CornerRadius="70" WidthRequest="500" xct:ShadowEffect.Color="Black"
+                   HorizontalOptions="FillAndExpand"  TranslationY="-40" Grid.Row="0" >
+                <Grid VerticalOptions="FillAndExpand" TranslationY="40" RowDefinitions="*,*,*">
+                    <Label Text="Payement par" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="Title" />
+                    <Image Grid.Row="1" Source="TMoney" WidthRequest="240" Aspect="AspectFill" HorizontalOptions="CenterAndExpand"/>
+                    <Label Text="Envoyez 7500 fcfa au 92 08 07 70. Appuyez deux fois pour copier le numéro."
+                           WidthRequest="270" Margin="0,10,0,0"
+                           HorizontalTextAlignment="Center"
+                           Grid.Row="2" HorizontalOptions="CenterAndExpand" FontSize="17"  >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer NumberOfTapsRequired="2" Tapped="TapGestureRecognizer_Tapped_1" />
+                        </Label.GestureRecognizers>
+                        </Label>
+                </Grid>
+            </Frame>
+            <StackLayout Grid.Row="1" Margin="10,0"
+                         HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                <Label Text="Vous devez payer la somme indiquée pour avoir accès aux fonctionnalités de l'application"
+                       FontSize="17"
+                       HorizontalTextAlignment="Center" />
+                <Label Text="Tant que la somme envoyée n'est pas égale à la somme demandée vous n'aurez pas accès aux fonctionnalités de la plateforme"
+                       FontSize="17"
+                       HorizontalTextAlignment="Center"
+                       />
+            </StackLayout>
+            <Frame Grid.Row="2" TranslationY="70" CornerRadius="70" HasShadow="True"  xct:ShadowEffect.Color="Black">
+                <Grid>
+                    <StackLayout HorizontalOptions="CenterAndExpand" WidthRequest="250">
+                        <Label Text="Référence de la transaction" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" FontSize="18" />
+                        <Frame Padding="0,0,0,-10" CornerRadius="40" x:Name="ReferenceFrame">
+                            <Entry Placeholder="0123456789" Keyboard="Numeric" 
+                                   MaxLength="10" x:Name="ReferenceEntry"
+                                   HorizontalTextAlignment="Center" ClearButtonVisibility="WhileEditing" />
+                        </Frame>
+                    </StackLayout>
+                    <Button VerticalOptions="StartAndExpand" CornerRadius="40" BackgroundColor="#178FEB"
+                            FontSize="20" HorizontalOptions="CenterAndExpand" TextColor="White" x:Name="BtnValider"
+                            Text="Valider" TextTransform="None" Grid.Row="1" />
+                    <Frame HorizontalOptions="End" Padding="0" VerticalOptions="End" CornerRadius="60">
+                        <Image HorizontalOptions="Center" Source="whatsapp1" WidthRequest="50">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="TapGestureRecognizer_Tapped" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Frame>
+                </Grid>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

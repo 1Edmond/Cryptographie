@@ -72,28 +72,6 @@ namespace CryptoAppV2.Model
             }
             }
 
-        private const string Password = "UserPassword";
-        public static string UserPassword
-        { 
-            get 
-            {
-                if (!Application.Current.Properties.ContainsKey(Password))
-                {
-                    Application.Current.Properties.Add(Password, "");
-                    Application.Current.SavePropertiesAsync();
-                }
-                return (string)Application.Current.Properties[Password];
-            } 
-            set
-            {
-                if (Application.Current.Properties.ContainsKey(Password))
-                    Application.Current.Properties[Password] = value;
-                else
-                    Application.Current.Properties.Add(Password, value);
-                Application.Current.SavePropertiesAsync();
-            }
-        }
-
         private const string Contact = "UserContact";
         public static string UserContact
         { 
@@ -116,8 +94,8 @@ namespace CryptoAppV2.Model
             }
             }
 
-        private const string Pseudo = "UserPseudo";
-        public static string UserPseudo
+        private const string Pseudo = "UserPrenom";
+        public static string UserPrenom
         { 
             get 
             {

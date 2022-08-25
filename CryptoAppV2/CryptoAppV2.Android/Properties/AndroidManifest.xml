@@ -3,4 +3,10 @@
     <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="31" />
     <application android:label="CryptoAppV2.Android" android:theme="@style/MainTheme"></application>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<queries>
+		<intent>
+			<action android:name="android.intent.action.VIEW" />
+			<data android:scheme="smsto" />
+		</intent>
+	</queries>
 </manifest>

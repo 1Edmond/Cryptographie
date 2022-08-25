@@ -55,8 +55,6 @@ namespace CryptoAppV2.View.SettingsPages
             {
                 UserSettings.UserName = Nom.Text;
                 UserSettings.UserContact = Contact.Text;
-                UserSettings.UserPseudo = Pseudo.Text;
-                UserSettings.UserPassword = Password.Text;
                 await DisplayAlert("Réussite", "Modification de vos informations réussie", "Ok");
             }
             else
@@ -70,8 +68,6 @@ namespace CryptoAppV2.View.SettingsPages
         {
             Nom.Text = UserSettings.UserName;
             Contact.Text = UserSettings.UserContact;
-            Password.Text = UserSettings.UserPassword;
-            Pseudo.Text = UserSettings.UserPseudo;
         }
         
     }
