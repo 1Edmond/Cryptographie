@@ -16,7 +16,7 @@
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid RowDefinitions="1.4*,0.4*,2*" BackgroundColor="#90f1f1f1">
+        <Grid RowDefinitions="1.4*,0.2*,2*" BackgroundColor="#90f1f1f1">
             <Frame CornerRadius="70" WidthRequest="500" xct:ShadowEffect.Color="Black"
                    HorizontalOptions="FillAndExpand"  TranslationY="-40" Grid.Row="0" >
                 <Grid VerticalOptions="FillAndExpand" TranslationY="40" RowDefinitions="*,*,*">

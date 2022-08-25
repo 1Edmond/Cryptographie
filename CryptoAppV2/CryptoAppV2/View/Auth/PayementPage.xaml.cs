@@ -34,7 +34,6 @@ namespace CryptoAppV2.View.Auth
         {
             var payement = new Payement()
             {
-                Contact = UserSettings.UserContact,
                 DatePayement = DateTime.Now,
                 Reference = ReferenceEntry.Text
             };

@@ -8,6 +8,9 @@ namespace CryptoAppV2.Model
     {
         public DateTime DatePayement { get; set; }
         public string Reference { get; set; }
-        public string Contact { get; set; }
+
+        public string InscriptionId {
+            get => UserSettings.UserContact;
+                }
     }
 }
