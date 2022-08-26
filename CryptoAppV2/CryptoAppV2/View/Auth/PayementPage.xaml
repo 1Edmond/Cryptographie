@@ -16,7 +16,8 @@
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid RowDefinitions="1.4*,0.2*,2*" BackgroundColor="#90f1f1f1">
+        <Grid>
+            <Grid RowDefinitions="1.4*,0.2*,2*" BackgroundColor="#90f1f1f1" x:Name="DataGrid">
             <Frame CornerRadius="70" WidthRequest="500" xct:ShadowEffect.Color="Black"
                    HorizontalOptions="FillAndExpand"  TranslationY="-40" Grid.Row="0" >
                 <Grid VerticalOptions="FillAndExpand" TranslationY="40" RowDefinitions="*,*,*">
@@ -56,14 +57,20 @@
                             FontSize="20" HorizontalOptions="CenterAndExpand" TextColor="White" x:Name="BtnValider"
                             Text="Valider" TextTransform="None" Grid.Row="1" />
                     <Frame HorizontalOptions="End" Padding="0" VerticalOptions="End" CornerRadius="60">
-                        <Image HorizontalOptions="Center" Source="whatsapp1" WidthRequest="50">
-                            <Image.GestureRecognizers>
+                        <Grid>
+                            <Grid.GestureRecognizers>
                                 <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="TapGestureRecognizer_Tapped" />
-                            </Image.GestureRecognizers>
-                        </Image>
+                            </Grid.GestureRecognizers>
+                            <Image HorizontalOptions="Center" x:Name="SmsImage" Source="smsImage" Aspect="AspectFill" Scale="1.04" BackgroundColor="Transparent" WidthRequest="50" HeightRequest="50"/>
+                            <Image HorizontalOptions="Center" x:Name="WhatsappImage" Source="whatsapp1" Aspect="AspectFill" Scale="1.04" BackgroundColor="Transparent" WidthRequest="50" HeightRequest="50"/>
+                        </Grid>
                     </Frame>
                 </Grid>
             </Frame>
+        </Grid>
+            <ActivityIndicator HorizontalOptions="CenterAndExpand" 
+                               x:Name="MyActivityIndicator"
+                               BackgroundColor="Transparent" Color="#d1178FEB" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

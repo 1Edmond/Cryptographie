@@ -1,4 +1,5 @@
 ﻿using CryptoAppV2.Data;
+using CryptoAppV2.Service;
 using CryptoAppV2.View;
 using CryptoAppV2.View.Auth;
 using CryptoAppV2.View.Home;
@@ -58,6 +59,7 @@ namespace CryptoAppV2
             //var navigationPage = new ProfilPage();
             //MainPage = navigationPage;
             MainPage = new PayementPage();
+           // ApiService.GetInscription();
         }
 
         protected override void OnStart()

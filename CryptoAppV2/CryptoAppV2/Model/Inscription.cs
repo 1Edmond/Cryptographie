@@ -9,5 +9,7 @@ namespace CryptoAppV2.Model
         public string Nom { get; set; }
         public string Prenom { get; set; }
         public string Contact { get; set; }
+        public int Etat { get; set; } = 0;
+        public DateTime DateInscription { get; set; } = DateTime.Now;
     }
 }

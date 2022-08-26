@@ -1,5 +1,6 @@
 ﻿using CryptoAppV2.Custom;
 using CryptoAppV2.Model;
+using CryptoAppV2.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,23 +25,47 @@ namespace CryptoAppV2.View.Auth
             BtnValider.Clicked += async delegate
             {
                 if (Verfication())
-                    MakePayement();
+                   _= MakePayement();
                 else
-                    await DisplayAlert("Erreur", "Vous devez saisir la référence", "Ok");
+                    await DisplayAlert("Erreur", "Veuillez vérifier la référence de la transaction.", "Ok");
             };
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+                SmsImage.FadeTo(0, 200);
+            else
+                WhatsappImage.FadeTo(0, 200);
+            Device.StartTimer(TimeSpan.FromSeconds(3), () =>
+            {
+                Task.Run(() =>
+                {
+                    Annimation(); 
+                });
+                return true;
+            });
         }
 
-        public void MakePayement()
+        public async Task MakePayement()
         {
+            DataGrid.Opacity = 0.2;
+            MyActivityIndicator.IsRunning = true;
             var payement = new Payement()
             {
                 DatePayement = DateTime.Now,
                 Reference = ReferenceEntry.Text
             };
-
+           var result = new ApiResult<Payement>();
+           _= Task.Run(() =>
+            {
+                result = ApiService.AddPayement(payement).Result;
+                
+            });
+            DataGrid.Opacity = 1;
+            MyActivityIndicator.IsRunning = false;
+           await DisplayAlert("Ok", $"{result.Count}", "Ok");
+         
         }
 
-        public bool Verfication() => String.IsNullOrEmpty(ReferenceEntry.Text) ? false : true;
+        public bool Verfication() => 
+            String.IsNullOrWhiteSpace(ReferenceEntry.Text) ? false : ReferenceEntry.Text.Length != 10 ? false : true;
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
@@ -71,6 +96,21 @@ namespace CryptoAppV2.View.Auth
                         "92080770"
                     }
                 });
+        }
+
+        public void Annimation()
+        {
+            if(Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                _ = WhatsappImage.FadeTo(0, 1500);
+                _ = SmsImage.FadeTo(1, 1500);
+            }
+            else
+            {
+                _= SmsImage.FadeTo(0,1500);
+                _ = WhatsappImage.FadeTo(1, 1500);
+            }
+
         }
 
         private void TapGestureRecognizer_Tapped_1(object sender, EventArgs e)

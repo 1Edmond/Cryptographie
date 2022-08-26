@@ -25072,31 +25072,34 @@ namespace CryptoAppV2.Droid
 			public const int settings = 2131165383;
 			
 			// aapt resource value: 0x7F0700C8
-			public const int splash = 2131165384;
+			public const int smsImage = 2131165384;
 			
 			// aapt resource value: 0x7F0700C9
-			public const int test_custom_background = 2131165385;
+			public const int splash = 2131165385;
 			
 			// aapt resource value: 0x7F0700CA
-			public const int TMoney = 2131165386;
+			public const int test_custom_background = 2131165386;
 			
 			// aapt resource value: 0x7F0700CB
-			public const int tooltip_frame_dark = 2131165387;
+			public const int TMoney = 2131165387;
 			
 			// aapt resource value: 0x7F0700CC
-			public const int tooltip_frame_light = 2131165388;
+			public const int tooltip_frame_dark = 2131165388;
 			
 			// aapt resource value: 0x7F0700CD
-			public const int viewMore = 2131165389;
+			public const int tooltip_frame_light = 2131165389;
 			
 			// aapt resource value: 0x7F0700CE
-			public const int Vigenere = 2131165390;
+			public const int viewMore = 2131165390;
 			
 			// aapt resource value: 0x7F0700CF
-			public const int whatsapp = 2131165391;
+			public const int Vigenere = 2131165391;
 			
 			// aapt resource value: 0x7F0700D0
-			public const int whatsapp1 = 2131165392;
+			public const int whatsapp = 2131165392;
+			
+			// aapt resource value: 0x7F0700D1
+			public const int whatsapp1 = 2131165393;
 			
 			static Drawable()
 			{
