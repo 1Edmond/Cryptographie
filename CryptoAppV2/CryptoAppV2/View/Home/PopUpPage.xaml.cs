@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.UI.Views;
+using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -23,6 +24,22 @@ namespace CryptoAppV2.View.Home
         public PopUpPage()
         {
             InitializeComponent();
+        }
+
+        public async Task DisplayToast(string message, int duree)
+        {
+            var options = new ToastOptions()
+            {
+                BackgroundColor = Color.FromHex("#93178FEB"),
+                Duration = new TimeSpan(duree),
+                CornerRadius = new Thickness(20),
+                MessageOptions = new MessageOptions()
+                {
+                    Foreground = Color.White,
+                    Message = message
+                }
+            };
+            await BtnFrame.DisplayToastAsync(options);
         }
         public PopUpPage(string text)
         {
@@ -479,22 +496,22 @@ namespace CryptoAppV2.View.Home
                             NumberOfTapsRequired = 2,
                             Command = new Command(async () =>
                             {
-                                await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith(async (ord) =>
-                                  await BtnFrame.DisplayToastAsync("Résultat copié avec succès.", 3000));
+                                await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
+                                  _= DisplayToast("Résultat copié avec succès.", 3000));
                             })
                         });
                     }
                     else
-                        await BtnFrame.DisplayToastAsync("L'on ne peut chercher les diviseurs de 0", 3000);
+                        _= DisplayToast("L'on ne peut chercher les diviseurs de 0", 3000);
                 }
                 else
-                    await BtnFrame.DisplayToastAsync("Erreur vous devez saisir une valeur", 3000);
+                    _= DisplayToast("Erreur vous devez saisir une valeur", 3000);
 
             }
             catch (Exception)
             {
                 DiviseurStack.IsVisible = false;
-                await BtnFrame.DisplayToastAsync("Erreur, un problème est survenu.", 3000);
+                _= DisplayToast("Erreur, un problème est survenu.", 3000);
             }
 
         }
@@ -531,22 +548,22 @@ namespace CryptoAppV2.View.Home
                             NumberOfTapsRequired = 2,
                             Command = new Command(async () =>
                             {
-                                await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith(async (ord) =>
-                                  await BtnFrame.DisplayToastAsync("Résultat copié avec succès.", 3000));
+                                await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
+                                  _= DisplayToast("Résultat copié avec succès.", 3000));
                             })
                         });
                     }
                     else
-                        await BtnFrame.DisplayToastAsync("L'on ne peut chercher les diviseurs de 0", 3000);
+                        _= DisplayToast("L'on ne peut chercher les diviseurs de 0", 3000);
                 }
                 else
-                    await BtnFrame.DisplayToastAsync("Erreur vous devez saisir une valeur", 3000);
+                    _= DisplayToast("Erreur vous devez saisir une valeur", 3000);
 
             }
             catch (Exception)
             {
                 UnPremierStack.IsVisible = false;
-                await BtnFrame.DisplayToastAsync("Erreur, un problème est survenu.", 3000);
+                _= DisplayToast("Erreur, un problème est survenu.", 3000);
 
             }
 
@@ -604,22 +621,22 @@ namespace CryptoAppV2.View.Home
                             NumberOfTapsRequired = 2,
                             Command = new Command(async () =>
                             {
-                                await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith(async (ord) =>
-                                  await BtnFrame.DisplayToastAsync("Résultat copié avec succès.", 3000));
+                                await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
+                                  _= DisplayToast("Résultat copié avec succès.", 3000));
                             })
                         });
                     }
                     else
-                        await BtnFrame.DisplayToastAsync("L'on ne peut chercher les diviseurs de 0", 3000);
+                        _= DisplayToast("L'on ne peut chercher les diviseurs de 0", 3000);
                 }
                 else
-                    await BtnFrame.DisplayToastAsync("Erreur vous devez saisir une valeur", 3000);
+                    _= DisplayToast("Erreur vous devez saisir une valeur", 3000);
 
             }
             catch (Exception)
             {
                 DeuxPremierStack.IsVisible = false;
-                await BtnFrame.DisplayToastAsync("Erreur, un problème est survenu.", 3000);
+                _= DisplayToast("Erreur, un problème est survenu.", 3000);
 
             }
 
@@ -669,24 +686,24 @@ namespace CryptoAppV2.View.Home
                                 NumberOfTapsRequired = 2,
                                 Command = new Command(async () =>
                                 {
-                                    await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith(async (ord) =>
-                                      await BtnFrame.DisplayToastAsync("Résultat copié avec succès.", 3000));
+                                    await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
+                                      _= DisplayToast("Résultat copié avec succès.", 3000));
                                 })
                             });
                         }
                         else
-                            await BtnFrame.DisplayToastAsync("Pas besoin, utilisez votre tête pour trouver la solution.", 3000);
+                            _= DisplayToast("Pas besoin, utilisez votre tête pour trouver la solution.", 3000);
                     }
                     else
-                        await BtnFrame.DisplayToastAsync("Erreur, Revoyez le format de votre suite.", 3000);
+                        _= DisplayToast("Erreur, Revoyez le format de votre suite.", 3000);
                 }
                 else
-                    await BtnFrame.DisplayToastAsync("Erreur vous devez saisir toutes les entrées", 3000);
+                    _= DisplayToast("Erreur vous devez saisir toutes les entrées", 3000);
             }
             catch (Exception ex)
             {
                 SacADosStack.IsVisible = false;
-                await BtnFrame.DisplayToastAsync($"Erreur, un problème est survenu. {ex.Message}", 3000);
+                _= DisplayToast($"Erreur, un problème est survenu. {ex.Message}", 3000);
 
             }
 
@@ -712,28 +729,28 @@ namespace CryptoAppV2.View.Home
                                 NumberOfTapsRequired = 2,
                                 Command = new Command(async () =>
                                 {
-                                    await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith(async (ord) =>
-                                      await BtnFrame.DisplayToastAsync("Résultat copié avec succès.", 3000));
+                                    await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
+                                      _= DisplayToast("Résultat copié avec succès.", 3000));
                                 })
                             });
                         }
                         else
                         {
-                            await BtnFrame.DisplayToastAsync($"{nbr} n'admet pas d'inverse dans la base {module}.", 3000);
+                            _= DisplayToast($"{nbr} n'admet pas d'inverse dans la base {module}.", 3000);
                         }
                     }
 
                     else
-                        await BtnFrame.DisplayToastAsync("Les valeurs doivent être différent de 0.", 3000);
+                        _= DisplayToast("Les valeurs doivent être différent de 0.", 3000);
                 }
                 else
-                    await BtnFrame.DisplayToastAsync("Erreur vous devez saisir toutes les valeurs valeur", 3000);
+                    _= DisplayToast("Erreur vous devez saisir toutes les valeurs valeur", 3000);
 
             }
             catch (Exception)
             {
                 InverseModulaireStack.IsVisible = false;
-                await BtnFrame.DisplayToastAsync("Erreur, un problème est survenu.", 3000);
+                await DisplayToast("Erreur, un problème est survenu.", 3000);
             }
 
         }
@@ -766,25 +783,25 @@ namespace CryptoAppV2.View.Home
                                 NumberOfTapsRequired = 2,
                                 Command = new Command(async () =>
                                 {
-                                    await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith(async (ord) =>
-                                      await BtnFrame.DisplayToastAsync("Résultat copié avec succès.", 3000));
+                                    await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
+                                      _= DisplayToast("Résultat copié avec succès.", 3000));
                                 })
                             });
 
                         }
                         else
                         {
-                            await BtnFrame.DisplayToastAsync("Le modèle choisi ne contient pas tous les caractères du texte.", 3000);
+                            _= DisplayToast("Le modèle choisi ne contient pas tous les caractères du texte.", 3000);
                         }
                 }
                 else
-                    await BtnFrame.DisplayToastAsync("Erreur vous devez saisir les données", 3000);
+                    _= DisplayToast("Erreur vous devez saisir les données", 3000);
 
             }
             catch (Exception)
             {
                 ChiffrementStack.IsVisible = false;
-                await BtnFrame.DisplayToastAsync("Erreur, un problème est survenu ou les conditions de chiffrement ne sont pas remplis.", 3000);
+                _= DisplayToast("Erreur, un problème est survenu ou les conditions de chiffrement ne sont pas remplis.", 3000);
             }
 
         }
@@ -812,8 +829,8 @@ namespace CryptoAppV2.View.Home
                                     NumberOfTapsRequired = 2,
                                     Command = new Command(async () =>
                                     {
-                                        await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith(async (ord) =>
-                                          await BtnFrame.DisplayToastAsync("Résultat copié avec succès.", 3000));
+                                        await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
+                                          _= DisplayToast("Résultat copié avec succès.", 3000));
                                     })
                                 });
                                 var etapes = Etapes.RSAPriveEtape(nbr2.ToString(), nbr1.ToString());
@@ -828,23 +845,23 @@ namespace CryptoAppV2.View.Home
                             else
                             {
                                 RSAPriveStack.IsVisible = false;
-                                await BtnFrame.DisplayToastAsync("Le nombre e n'est pas premier avec ϕ(n).", 3000);
+                                _= DisplayToast("Le nombre e n'est pas premier avec ϕ(n).", 3000);
                             }
                         }
                         else
-                            await BtnFrame.DisplayToastAsync("Les valeurs doivent être premiers entre eux.", 3000);
+                            _= DisplayToast("Les valeurs doivent être premiers entre eux.", 3000);
                     }
                     else
-                        await BtnFrame.DisplayToastAsync("Les valeurs doivent être différents de 0.", 3000);
+                        _= DisplayToast("Les valeurs doivent être différents de 0.", 3000);
                 }
                 else
-                    await BtnFrame.DisplayToastAsync("Erreur vous devez saisir toutes les valeurs.", 3000);
+                    _= DisplayToast("Erreur vous devez saisir toutes les valeurs.", 3000);
 
             }
             catch (Exception ex)
             {
                 RSAPriveStack.IsVisible = false;
-                await BtnFrame.DisplayToastAsync($"Erreur, un problème est survenu {ex.Message}.", 3000);
+                _= DisplayToast($"Erreur, un problème est survenu {ex.Message}.", 3000);
             }
 
         }
@@ -888,36 +905,36 @@ namespace CryptoAppV2.View.Home
                                                 NumberOfTapsRequired = 2,
                                                 Command = new Command(async () =>
                                                 {
-                                                    await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith(async (ord) =>
-                                                      await BtnFrame.DisplayToastAsync("Résultat copié avec succès.", 3000));
+                                                    await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
+                                                      _= DisplayToast("Résultat copié avec succès.", 3000));
                                                 })
                                             });
                                         }
                                         else
-                                            await BtnFrame.DisplayToastAsync($"Le nombre {n} doit être premier avec la somme {listeS} des éléments de la suite.", 3000);
+                                            _= DisplayToast($"Le nombre {n} doit être premier avec la somme {listeS} des éléments de la suite.", 3000);
                                     }
                                     else
-                                        await BtnFrame.DisplayToastAsync($"Le nombre {n} doit être supérieur à la somme {listeS} des éléments de la suite.", 3000);
+                                        _= DisplayToast($"Le nombre {n} doit être supérieur à la somme {listeS} des éléments de la suite.", 3000);
                                 }
                                 else
-                                    await BtnFrame.DisplayToastAsync($"Les valeurs {n} et {m} doivent être premiers entre eux.", 3000);
+                                    _= DisplayToast($"Les valeurs {n} et {m} doivent être premiers entre eux.", 3000);
                             }
                             else
-                                await BtnFrame.DisplayToastAsync("Les valeurs doivent être différents de 0.", 3000);
+                                _= DisplayToast("Les valeurs doivent être différents de 0.", 3000);
                         }
                         else
-                            await BtnFrame.DisplayToastAsync("La suite saisie n'est pas une super suite.", 3000);
+                            _= DisplayToast("La suite saisie n'est pas une super suite.", 3000);
                     }
                     else
-                        await BtnFrame.DisplayToastAsync("La suite saisie ne doit contenire ques des valeurs numériques.", 3000);
+                        _= DisplayToast("La suite saisie ne doit contenire ques des valeurs numériques.", 3000);
                 }
                 else
-                    await BtnFrame.DisplayToastAsync("Erreur vous devez saisir toutes les valeurs.", 3000);
+                    _= DisplayToast("Erreur vous devez saisir toutes les valeurs.", 3000);
             }
             catch (Exception ex)
             {
                 MerklePriveStack.IsVisible = false;
-                await BtnFrame.DisplayToastAsync($"Erreur, un problème est survenu {ex.Message}.", 3000);
+                _= DisplayToast($"Erreur, un problème est survenu {ex.Message}.", 3000);
             }
 
         }
@@ -944,8 +961,8 @@ namespace CryptoAppV2.View.Home
                                 NumberOfTapsRequired = 2,
                                 Command = new Command(async () =>
                                 {
-                                    await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith(async (ord) =>
-                                      await BtnFrame.DisplayToastAsync("Résultat copié avec succès.", 3000));
+                                    await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
+                                      _= DisplayToast("Résultat copié avec succès.", 3000));
                                 })
                             });
                             var etapes = Etapes.RSASignatureEtape(message.ToString(), n.ToString(), e.ToString());
@@ -958,19 +975,19 @@ namespace CryptoAppV2.View.Home
                             await Task.Delay(2000);
                         }
                         else
-                            await BtnFrame.DisplayToastAsync($"Les valeurs {n} et {Fonction.RSAPhi(n.ToString())} doivent être premiers entre eux.", 3000);
+                            _= DisplayToast($"Les valeurs {n} et {Fonction.RSAPhi(n.ToString())} doivent être premiers entre eux.", 3000);
                     }
                     else
-                        await BtnFrame.DisplayToastAsync("Les valeurs doivent être différents de 0.", 3000);
+                        _= DisplayToast("Les valeurs doivent être différents de 0.", 3000);
                 }
                 else
-                    await BtnFrame.DisplayToastAsync("Erreur vous devez saisir toutes les valeurs.", 3000);
+                    _= DisplayToast("Erreur vous devez saisir toutes les valeurs.", 3000);
 
             }
             catch (Exception ex)
             {
                 RSASignature.IsVisible = false;
-                await BtnFrame.DisplayToastAsync($"Erreur, un problème est survenu {ex.Message}.", 3000);
+                _= DisplayToast($"Erreur, un problème est survenu {ex.Message}.", 3000);
 
             }
 
@@ -1001,22 +1018,22 @@ namespace CryptoAppV2.View.Home
                             NumberOfTapsRequired = 2,
                             Command = new Command(async () =>
                             {
-                                await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith(async (ord) =>
-                                  await BtnFrame.DisplayToastAsync("Résultat copié avec succès.", 3000));
+                                await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
+                                  _= DisplayToast("Résultat copié avec succès.", 3000));
                             })
                         });
                     }
                     else
-                        await BtnFrame.DisplayToastAsync("L'entrée doit être différente de 0", 3000);
+                        _= DisplayToast("L'entrée doit être différente de 0", 3000);
                 }
                 else
-                    await BtnFrame.DisplayToastAsync("Erreur vous devez saisir une valeur.", 3000);
+                    _= DisplayToast("Erreur vous devez saisir une valeur.", 3000);
 
             }
             catch (Exception)
             {
                 AffineBonneCleStack.IsVisible = false;
-                await BtnFrame.DisplayToastAsync("Erreur, un problème est survenu.", 3000);
+                _= DisplayToast("Erreur, un problème est survenu.", 3000);
 
             }
 
@@ -1048,27 +1065,27 @@ namespace CryptoAppV2.View.Home
                                 NumberOfTapsRequired = 2,
                                 Command = new Command(async () =>
                                 {
-                                    await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith(async (ord) =>
-                                      await BtnFrame.DisplayToastAsync("Résultat copié avec succès.", 3000));
+                                    await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
+                                      _= DisplayToast("Résultat copié avec succès.", 3000));
                                 })
                             });
 
                         }
                         else
-                            await BtnFrame.DisplayToastAsync("Erreur vous devez saisir une matrice 2x2 ou 3x3.", 3000);
+                            _= DisplayToast("Erreur vous devez saisir une matrice 2x2 ou 3x3.", 3000);
                     }
                     else
-                        await BtnFrame.DisplayToastAsync("Erreur vous devez saisir une matrice carrée.", 3000);
+                        _= DisplayToast("Erreur vous devez saisir une matrice carrée.", 3000);
 
                 }
                 else
-                    await BtnFrame.DisplayToastAsync("Erreur vous devez saisir une valeur.", 3000);
+                    _= DisplayToast("Erreur vous devez saisir une valeur.", 3000);
 
             }
             catch (Exception ex)
             {
                 MatriceDeterminantStack.IsVisible = false;
-                await BtnFrame.DisplayToastAsync($"Erreur, un problème est survenu {ex.Message}.", 3000);
+                _= DisplayToast($"Erreur, un problème est survenu {ex.Message}.", 3000);
 
             }
 
@@ -1104,28 +1121,28 @@ namespace CryptoAppV2.View.Home
                                     NumberOfTapsRequired = 2,
                                     Command = new Command(async () =>
                                     {
-                                        await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith(async (ord) =>
-                                            await BtnFrame.DisplayToastAsync("Résultat copié avec succès.", 3000));
+                                        await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
+                                            _= DisplayToast("Résultat copié avec succès.", 3000));
                                     })
                                 });
                             }
                             else
-                                await BtnFrame.DisplayToastAsync($"Erreur l'inverse du déterminant {det} n'existe pas dans la base {n}.", 3000);
+                                _= DisplayToast($"Erreur l'inverse du déterminant {det} n'existe pas dans la base {n}.", 3000);
                         }
                         else
-                            await BtnFrame.DisplayToastAsync("Erreur vous devez saisir matrice 2x2.", 3000);
+                            _= DisplayToast("Erreur vous devez saisir matrice 2x2.", 3000);
                     }
                     else
-                        await BtnFrame.DisplayToastAsync("Erreur vous devez saisir une matrice carrée.", 3000);
+                        _= DisplayToast("Erreur vous devez saisir une matrice carrée.", 3000);
                 }
                 else
-                    await BtnFrame.DisplayToastAsync("Erreur vous devez saisir une valeur.", 3000);
+                    _= DisplayToast("Erreur vous devez saisir une valeur.", 3000);
 
             }
             catch (Exception)
             {
                 MatriceInverseStack.IsVisible = false;
-                await BtnFrame.DisplayToastAsync("Erreur, un problème est survenu.", 3000);
+                _= DisplayToast("Erreur, un problème est survenu.", 3000);
 
             }
 
@@ -1155,24 +1172,24 @@ namespace CryptoAppV2.View.Home
                             NumberOfTapsRequired = 2,
                             Command = new Command(async () =>
                             {
-                                await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith(async (ord) =>
-                                  await BtnFrame.DisplayToastAsync("Résultat copié avec succès.", 3000));
+                                await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
+                                  _= DisplayToast("Résultat copié avec succès.", 3000));
                             })
                         });
                     }
                     else
                     {
-                        await BtnFrame.DisplayToastAsync("Erreur vous devez saisir que des entiers.", 3000);
+                        _= DisplayToast("Erreur vous devez saisir que des entiers.", 3000);
                     }
                 }
                 else
-                    await BtnFrame.DisplayToastAsync("Erreur vous devez saisir une valeur.", 3000);
+                    _= DisplayToast("Erreur vous devez saisir une valeur.", 3000);
 
             }
             catch (Exception)
             {
                 BinaireStack.IsVisible = false;
-                await BtnFrame.DisplayToastAsync("Erreur, un problème est survenu.", 3000);
+                _= DisplayToast("Erreur, un problème est survenu.", 3000);
 
             }
 
@@ -1202,24 +1219,24 @@ namespace CryptoAppV2.View.Home
                             NumberOfTapsRequired = 2,
                             Command = new Command(async () =>
                             {
-                                await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith(async (ord) =>
-                                  await BtnFrame.DisplayToastAsync("Résultat copié avec succès.", 3000));
+                                await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
+                                  _= DisplayToast("Résultat copié avec succès.", 3000));
                             })
                         });
                     }
                     else
                     {
-                        await BtnFrame.DisplayToastAsync("Erreur vous devez saisir une valeur supérieure à 0.", 3000);
+                        _= DisplayToast("Erreur vous devez saisir une valeur supérieure à 0.", 3000);
                     }
                 }
                 else
-                    await BtnFrame.DisplayToastAsync("Erreur vous devez saisir une valeur.", 3000);
+                    _= DisplayToast("Erreur vous devez saisir une valeur.", 3000);
 
             }
             catch (Exception)
             {
                 TrouverPEtQStack.IsVisible = false;
-                await BtnFrame.DisplayToastAsync("Erreur, un problème est survenu.", 3000);
+                _= DisplayToast("Erreur, un problème est survenu.", 3000);
 
             }
 
@@ -1245,17 +1262,17 @@ namespace CryptoAppV2.View.Home
                     }
                     else
                     {
-                        await BtnFrame.DisplayToastAsync("Erreur vous devez saisir que des alphabets.", 3000);
+                        _= DisplayToast("Erreur vous devez saisir que des alphabets.", 3000);
                     }
                 }
                 else
-                    await BtnFrame.DisplayToastAsync("Erreur vous devez saisir une valeur.", 3000);
+                    _= DisplayToast("Erreur vous devez saisir une valeur.", 3000);
 
             }
             catch (Exception)
             {
                 FrequenceCaractereStack.IsVisible = false;
-                await BtnFrame.DisplayToastAsync("Erreur, un problème est survenu.", 3000);
+                _= DisplayToast("Erreur, un problème est survenu.", 3000);
 
             }
 
@@ -1285,24 +1302,24 @@ namespace CryptoAppV2.View.Home
                             NumberOfTapsRequired = 2,
                             Command = new Command(async () =>
                             {
-                                await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith(async (ord) =>
-                                  await BtnFrame.DisplayToastAsync("Résultat copié avec succès.", 3000));
+                                await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
+                                  _= DisplayToast("Résultat copié avec succès.", 3000));
                             })
                         });
                     }
                     else
                     {
-                        await BtnFrame.DisplayToastAsync("Erreur vous devez saisir une valeur supérieur à 0.", 3000);
+                        _= DisplayToast("Erreur vous devez saisir une valeur supérieur à 0.", 3000);
                     }
                 }
                 else
-                    await BtnFrame.DisplayToastAsync("Erreur vous devez saisir une valeur.", 3000);
+                    _= DisplayToast("Erreur vous devez saisir une valeur.", 3000);
 
             }
             catch (Exception)
             {
                 DecompositionFacteurStack.IsVisible = false;
-                await BtnFrame.DisplayToastAsync("Erreur, un problème est survenu.", 3000);
+                _= DisplayToast("Erreur, un problème est survenu.", 3000);
 
             }
 
@@ -1332,8 +1349,8 @@ namespace CryptoAppV2.View.Home
                             NumberOfTapsRequired = 2,
                             Command = new Command(async () =>
                             {
-                                await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith(async (ord) =>
-                                  await BtnFrame.DisplayToastAsync("Résultat copié avec succès.", 3000));
+                                await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
+                                  _= DisplayToast("Résultat copié avec succès.", 3000));
                             })
                         });
                         var etapes = Etapes.ExponentiationModulaire(nbr, exposant, module);
@@ -1346,20 +1363,20 @@ namespace CryptoAppV2.View.Home
                         await Task.Delay(2000);
                         /* }
                          else
-                             await BtnFrame.DisplayToastAsync($"Les valeurs {nbr} , {exposant} et {module} doivent être premiers entre eux.", 3000);
+                             _= DisplayToast($"Les valeurs {nbr} , {exposant} et {module} doivent être premiers entre eux.", 3000);
                         */
                     }
                     else
-                        await BtnFrame.DisplayToastAsync("Les valeurs doivent être différents de 0.", 3000);
+                        _= DisplayToast("Les valeurs doivent être différents de 0.", 3000);
                 }
                 else
-                    await BtnFrame.DisplayToastAsync("Erreur vous devez saisir toutes les valeurs.", 3000);
+                    _= DisplayToast("Erreur vous devez saisir toutes les valeurs.", 3000);
 
             }
             catch (Exception ex)
             {
                 ExponentiationModulaireStack.IsVisible = false;
-                await BtnFrame.DisplayToastAsync($"Erreur, un problème est survenu {ex.Message}.", 3000);
+                _= DisplayToast($"Erreur, un problème est survenu {ex.Message}.", 3000);
             }
         }
         private void InfoPop(ListView listView)

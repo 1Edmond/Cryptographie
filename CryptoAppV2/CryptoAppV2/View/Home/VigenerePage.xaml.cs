@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -248,12 +249,39 @@ namespace CryptoAppV2.View.Home
         }
 
         private async void ResultCodageTap_Tapped(object sender, EventArgs e) =>
-            await Clipboard.SetTextAsync(codageResult).ContinueWith(async (ord) => await this.
-            DisplayToastAsync($"Résultat du codage copié avec succès. {codageResult}", 3000));
+            await Clipboard.SetTextAsync(codageResult).ContinueWith(async (ord) => {
+                var options = new ToastOptions()
+                {
+                    BackgroundColor = Color.FromHex("#28C2FF"),
+                    Duration = new TimeSpan(7500),
+                    CornerRadius = new Thickness(20),
+                    MessageOptions = new MessageOptions()
+                    {
+                        Foreground = Color.White,
+                        Message = "Résultat du codage copié avec succès.",
+                        Padding = new Thickness(10)
+                    }
+                };
+                await this.DisplayToastAsync(options);
+            });
 
         private async void DecodageResultTap_Tapped(object sender, EventArgs e) =>
-            await Clipboard.SetTextAsync(decodageResult).ContinueWith(async (ord) => await this.
-            DisplayToastAsync("Résultat du décodage copié avec succès.", 3000));
+            await Clipboard.SetTextAsync(decodageResult).ContinueWith(async (ord) => 
+            {
+                var options = new ToastOptions()
+                {
+                    BackgroundColor = Color.FromHex("#28C2FF"),
+                    Duration = new TimeSpan(7500),
+                    CornerRadius = new Thickness(20),
+                    MessageOptions = new MessageOptions()
+                    {
+                        Foreground = Color.White,
+                        Message = "Résultat du décodage copié avec succès.",
+                        Padding = new Thickness(10)
+                    }
+                };
+                await this.DisplayToastAsync(options);
+            });
         private async Task ActivateAndAnimeBtn(Button btnCodage, ImageButton btn)
         {
             await btnCodage.FadeTo(0, 3000);

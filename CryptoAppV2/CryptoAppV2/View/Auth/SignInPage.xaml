@@ -21,8 +21,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
-
-            <Grid RowDefinitions="1.2*,2*,80" Padding="0">
+            <Grid RowDefinitions="1.2*,2*,80" Padding="0" x:Name="DataGrid">
                 <Frame Padding="0" CornerRadius="20" Margin="0,-20,0,0">
                     <Grid VerticalOptions="FillAndExpand" HeightRequest="200" WidthRequest="200"
                      BackgroundColor="#178FEB" Padding="0">
@@ -104,9 +103,7 @@
 
 
             </Grid>
-            <StackLayout BackgroundColor="Transparent" HorizontalOptions="FillAndExpand" IsVisible="False" x:Name="MyWaitAnnimation" VerticalOptions="FillAndExpand">
-                <ActivityIndicator Color="#178FEB" HorizontalOptions="CenterAndExpand" IsRunning="True" VerticalOptions="CenterAndExpand"  />
-            </StackLayout>
+            <ActivityIndicator Color="#d1178FEB" HorizontalOptions="CenterAndExpand" IsRunning="False" x:Name="MyWaitAnnimation" VerticalOptions="CenterAndExpand"  />
         </Grid>
 
     </ContentPage.Content>

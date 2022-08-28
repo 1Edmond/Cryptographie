@@ -10,7 +10,7 @@
                 <Setter Property="TextColor" Value="{AppThemeBinding Dark=Gray, Light=Gray}" />
             </Style>
             <Style TargetType="BoxView">
-                <Setter  Property="Color" Value="#333535"/>
+                <Setter  Property="Color" Value="{AppThemeBinding Dark=Gray, Light=Gray}"/>
             </Style>
         </StackLayout.Resources>
         <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">

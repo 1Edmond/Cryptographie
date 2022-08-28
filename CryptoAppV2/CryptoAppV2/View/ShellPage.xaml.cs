@@ -1,4 +1,5 @@
-﻿using CryptoAppV2.View.HistoriquePages;
+﻿using CryptoAppV2.Model;
+using CryptoAppV2.View.HistoriquePages;
 using CryptoAppV2.View.Home;
 using CryptoAppV2.View.ModelePages;
 using CryptoAppV2.View.SettingsPages;
@@ -25,7 +26,6 @@ namespace CryptoAppV2.View
             Routing.RegisterRoute("EtapePage", typeof(EtapePage));
             Routing.RegisterRoute("AcceuilPage", typeof(AcceuilPage));
             Routing.RegisterRoute("HillPage", typeof(HillPage));
-            Routing.RegisterRoute("ProfilPage", typeof(ProfilPage));
             Routing.RegisterRoute("MerkleHellmanPage", typeof(MerkleHellmanPage));
             Routing.RegisterRoute("RSAPage", typeof(RSAPage));
             Routing.RegisterRoute("VernamPage", typeof(VernamPage));
@@ -55,6 +55,10 @@ namespace CryptoAppV2.View
                 await Current.GoToAsync("HistoriquePage");
                 Current.FlyoutIsPresented = false;
             });
+            BtnExit.Clicked += delegate
+            {
+                Environment.Exit(0);
+            };
         }
 
     }

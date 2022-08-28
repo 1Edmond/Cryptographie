@@ -116,7 +116,50 @@ namespace CryptoAppV2.Model
             }
             }
 
+        private const string InscriptionId = "InscriptionId";
+        public static string UserInscriptionId {
+            get
+            {
+                if (!Application.Current.Properties.ContainsKey(InscriptionId))
+                {
+                    Application.Current.Properties.Add(InscriptionId, "");
+                    Application.Current.SavePropertiesAsync();
+                }
+                return (string)Application.Current.Properties[InscriptionId];
+            }
+            set
+            {
+                if (Application.Current.Properties.ContainsKey(InscriptionId))
+                    Application.Current.Properties[InscriptionId] = value;
+                else
+                    Application.Current.Properties.Add(InscriptionId, value);
+                Application.Current.SavePropertiesAsync();
+            }
 
+        }
+        
+        private const string InscriptionValide = "InscriptionValide";
+        public static string UserInscriptionValide
+        {
+            get
+            {
+                if (!Application.Current.Properties.ContainsKey(InscriptionValide))
+                {
+                    Application.Current.Properties.Add(InscriptionValide, "");
+                    Application.Current.SavePropertiesAsync();
+                }
+                return (string)Application.Current.Properties[InscriptionValide];
+            }
+            set
+            {
+                if (Application.Current.Properties.ContainsKey(InscriptionValide))
+                    Application.Current.Properties[InscriptionValide] = value;
+                else
+                    Application.Current.Properties.Add(InscriptionValide, value);
+                Application.Current.SavePropertiesAsync();
+            }
+
+        }
 
     }
 }

@@ -26,6 +26,18 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
+            <StackLayout.Resources>
+                <Style TargetType="Label">
+                    <Setter Property="TextColor" Value="{AppThemeBinding Dark=White, Light=Gray}" />
+                </Style>
+                <Style TargetType="Picker">
+                    <Setter Property="TextColor" Value="{AppThemeBinding Dark=Black, Light=Black}" />
+                </Style>
+                <Style TargetType="Entry">
+                    <Setter Property="TextColor" Value="{AppThemeBinding Dark=Black, Light=Black}"/>
+                    <Setter Property="PlaceholderColor" Value="{AppThemeBinding Dark=Gray, Light=Gray}"/>
+                </Style>
+            </StackLayout.Resources>
             <Grid RowDefinitions="70,*" VerticalOptions="FillAndExpand">
                 <Frame HasShadow="True" CornerRadius="80" HorizontalOptions="FillAndExpand" Margin="20,10,20,0" xct:ShadowEffect.Color="Black" 
                        xct:ShadowEffect.Radius="4" xct:ShadowEffect.Opacity="0.7" Padding="0" >

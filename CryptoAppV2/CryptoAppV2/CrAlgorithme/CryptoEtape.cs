@@ -558,7 +558,6 @@ namespace CryptoAppV2.CrAlgorithme
 
             return result;
         }
-
         public List<Etape> ChiffrementModele(string text, string nom)
         {
             var result = new List<Etape>();

@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:vm="clr-namespace:CryptoAppV2.ViewModel"
              x:Class="CryptoAppV2.View.SettingsPages.Index">
     <Shell.TitleView>
         <StackLayout Orientation="Horizontal" Margin="10,0" VerticalOptions="CenterAndExpand"
@@ -19,25 +20,27 @@
             </Grid.Resources>
             <Grid RowDefinitions="1.5*,*,*" RowSpacing="10" BackgroundColor="White">
                 <Grid ColumnDefinitions="*,40">
-                    <Frame Margin="-50,0,0,0" WidthRequest="350" CornerRadius="40" HorizontalOptions="StartAndExpand" 
+                    <Frame Margin="-50,0,0,0" WidthRequest="400" CornerRadius="40" HorizontalOptions="StartAndExpand" 
                    xct:ShadowEffect.Color="Black" Padding="0" xct:ShadowEffect.Radius="50"
                    BackgroundColor="#ffffff">
                         <Grid RowDefinitions="*,*" Margin="70,40,0,0" BackgroundColor="Transparent">
                             <Grid ColumnDefinitions="0.4*,*" VerticalOptions="StartAndExpand" BackgroundColor="Transparent">
+                                <Grid.BindingContext>
+                                    <vm:ShellVm/>
+                                </Grid.BindingContext>
                                 <Frame Padding="0" CornerRadius="80" VerticalOptions="StartAndExpand">
-                                    <Image Source="Accueil" Aspect="AspectFill" x:Name="ProfilImage" />
+                                    <Image Source="{Binding ProfileImage}" Aspect="AspectFill" x:Name="ProfilImage" />
                                 </Frame>
                                 <StackLayout Grid.Column="1" Margin="10,0,0,0" HorizontalOptions="StartAndExpand" >
-                                    <Label Text="HONYIGLO Wilfried" x:Name="UserName" FontSize="18" FontAttributes="Bold" TextColor="Black"/>
-                                    <Label Text="+228 92 08 07 70" x:Name="UserNumber" FontSize="14" TextColor="Black"/>
-                                    <Label Text="Edmond Willy" FontSize="14" x:Name="UserPseudo" TextColor="Black"/>
+                                    <Label Text="HONYIGLO Wilfried" x:Name="UserName" FontSize="18" FontAttributes="Bold"/>
+                                    <Label Text="+228 92 08 07 70" x:Name="UserNumber" FontSize="14" />
                                 </StackLayout>
                             </Grid>
-                            <Grid Grid.Row="1" Margin="-70,0,0,0" BackgroundColor="Transparent" ColumnSpacing="10" ColumnDefinitions="*,*">
+                            <Grid Grid.Row="1" Margin="-70,0,0,0" BackgroundColor="Transparent" ColumnSpacing="0" ColumnDefinitions="Auto,Auto">
                                 <StackLayout >
                                     <Frame CornerRadius="70" WidthRequest="200" 
                                    HorizontalOptions="CenterAndExpand" BackgroundColor="#268ce0" HeightRequest="30">
-                                        <Label Margin="15,0,0,0" Text="30"
+                                        <Label Margin="15,0,0,0"
                                                FontSize="25" x:Name="ModeleCount"
                                                TextColor="White" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
                                     </Frame>
@@ -47,7 +50,7 @@
                                 <StackLayout Grid.Column="1" Margin="40,0,-40,0">
                                     <Frame CornerRadius="160" WidthRequest="200" 
                                    HorizontalOptions="CenterAndExpand" BackgroundColor="#268ce0" HeightRequest="30">
-                                        <Label Text="30" TextColor="White" 
+                                        <Label TextColor="White" 
                                                FontSize="25" x:Name="HistoriqueCount"
                                                HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
                                     </Frame>
@@ -72,13 +75,14 @@
                             <Grid ColumnDefinitions="*,2*">
                                 <Frame Padding="0"  WidthRequest="40" HorizontalOptions="CenterAndExpand"
                                    VerticalOptions="CenterAndExpand" CornerRadius="50">
-                                    <Image Source="information" Aspect="AspectFit" />
+                                    <Image Source="delete" Aspect="AspectFit" />
                                 </Frame>
                                 <StackLayout Grid.Column="1" VerticalOptions="CenterAndExpand">
-                                    <Label Text="Informations sur votre compte"
+                                    <Label Text="Supprimer toutes vos données"
                                            x:Name="ProfilInfo" FontSize="17" FontAttributes="Bold">
                                         <Label.GestureRecognizers>
-                                            <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="Information_Tapped" />
+                                            <TapGestureRecognizer NumberOfTapsRequired="2" Tapped="DeleteAll_Tapped" />
+                                            <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="DeleteAll_Info" />
                                         </Label.GestureRecognizers>
                                     </Label>
                                 </StackLayout>
@@ -105,19 +109,22 @@
                 <Frame Grid.Row="2" Margin="0,20,0,40" xct:ShadowEffect.Color="Black" Padding="0" xct:ShadowEffect.Radius="50"
                    BackgroundColor="#ffffff">
                     <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" Spacing="20" VerticalOptions="CenterAndExpand">
-                        <Button Text="Se déconnecter" TextColor="White" Margin="20,0,0,0"
-                            FontSize="18" x:Name="BtnLogOut" HorizontalOptions="StartAndExpand"
-                            BackgroundColor="#268ce0" TextTransform="None" CornerRadius="40"/>
                         <Button Text="Quitter" TextColor="White" Margin="0,0,20,0"
-                            FontSize="18" HorizontalOptions="EndAndExpand" x:Name="BtnExit"
+                            FontSize="18" HorizontalOptions="CenterAndExpand" x:Name="BtnExit"
                             BackgroundColor="#268ce0" TextTransform="None" CornerRadius="40"/>
                     </StackLayout>
                 </Frame>
             </Grid>
-            <Frame WidthRequest="60" Padding="0" CornerRadius="80" Margin="0,0,20,170" 
+            <Grid Margin="0,0,20,170" 
                    HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand">
-                <ImageButton Source="whatsapp1" x:Name="Whatsapp" />
-            </Frame>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="TapGestureRecognizer_Tapped" />
+                </Grid.GestureRecognizers>
+                <Image HorizontalOptions="Center" x:Name="SmsImage" Source="smsImage" 
+                           Aspect="AspectFill" BackgroundColor="Transparent" WidthRequest="50" HeightRequest="50"/>
+                <Image HorizontalOptions="Center" x:Name="WhatsappImage" Source="whatsapp1"
+                           Aspect="AspectFill" BackgroundColor="Transparent" WidthRequest="50" HeightRequest="50"/>
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

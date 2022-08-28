@@ -23,10 +23,14 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" Spacing="0" HorizontalOptions="FillAndExpand">
-                        <Entry Placeholder="Le nom du modèle" MinimumWidthRequest="180" WidthRequest="180"
-                                HorizontalTextAlignment="Center" Text="{Binding NewModeleNomInput}"  />
-                        <Entry Placeholder="Les données du modèle : A,B,C,D..." MinimumWidthRequest="180" WidthRequest="180"
-                                HorizontalTextAlignment="Center" Text="{Binding NewModeleValueInput}" />
+                        <Entry Placeholder="Saisissez le nom du modèle" MinimumWidthRequest="180" WidthRequest="180"
+                                HorizontalTextAlignment="Center" Text="{Binding NewModeleNomInput}" 
+                               PlaceholderColor="{AppThemeBinding Dark=Gray, Light=Gray}"
+                               TextColor="{AppThemeBinding Dark=Black, Light=Black}"  />
+                    <Entry Placeholder="Les données du modèle : A,B,C,D..." MinimumWidthRequest="180" 
+                           PlaceholderColor="{AppThemeBinding Dark=Gray, Light=Gray}"
+                           WidthRequest="180"
+                                HorizontalTextAlignment="Center" Text="{Binding NewModeleValueInput}" TextColor="{AppThemeBinding Dark=Black, Light=Black}" />
                         <Label Text="{Binding InputValidation}"
                                     LineHeight="2" LineBreakMode="TailTruncation"
                                     x:Name="InputValidationLabel"

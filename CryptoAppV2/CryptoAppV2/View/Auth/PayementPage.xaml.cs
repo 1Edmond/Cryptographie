@@ -21,13 +21,20 @@ namespace CryptoAppV2.View.Auth
         public PayementPage()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
             MesControls.MyEntryFocus(ReferenceEntry,ReferenceFrame);
             BtnValider.Clicked += async delegate
             {
-                if (Verfication())
-                   _= MakePayement();
+                if(Connectivity.NetworkAccess == NetworkAccess.Internet)
+                {
+                    if (Verfication())
+                        MakePayement();
+                    else
+                        await DisplayAlert("Erreur", "Veuillez vérifier la référence de la transaction.", "Ok");
+                }
                 else
-                    await DisplayAlert("Erreur", "Veuillez vérifier la référence de la transaction.", "Ok");
+                    await DisplayAlert("Erreur", "Vous devez être connecté pour réaliser cette opération.", "Ok");
+
             };
             if (Connectivity.NetworkAccess == NetworkAccess.Internet)
                 SmsImage.FadeTo(0, 200);
@@ -45,23 +52,31 @@ namespace CryptoAppV2.View.Auth
 
         public async Task MakePayement()
         {
-            DataGrid.Opacity = 0.2;
-            MyActivityIndicator.IsRunning = true;
-            var payement = new Payement()
+            try
             {
-                DatePayement = DateTime.Now,
-                Reference = ReferenceEntry.Text
-            };
-           var result = new ApiResult<Payement>();
-           _= Task.Run(() =>
+                DataGrid.Opacity = 0.2;
+                MyActivityIndicator.IsRunning = true;
+                var payement = new Payement(ReferenceEntry.Text);
+               _= Task.Run(async() =>
+                {
+                   var result = ApiService.AddPayement(payement).Result;
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {                    
+                        if(result.StatusCode == "200")
+                            await DisplayAlert("Réussie", $"Votre payement a bien été enrégistré", "Ok");
+                        else
+                            await DisplayAlert("Erreur", $"{result.Message}", "Ok");
+                        DataGrid.Opacity = 1;
+                        MyActivityIndicator.IsRunning = false;
+                    });
+                });
+
+            }
+            catch (Exception ex)
             {
-                result = ApiService.AddPayement(payement).Result;
-                
-            });
-            DataGrid.Opacity = 1;
-            MyActivityIndicator.IsRunning = false;
-           await DisplayAlert("Ok", $"{result.Count}", "Ok");
-         
+
+                await DisplayAlert("Erreur",$"{ex.Message}","Ok");
+            }
         }
 
         public bool Verfication() => 

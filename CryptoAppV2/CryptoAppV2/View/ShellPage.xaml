@@ -26,8 +26,8 @@
     <MenuItem Text="Paramètres" IconImageSource="settings" x:Name="ParametreItem"/>
     <Shell.FlyoutFooter>
         <Grid Margin="0,0,0,40" HorizontalOptions="CenterAndExpand" HeightRequest="170">
-            <Button Text="Se déconnecter" TextColor="White"
-                            FontSize="18" x:Name="LogOut" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" Margin="0,0,0,20"
+            <Button Text="Quitter" TextColor="White"
+                            FontSize="18" x:Name="BtnExit" VerticalOptions="Start" HorizontalOptions="CenterAndExpand" Margin="0,0,0,20"
                             BackgroundColor="#268ce0" TextTransform="None" CornerRadius="40"/>
             <Label Text="Wicode" Margin="0,70,0,0" TextColor="#268ce0" VerticalOptions="CenterAndExpand"
                    HorizontalTextAlignment="Center" FontSize="22" FontAttributes="Italic,Bold" />

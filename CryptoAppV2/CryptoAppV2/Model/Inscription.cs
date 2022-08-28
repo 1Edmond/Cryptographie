@@ -11,5 +11,6 @@ namespace CryptoAppV2.Model
         public string Contact { get; set; }
         public int Etat { get; set; } = 0;
         public DateTime DateInscription { get; set; } = DateTime.Now;
+        public int Id { get; set; }
     }
 }

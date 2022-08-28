@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CryptoAppV2.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,8 @@ namespace CryptoAppV2.View.Shared
         public ShellHeader()
         {
             InitializeComponent();
+
         }
+     
     }
 }

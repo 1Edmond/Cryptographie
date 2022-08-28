@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -189,7 +190,23 @@ namespace CryptoAppV2.View.Home
                                             })
                             });
 #pragma warning disable CS0618 // Le type ou le membre est obsolète
-                            CodageResult.GestureRecognizers.Add(new TapGestureRecognizer(async (ord) => { await Clipboard.SetTextAsync(result).ContinueWith(async (ord1) => await this.DisplayToastAsync("Résultat du codage copié avec succès.", 3000)); })
+                            CodageResult.GestureRecognizers.Add(new TapGestureRecognizer(async (ord) => { await Clipboard.SetTextAsync(result).ContinueWith(async (ord1) =>
+                            {
+                                var options = new ToastOptions()
+                                {
+                                    BackgroundColor = Color.FromHex("#28C2FF"),
+                                    Duration = new TimeSpan(7500),
+                                    CornerRadius = new Thickness(20),
+                                    MessageOptions = new MessageOptions()
+                                    {
+                                        Foreground = Color.White,
+                                        Message = "Résultat du codage copié avec succès.",
+                                        Padding = new Thickness(10)
+                                    }
+                                };
+                                await this.DisplayToastAsync(options);
+                            }
+                            ); })
                             { NumberOfTapsRequired = 2 });
 #pragma warning restore CS0618 // Le type ou le membre est obsolète
 
@@ -222,7 +239,23 @@ namespace CryptoAppV2.View.Home
                             var result = cryptoCode.VernamCryptoSysteme(DecodageTextEntry.Text, DecodageCleEntry.Text);
                             DecodageResult.Text = "La solution est " + result;
 #pragma warning disable CS0618 // Le type ou le membre est obsolète
-                            DecodageResult.GestureRecognizers.Add(new TapGestureRecognizer(async (ord) => { await Clipboard.SetTextAsync(result).ContinueWith(async (ord1) => await this.DisplayToastAsync("Résultat du décodage copié avec succès.", 3000)); })
+                            DecodageResult.GestureRecognizers.Add(new TapGestureRecognizer(async (ord) => { await Clipboard.SetTextAsync(result).ContinueWith(async (ord1) =>
+                            {
+                                var options = new ToastOptions()
+                                {
+                                    BackgroundColor = Color.FromHex("#28C2FF"),
+                                    Duration = new TimeSpan(7500),
+                                    CornerRadius = new Thickness(20),
+                                    MessageOptions = new MessageOptions()
+                                    {
+                                        Foreground = Color.White,
+                                        Message = "Résultat du décodage copié avec succès.",
+                                        Padding = new Thickness(10)
+                                    }
+                                };
+                                await this.DisplayToastAsync(options);
+                            }
+                            ); })
                             { NumberOfTapsRequired = 2 });
 #pragma warning restore CS0618 // Le type ou le membre est obsolète
                             await App.UserHistoriqueManager.Add(new UserHistorique()

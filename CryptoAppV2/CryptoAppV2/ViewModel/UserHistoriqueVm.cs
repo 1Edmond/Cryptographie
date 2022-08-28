@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.Forms;
 
 namespace CryptoAppV2.ViewModel
@@ -45,7 +46,19 @@ namespace CryptoAppV2.ViewModel
                 var doss = manager.GetAll();
                 Historiques = new ObservableCollection<UserHistorique>(doss);
                 OnPropertyChanged(nameof(Historiques));
-               await Shell.Current.DisplayToastAsync("Suppression de l'historique réussie.");
+                var options = new ToastOptions()
+                {
+                    BackgroundColor = Color.FromHex("#93178FEB"),
+                    Duration = new TimeSpan(7500),
+                    CornerRadius = new Thickness(20),
+                    MessageOptions = new MessageOptions()
+                    {
+                        Foreground = Color.White,
+                        Message = "Suppression de l'historique réussie.",
+                        Padding = new Thickness(10)
+                    }
+                };
+                await Shell.Current.DisplayToastAsync(options);
             });
             var dos = manager.GetAll();
             Historiques = new ObservableCollection<UserHistorique>(dos);

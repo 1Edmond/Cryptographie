@@ -21,7 +21,7 @@
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" WidthRequest="75" Margin="10">
                 <Image Source="{TemplateBinding Icon}" WidthRequest="20" Aspect="AspectFill" HeightRequest="20" VerticalOptions="CenterAndExpand"  />
                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" >
-                    <Label Text="{TemplateBinding Text}" HorizontalOptions="Center" LineBreakMode="TailTruncation"  MaxLines="1" />
+                    <Label Text="{TemplateBinding Text}" TextColor="{AppThemeBinding Dark=Black, Light=Black}" HorizontalOptions="Center" LineBreakMode="TailTruncation"  MaxLines="1" />
                     <BoxView CornerRadius="180" IsVisible="{TemplateBinding IsSelected}" HorizontalOptions="CenterAndExpand" Color="#178FEB" WidthRequest="5" HeightRequest="5"/>
                 </StackLayout>
             </StackLayout>

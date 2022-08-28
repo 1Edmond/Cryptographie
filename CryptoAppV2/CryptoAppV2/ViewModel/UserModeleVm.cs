@@ -16,16 +16,12 @@ namespace CryptoAppV2.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public ObservableCollection<UserModele> Modeles { get; private set; }
-
         public UserModeleManager manager = App.UserModeleManager;
-
-       
         public UserModeleVm()
         {
             var dos =  manager.GetAll();
             Modeles = new ObservableCollection<UserModele>(dos);
         }
-
         public ICommand DeleteCommand => new Command(async (obj) =>
         {
             var modele = obj as UserModele;
@@ -55,7 +51,6 @@ namespace CryptoAppV2.ViewModel
             OnPropertyChanged("InputValidation");
 
         });
-
         UserModele selectedModel = App.UserModeleManager.GetByName(UserSettings.UserModele);
         public UserModele SelectedItem { get 
             {
@@ -70,7 +65,6 @@ namespace CryptoAppV2.ViewModel
 
             } 
         }
-
         public ICommand RefreshCommand => new Command(() =>
         {
             IsRefreshing = true;
@@ -82,18 +76,12 @@ namespace CryptoAppV2.ViewModel
             OnPropertyChanged(nameof(Modeles));
             OnPropertyChanged(nameof(IsRefreshing));
         });
-
-       
-       
         public string InputValidation { get; set; }
         public Color InputValidationColor { get; set; }
-
         public bool IsOk = true;
         public bool IsRefreshing = false;
-
         public string NewModeleNomInput { get; set; } = String.Empty;
         public string NewModeleValueInput { get; set; } = String.Empty;
-
         public ICommand AddCommand => new Command(async () =>
         {
             InputValidationColor = Color.FromHex("#4ba3c3");
@@ -112,7 +100,7 @@ namespace CryptoAppV2.ViewModel
                 { 
                     Nom = NewModeleNomInput ,
                     DateAjout = DateTime.Now,
-                    ModeleValue = NewModeleValueInput ,
+                    ModeleValue = NewModeleValueInput.ToUpper() ,
                 };
                 if (!manager.Exist(modele.Nom))
                 {
@@ -134,9 +122,6 @@ namespace CryptoAppV2.ViewModel
             OnPropertyChanged("InputValidationColor");
             OnPropertyChanged("InputValidation");
         });
-
-
-
         protected void OnPropertyChanged(string propertyName)
         {
             var handler = PropertyChanged;
@@ -145,8 +130,5 @@ namespace CryptoAppV2.ViewModel
             else
                 return ;
         }
-
-
-
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CryptoAppV2.Data;
+using CryptoAppV2.Model;
 using CryptoAppV2.Service;
 using CryptoAppV2.View;
 using CryptoAppV2.View.Auth;
@@ -7,6 +8,7 @@ using CryptoAppV2.View.ModelePages;
 using CryptoAppV2.View.SettingsPages;
 using System;
 using System.IO;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -58,8 +60,34 @@ namespace CryptoAppV2
             UserModeleManager = new UserModeleManager(database);
             //var navigationPage = new ProfilPage();
             //MainPage = navigationPage;
-            MainPage = new PayementPage();
+            CheckInscriptionValidation();
+            if(UserSettings.UserInscriptionId == "")
+                MainPage = new NavigationPage(new SignInPage());
+            else
+            {
+                if(UserSettings.UserInscriptionValide == "")
+                    MainPage = new NavigationPage(new PayementPage());
+                else
+                    MainPage = new ShellPage();
+            }
+            
+                  //  MainPage = new ShellPage();
+               
            // ApiService.GetInscription();
+        }
+
+        public void CheckInscriptionValidation()
+        {
+            if (UserSettings.UserInscriptionId != "")
+            {
+                if(Connectivity.NetworkAccess == NetworkAccess.Internet)
+                {
+                    var result = ApiService.GetInscription();
+                    if(result.Result.ELement != null)
+                        if(result.Result.ELement.Etat == 2)
+                            UserSettings.UserInscriptionValide = "true";
+                }
+            }
         }
 
         protected override void OnStart()

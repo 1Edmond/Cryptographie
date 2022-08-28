@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -29,7 +30,7 @@ namespace CryptoAppV2.View.ModelePages
             
         }
       
-        private void ModeleCheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        private async void ModeleCheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             if(sender is CheckBox checkBox)
             {
@@ -37,7 +38,19 @@ namespace CryptoAppV2.View.ModelePages
                 {
                     UserModele UsedModele = checkBox.BindingContext as UserModele;
                     UserSettings.UserModele = UsedModele.Nom;
-                    this.DisplayToastAsync("Veuillez raffraichir la liste pour observer les modifications.");
+                    var options = new ToastOptions()
+                    {
+                        BackgroundColor = Color.FromHex("#28C2FF"),
+                        Duration = new TimeSpan(7500),
+                        CornerRadius = new Thickness(20),
+                        MessageOptions = new MessageOptions()
+                        {
+                            Foreground = Color.White,
+                            Message = "Veuillez raffraichir la liste pour observer les modifications.",
+                            Padding = new Thickness(10)
+                        }
+                    };
+                    await this.DisplayToastAsync(options);
                 }
             }
         }

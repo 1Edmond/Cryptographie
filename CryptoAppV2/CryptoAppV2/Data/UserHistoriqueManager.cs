@@ -68,6 +68,9 @@ namespace CryptoAppV2.Data
         }
 
         public async Task<int> Count() => await Task.FromResult(Connection.Table<UserHistorique>().CountAsync().Result);
-       
+
+        public async Task DeleteAll() =>
+            await Connection.Table<UserHistorique>().Where(x => x.Id != 0).DeleteAsync();
+        
     }
 }

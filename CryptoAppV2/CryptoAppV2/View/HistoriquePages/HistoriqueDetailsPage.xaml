@@ -13,6 +13,11 @@
     <ContentPage.BindingContext>
         <ht:UserHistoriqueDetailsVm />
     </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="{AppThemeBinding Dark=Gray, Light=Black}" />
+        </Style>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid RowDefinitions="*,3*">
             <Grid HorizontalOptions="FillAndExpand" RowDefinitions="*,*" ColumnSpacing="0" >
@@ -20,6 +25,7 @@
                     <ResourceDictionary>
                         <Style TargetType="Label">
                             <Setter Property="FontSize" Value="16" />
+                            <Setter Property="TextColor" Value="{AppThemeBinding Dark=Gray, Light=Black}" />
                         </Style>
                     </ResourceDictionary>
                 </Grid.Resources>
@@ -58,7 +64,7 @@
                         <DataTemplate>
                             <StackLayout>
                                 <Label Text="{Binding Info}" FontSize="17"
-                                           TextColor="{AppThemeBinding Dark=white, Light=Black}" VerticalOptions="CenterAndExpand"
+                                           TextColor="{AppThemeBinding Dark=Gray, Light=Black}" VerticalOptions="CenterAndExpand"
                                            HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
                             </StackLayout>
                         </DataTemplate>

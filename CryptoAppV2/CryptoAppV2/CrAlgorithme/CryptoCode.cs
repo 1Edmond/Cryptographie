@@ -29,7 +29,6 @@ namespace CryptoAppV2.CrAlgorithme
             }
             return code;
         } // Etape faite
-
         public string DecodageAffine(string message, int a = 1, int b = 3, string modele = "Modèle de base")
         {
             int valCar = 0;
@@ -47,7 +46,6 @@ namespace CryptoAppV2.CrAlgorithme
             }
             return decode;
         } // Etape faite
-
         public string VernamCryptoSysteme(string message, string cle)
         {
             string result = "";
@@ -57,7 +55,6 @@ namespace CryptoAppV2.CrAlgorithme
             Array.Reverse(resultat);
             return new string(resultat);
         }
-
         public string CodageVigenere(string message, string cle)
         {
             var result = "";
@@ -74,7 +71,6 @@ namespace CryptoAppV2.CrAlgorithme
 
             return result;
         } // Etape faite
-
         public string DecodageVigenere(string message, string cle)
         {
             var result = "";
@@ -98,7 +94,6 @@ namespace CryptoAppV2.CrAlgorithme
 
             return result;
         } // Etape faite
-
         public string CodageHill(string message, string matrice, string special = "x", string modele = "Modèle de base")
         {
             string result = "";
@@ -145,7 +140,6 @@ namespace CryptoAppV2.CrAlgorithme
             }
             return result;
         }
-
         public string DecodageHill(string message, string matrice, string special = "x", string modele = "Modèle de base")
         {
             int compteur = 0;
@@ -166,11 +160,8 @@ namespace CryptoAppV2.CrAlgorithme
             string result = CodageHill(message, MatriceInverse, special, userModele.Nom);
             return result;
         }
-
         public string CodageRSA(string message, string n, string e) => (Math.Pow(int.Parse(message), int.Parse(e)) % int.Parse(n)).ToString();
-
         public string DecodageRSA(string message, string n, string e) => MesFonctions.ExponentiationModulaire(int.Parse(message), int.Parse(MesFonctions.RSAClePrive(n, e)), int.Parse(n)).ToString();
-
         public string CodageBinaireMerkleHellman(string message, string cle, string n, string m)
         {
             string code = "";
@@ -195,7 +186,6 @@ namespace CryptoAppV2.CrAlgorithme
             }
             return code;
         } // Etape faite
-
         public string FormeBinaire(List<string> cle, List<string> message)
         {
             var binaire = new Char[cle.Count];
@@ -206,7 +196,6 @@ namespace CryptoAppV2.CrAlgorithme
                     binaire[i] = '0';
             return new String(binaire);
         }
-
         public string DecodageMerkleHellman(string message, string cle, string n, string m)
         {
             var newMessage = message.Split(',').ToList();
@@ -222,7 +211,5 @@ namespace CryptoAppV2.CrAlgorithme
             });
             return solution;
         } // Etape faite
-
-
     }
 }

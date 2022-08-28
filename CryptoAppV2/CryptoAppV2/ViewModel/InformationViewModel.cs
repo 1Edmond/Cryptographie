@@ -24,13 +24,13 @@ namespace CryptoAppV2.ViewModel
             Infos = new List<Information>()
             {
                 new Information() { Description = "L'application vous offre la possiblité de faire " },
-                new Information() { Description = "toute sorte d'opération dans le domaine de la cryptographie." },
+                new Information() { Description = "toute sorte d'opération vue dans le cours de cryptographie (IAI-TOGO 2021-2022)." },
                 new Information() { Description = "Vous devez diposer d'une connexion internet pour pouvoir vous inscrire" },
                 new Information() { Description = "L'application n'est pas gratuite. Après votre inscription, " },
-                new Information() { Description = "vous devez envoyé le message suivant au numéro +228 92 08 07 70 sur whatsapp" },
-                new Information() { Description = "avec votre numéro d'inscription tout en changeant le" },
-                new Information() { Description = "nom par celui utilisé lors de votre inscription" },
-                new Information() { Description = "WiCode, inscription sous le nom de Wilfried" },
+                new Information() { Description = "vous devez envoyé la somme indiqué au numéro 92 80 07 70 par TMoney" },
+                new Information() { Description = "et ensuite copié la référence du transfert puis revenir dans l'application" },
+                new Information() { Description = "puis la saisir. Vous nous contacter par la suite pour valider votre inscription" },
+                new Information() { Description = "soit par Whatsapp soit par Sms." },
 
             };
             FonctionInfo = new List<Information>()

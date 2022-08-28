@@ -90,5 +90,7 @@ namespace CryptoAppV2.Data
         }
 
         public async Task<int> Count() => await Task.FromResult(Connection.Table<UserModele>().CountAsync().Result);
+
+        public async Task DeleteAll() => await Connection.Table<UserModele>().Where(x => x.Nom != "Modèle de base").DeleteAsync();
     }
 }

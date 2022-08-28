@@ -41,22 +41,8 @@
         <Style TargetType="Label">
             <Setter Property="FontSize" Value="16" />
             <Setter Property="LineHeight" Value="2" />
+            <Setter Property="TextColor" Value="{AppThemeBinding Dark=Gray, Light=Black}" />
             <Setter Property="LineBreakMode" Value="TailTruncation" />
-        </Style>
-         <Style TargetType="Frame">
-            <Setter Property="VisualStateManager.VisualStateGroups">
-                <VisualStateGroupList>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal" />
-                        <VisualState x:Name="Selected">
-                            <VisualState.Setters>
-                                <Setter Property="BackgroundColor"
-                                        Value="LightSkyBlue" />
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateGroupList>
-            </Setter>
         </Style>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -78,7 +64,7 @@
                                                      VerticalOptions="CenterAndExpand"
                                                      HorizontalOptions="StartAndExpand">
                                             <Label Text="Détails"
-                                                   FontAttributes="Bold"
+                                                   FontAttributes="Bold" 
                                                    VerticalOptions="CenterAndExpand"
                                                    HorizontalOptions="Start" />
                                         </StackLayout>
