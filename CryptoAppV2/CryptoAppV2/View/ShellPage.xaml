@@ -1,10 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Shell xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:crypto="clr-namespace:CryptoAppV2.View.Home"
-             xmlns:modeles="clr-namespace:CryptoAppV2.View.ModelePages"
              xmlns:shared="clr-namespace:CryptoAppV2.View.Shared"
-             xmlns:hiso="clr-namespace:CryptoAppV2.View.HistoriquePages"
              xmlns:home="clr-namespace:CryptoAppV2"
              Shell.ForegroundColor="White"
              x:Class="CryptoAppV2.View.ShellPage">
@@ -14,11 +11,12 @@
             <Grid Margin="0,0,0,50">
                 <shared:ShellHeader HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="20"/>
             </Grid>
-            <Label Margin="0,0,0,20" FontSize="22" Text="Pseudo"
-                   FontAttributes="Bold" TextColor="Black"
+            <Label Margin="0,0,0,20" FontSize="22"
+                   FontAttributes="Bold" TextColor="Gray" x:Name="UserName"
                    VerticalOptions="EndAndExpand" HorizontalTextAlignment="Center" />
         </Grid>
     </Shell.FlyoutHeader>
+    
     <ShellContent Title="Acceuil" Icon="home" ContentTemplate="{DataTemplate home:MainPage}"/>
     <MenuItem Text="Cryptographie" IconImageSource="encode" x:Name="CryptographieItem"/>
     <MenuItem Text="Modeles" IconImageSource="model" x:Name="ModelesItem"/>

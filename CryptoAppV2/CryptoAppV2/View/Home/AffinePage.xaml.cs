@@ -106,13 +106,13 @@ namespace CryptoAppV2.View.Home
                     $", b = {CodageBEntry.Text}" +
                     $", modèle = {tem.Nom}" +
                     $", base = {App.UserModeleManager.GetByName(tem.Nom).Valeur.Keys.Count}", "Codage de Affine", etapesCodage.ToList()));
-                await DeleteAnimation(BtnCodage, EtapeCodageBtn);
+                DeleteAnimation(BtnCodage, EtapeCodageBtn);
             };
 
             #endregion
 
             #endregion
-            _ = DeleteAnimation(BtnCodage, EtapeCodageBtn);
+            DeleteAnimation(BtnCodage, EtapeCodageBtn);
             #region Caroussel button
             BackDecodageCarousselBtn.Clicked += delegate
             {
@@ -209,9 +209,9 @@ namespace CryptoAppV2.View.Home
                     $", b = {DecodageBEntry.Text}" +
                     $", modèle = {tem.Nom}" +
                     $", base = {App.UserModeleManager.GetByName(tem.Nom)?.Valeur.Keys.Count}", "Décodage Affine", etapesDecodage.ToList()));
-                await DeleteAnimation(BtnDecodage, EtapeDecodageBtn);
+                 DeleteAnimation(BtnDecodage, EtapeDecodageBtn);
             };
-            _ = DeleteAnimation(BtnDecodage, EtapeDecodageBtn);
+            DeleteAnimation(BtnDecodage, EtapeDecodageBtn);
 
             #endregion
         }
@@ -276,12 +276,12 @@ namespace CryptoAppV2.View.Home
                                 etapesCodage.Add(x);
                             });
                             codageResult = result;
-                            await ActivateAndAnimeBtn(BtnCodage, EtapeCodageBtn);
+                            ActivateAndAnimeBtn(BtnCodage, EtapeCodageBtn);
                         }
                         else
                         {
                             await DisplayAlert("Erreur", "La variable a et la base doivent être premier entre eux.", "Ok");
-                            await DeleteAnimation(BtnCodage, EtapeCodageBtn);
+                            DeleteAnimation(BtnCodage, EtapeCodageBtn);
                         }
 
                     }
@@ -293,7 +293,7 @@ namespace CryptoAppV2.View.Home
             catch (Exception ex)
             {
                 await DisplayAlert("Erreur", $"Un truc s'est mal passé, réessayer {ex.Message}.", "Ok");
-                await DeleteAnimation(BtnCodage, EtapeCodageBtn);
+                 DeleteAnimation(BtnCodage, EtapeCodageBtn);
             }
 
         }
@@ -337,12 +337,12 @@ namespace CryptoAppV2.View.Home
                                 etapesDecodage.Add(x);
                             });
                             decodageResult = result;
-                            await ActivateAndAnimeBtn(BtnDecodage, EtapeDecodageBtn);
+                            ActivateAndAnimeBtn(BtnDecodage, EtapeDecodageBtn);
                         }
                         else
                         {
                             await DisplayAlert("Erreur", "La variable a et la base doivent être premier entre eux", "Ok");
-                            await DeleteAnimation(BtnDecodage, EtapeDecodageBtn);
+                            DeleteAnimation(BtnDecodage, EtapeDecodageBtn);
                         }
                     }
                     else
@@ -353,7 +353,7 @@ namespace CryptoAppV2.View.Home
             catch (Exception ex)
             {
                 await DisplayAlert("Erreur", $"Un truc s'est mal passé, réessayer {ex.Message}.", "Ok");
-                await DeleteAnimation(BtnDecodage, EtapeDecodageBtn);
+                DeleteAnimation(BtnDecodage, EtapeDecodageBtn);
             }
 
         }
@@ -389,21 +389,18 @@ namespace CryptoAppV2.View.Home
                 };
                 await this.DisplayToastAsync(options);
             });
-        private async Task ActivateAndAnimeBtn(Button btnCodage, ImageButton btn)
+        private  void ActivateAndAnimeBtn(Button btnCodage, ImageButton btn)
         {
-            await btnCodage.FadeTo(0, 3000);
-            btnCodage.Margin = new Thickness() { Left = 20 };
-            btnCodage.HorizontalOptions = new LayoutOptions() { Alignment = LayoutAlignment.Start, Expands = true };
-            await Task.Delay(500);
-            _ = btnCodage.FadeTo(1, 3000);
-            _ = btn.FadeTo(1, 3000);
+            _= btnCodage.TranslateTo(-95, 0, 3000);
             btn.IsVisible = true;
+            _ = btn.FadeTo(1, 3000);
         }
-        private async Task DeleteAnimation(Button btnCodage, ImageButton btn)
+        private void DeleteAnimation(Button btnCodage, ImageButton btn)
         {
             btnCodage.Margin = new Thickness() { Left = 0 };
+            btnCodage.TranslationX = 0;
             btnCodage.HorizontalOptions = new LayoutOptions() { Alignment = LayoutAlignment.Center, Expands = true };
-            await btn.FadeTo(0);
+            btn.FadeTo(0);
         }
 
     }

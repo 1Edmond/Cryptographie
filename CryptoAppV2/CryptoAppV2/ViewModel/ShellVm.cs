@@ -17,12 +17,10 @@ namespace CryptoAppV2.ViewModel
         {
             var ImageListe = new List<string>()
             {
-                "TMoney",
-                "smsImage",
-                "whatsapp1",
-                "model",
-                "encode",
+                
             };
+            for (int i = 0; i < 5; i++)
+                ImageListe.Add($"IM{i+1}.png");            
             var random = new Random();
             Device.StartTimer(TimeSpan.FromSeconds(AnimationDelay), () =>
             {

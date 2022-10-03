@@ -152,7 +152,7 @@ namespace CryptoAppV2.View.Home
                         };
                     }
                     break;
-                case "Chhiffrement":
+                case "Valeur":
                     {
                         Chiffrement.IsVisible = true;
                         MesControls.MyEntryFocusPicker(ChiffrementBaseEntry, ChiffrementBaseFrame);
@@ -502,10 +502,17 @@ namespace CryptoAppV2.View.Home
                         });
                     }
                     else
-                        _= DisplayToast("L'on ne peut chercher les diviseurs de 0", 3000);
+                    {
+                        DiviseurStack.IsVisible = false;
+                        _ = DisplayToast("L'on ne peut chercher les diviseurs de 0", 3000);
+
+                    }
                 }
                 else
-                    _= DisplayToast("Erreur vous devez saisir une valeur", 3000);
+                {
+                    DiviseurStack.IsVisible = false;
+                    _ = DisplayToast("Erreur vous devez saisir une valeur", 3000);
+                }
 
             }
             catch (Exception)
@@ -522,7 +529,7 @@ namespace CryptoAppV2.View.Home
                 if (!String.IsNullOrEmpty(UnPremierEntry.Text))
                 {
                     int nbr = int.Parse(UnPremierEntry.Text.SubstringInteger());
-                    if (nbr != 0)
+                    if (nbr != 0 && nbr != 1)
                     {
                         //if (nbr < 0) nbr *= -1;
                         UnPremierStack.IsVisible = true;
@@ -537,7 +544,7 @@ namespace CryptoAppV2.View.Home
                         if (!result)
                             UnPremierListeResult.Text = $"Le nombre {nbr} a {Fonction.Diviseur(nbr).Count} diviseurs donc il n'est pas premier.";
                         else
-                            UnPremierListeResult.Text = $"Le nombre {nbr} a {Fonction.Diviseur(nbr).Count} diviseurs 1 et {nbr} lui même donc il est premier.";
+                            UnPremierListeResult.Text = $"Le nombre {nbr} a {Fonction.Diviseur(nbr).Count} diviseurs, 1 et {nbr} lui même donc il est premier.";
 
                         UnPremierEtape.ScrollTo(etapes.Last(), ScrollToPosition.End, true);
                         await Task.Delay(2000);
@@ -553,11 +560,22 @@ namespace CryptoAppV2.View.Home
                             })
                         });
                     }
+                    
                     else
-                        _= DisplayToast("L'on ne peut chercher les diviseurs de 0", 3000);
+                    {
+                        UnPremierStack.IsVisible = false;
+                        if(nbr == 0)
+                            _ = DisplayToast("L'on ne peut chercher les diviseurs de 0", 3000);
+                        else
+                            _ = DisplayToast("1 n'a que lui même comme diviseur.", 3000);
+
+                    }
                 }
                 else
-                    _= DisplayToast("Erreur vous devez saisir une valeur", 3000);
+                {
+                    UnPremierStack.IsVisible = false;
+                    _ = DisplayToast("Erreur vous devez saisir une valeur", 3000);
+                }
 
             }
             catch (Exception)
@@ -627,10 +645,16 @@ namespace CryptoAppV2.View.Home
                         });
                     }
                     else
-                        _= DisplayToast("L'on ne peut chercher les diviseurs de 0", 3000);
+                    {
+                        DeuxPremierStack.IsVisible = false;
+                        _ = DisplayToast("L'on ne peut chercher les diviseurs de 0", 3000);
+                    }
                 }
                 else
+                {
+                    DeuxPremierStack.IsVisible = false;
                     _= DisplayToast("Erreur vous devez saisir une valeur", 3000);
+                }
 
             }
             catch (Exception)
@@ -677,8 +701,8 @@ namespace CryptoAppV2.View.Home
                             }
                             else
                             {
-                                SacADosResult.Text = $"Il n'y a aucuns solution.";
-                                SacADosStack.IsVisible = false;
+                                SacADosResult.Text = $"Il n'y a aucune solution.";
+                                SacADosEtape.IsVisible = false;
                             }
 
                             SacADosResult.GestureRecognizers.Add(new TapGestureRecognizer()
@@ -692,13 +716,22 @@ namespace CryptoAppV2.View.Home
                             });
                         }
                         else
+                        {
+                            SacADosStack.IsVisible = false;
                             _= DisplayToast("Pas besoin, utilisez votre tête pour trouver la solution.", 3000);
+                        }
                     }
                     else
+                    {
+                        SacADosStack.IsVisible = false;
                         _= DisplayToast("Erreur, Revoyez le format de votre suite.", 3000);
+                    }
                 }
                 else
-                    _= DisplayToast("Erreur vous devez saisir toutes les entrées", 3000);
+                {
+                    SacADosStack.IsVisible = false;
+                    _ = DisplayToast("Erreur vous devez saisir toutes les entrées", 3000);
+                }
             }
             catch (Exception ex)
             {
@@ -716,13 +749,15 @@ namespace CryptoAppV2.View.Home
                 {
                     int nbr = int.Parse(InverseModulaireNbrEntry.Text.SubstringInteger());
                     int module = int.Parse(InverseModulaireModuleEntry.Text.SubstringInteger());
-                    if (nbr != 0 && module != 0)
+                    if (nbr != 0 && module != 0 && module != 1)
                     {
                         while (nbr < 0) nbr += module;
                         if (Fonction.PremierEntreEux(nbr, module))
                         {
                             InverseModulaireStack.IsVisible = true;
                             var result = Fonction.InverseModulo(nbr, module);
+                            while (result < 0)
+                                result += module;
                             InverseModulaireResult.Text = $"La solution est {result}.";
                             InverseModulaireResult.GestureRecognizers.Add(new TapGestureRecognizer()
                             {
@@ -736,15 +771,22 @@ namespace CryptoAppV2.View.Home
                         }
                         else
                         {
-                            _= DisplayToast($"{nbr} n'admet pas d'inverse dans la base {module}.", 3000);
+                            InverseModulaireStack.IsVisible = false;
+                            _ = DisplayToast($"{nbr} n'admet pas d'inverse dans la base {module}.", 3000);
                         }
                     }
 
                     else
-                        _= DisplayToast("Les valeurs doivent être différent de 0.", 3000);
+                    {
+                        InverseModulaireStack.IsVisible = false;
+                        _ = DisplayToast("Les valeurs doivent être différent de 0.", 3000);
+                    }
                 }
                 else
-                    _= DisplayToast("Erreur vous devez saisir toutes les valeurs valeur", 3000);
+                {
+                    InverseModulaireStack.IsVisible = false;
+                    _ = DisplayToast("Erreur vous devez saisir toutes les valeurs valeur", 3000);
+                }
 
             }
             catch (Exception)
@@ -758,7 +800,7 @@ namespace CryptoAppV2.View.Home
         {
             try
             {
-                var selection = ChiffrementBaseEntry.SelectedItem as UserModele;
+                UserModele selection = ChiffrementBaseEntry.SelectedItem as UserModele;
                 if (selection != null && !String.IsNullOrEmpty(ChiffrementCaractereEntry.Text))
                 {
                     var modele = App.UserModeleManager.GetByName(selection.Nom);
@@ -791,11 +833,15 @@ namespace CryptoAppV2.View.Home
                         }
                         else
                         {
-                            _= DisplayToast("Le modèle choisi ne contient pas tous les caractères du texte.", 3000);
+                            ChiffrementStack.IsVisible = false;
+                            _ = DisplayToast("Le modèle choisi ne contient pas tous les caractères du texte.", 3000);
                         }
                 }
                 else
-                    _= DisplayToast("Erreur vous devez saisir les données", 3000);
+                {
+                    ChiffrementStack.IsVisible = false;
+                    _ = DisplayToast("Erreur vous devez saisir les données", 3000);
+                }
 
             }
             catch (Exception)
@@ -817,7 +863,9 @@ namespace CryptoAppV2.View.Home
                     {
                         if (nbr1 < 0) nbr1 *= -1;
                         if (nbr2 < 0) nbr2 *= -1;
-                        if (Fonction.PremierEntreEux(nbr1, int.Parse(Fonction.RSAPhi(nbr2.ToString()))))
+
+
+                        if (Fonction.PremierEntreEux(nbr1, int.Parse(Fonction.RSAPhi(nbr2.ToString()))) && nbr2 > nbr1)
                         {
                             RSAPriveStack.IsVisible = true;
                             var result = Fonction.RSAClePrive(nbr2.ToString(), nbr1.ToString());
@@ -849,13 +897,25 @@ namespace CryptoAppV2.View.Home
                             }
                         }
                         else
-                            _= DisplayToast("Les valeurs doivent être premiers entre eux.", 3000);
+                        {
+                            RSAPriveStack.IsVisible = false;
+                            if(nbr2 > nbr1)
+                                _= DisplayToast("Les valeurs doivent être premiers entre eux.", 3000);
+                            else
+                                _= DisplayToast("Le nombre n doit être supérieur au nombre e.", 3000);
+                        }
                     }
                     else
+                    {
+                        RSAPriveStack.IsVisible = false;
                         _= DisplayToast("Les valeurs doivent être différents de 0.", 3000);
+                    }
                 }
                 else
+                {
+                    RSAPriveStack.IsVisible = false;
                     _= DisplayToast("Erreur vous devez saisir toutes les valeurs.", 3000);
+                }
 
             }
             catch (Exception ex)
@@ -882,54 +942,84 @@ namespace CryptoAppV2.View.Home
                             {
                                 if (n < 0) n *= -1;
                                 if (m < 0) m *= -1;
-                                if (Fonction.PremierEntreEux(n, int.Parse(Fonction.RSAPhi(m.ToString()))))
+                                if(n > m)
                                 {
-                                    var listeS = suite.Split(',').ToList().SommeRSaList();
-                                    if (n > listeS)
+                                    if (Fonction.PremierEntreEux(n, m))
                                     {
-                                        if (Fonction.PremierEntreEux(listeS, n))
+                                        var listeS = suite.Split(',').ToList().SommeRSaList();
+                                        if (n > listeS)
                                         {
-                                            MerklePriveStack.IsVisible = true;
-                                            var result = Fonction.MerkleHellmanClePublique(suite, n.ToString(), m.ToString());
-                                            MerklePriveResult.Text = $"La solution est {result}.";
-                                            var etapes = Etapes.MerkleHelmanClePublique(suite, n.ToString(), m.ToString());
-                                            MerklePriveEtape.BindingContext = this;
-                                            MerklePriveEtape.ItemsSource = etapes;
-                                            MerklePriveListeResult.Text = $"La solution est donc {String.Join(", ", result)}.";
-                                            MerklePriveEtape.ScrollTo(etapes.Last(), ScrollToPosition.End, true);
-                                            await Task.Delay(2000);
-                                            MerklePriveEtape.ScrollTo(etapes.First(), ScrollToPosition.MakeVisible | ScrollToPosition.Start, true);
-                                            await Task.Delay(2000);
-                                            MerklePriveResult.GestureRecognizers.Add(new TapGestureRecognizer()
+                                            if (Fonction.PremierEntreEux(listeS, n))
                                             {
-                                                NumberOfTapsRequired = 2,
-                                                Command = new Command(async () =>
+                                                MerklePriveStack.IsVisible = true;
+                                                var result = Fonction.MerkleHellmanClePublique(suite, n.ToString(), m.ToString());
+                                                MerklePriveResult.Text = $"La solution est {result}.";
+                                                var etapes = Etapes.MerkleHelmanClePublique(suite, n.ToString(), m.ToString());
+                                                MerklePriveEtape.BindingContext = this;
+                                                MerklePriveEtape.ItemsSource = etapes;
+                                                MerklePriveListeResult.Text = $"La solution est donc {String.Join(", ", result)}.";
+                                                MerklePriveEtape.ScrollTo(etapes.Last(), ScrollToPosition.End, true);
+                                                await Task.Delay(2000);
+                                                MerklePriveEtape.ScrollTo(etapes.First(), ScrollToPosition.MakeVisible | ScrollToPosition.Start, true);
+                                                await Task.Delay(2000);
+                                                MerklePriveResult.GestureRecognizers.Add(new TapGestureRecognizer()
                                                 {
-                                                    await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
-                                                      _= DisplayToast("Résultat copié avec succès.", 3000));
-                                                })
-                                            });
+                                                    NumberOfTapsRequired = 2,
+                                                    Command = new Command(async () =>
+                                                    {
+                                                        await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
+                                                          _= DisplayToast("Résultat copié avec succès.", 3000));
+                                                    })
+                                                });
+                                            }
+                                            else
+                                            {
+                                                MerklePriveStack.IsVisible = false;
+                                                _= DisplayToast($"Le nombre {n} doit être premier avec la somme {listeS} des éléments de la suite.", 3000);
+                                            }
                                         }
                                         else
-                                            _= DisplayToast($"Le nombre {n} doit être premier avec la somme {listeS} des éléments de la suite.", 3000);
+                                        {
+                                            MerklePriveStack.IsVisible = false;
+                                            _= DisplayToast($"Le nombre {n} doit être supérieur à la somme {listeS} des éléments de la suite.", 3000);
+                                        }
                                     }
                                     else
-                                        _= DisplayToast($"Le nombre {n} doit être supérieur à la somme {listeS} des éléments de la suite.", 3000);
+                                    {
+                                        MerklePriveStack.IsVisible = false;
+                                        _= DisplayToast($"Les valeurs {n} et {m} doivent être premiers entre eux.", 3000);
+                                    }
                                 }
                                 else
-                                    _= DisplayToast($"Les valeurs {n} et {m} doivent être premiers entre eux.", 3000);
+                                {
+
+                                    MerklePriveStack.IsVisible = false;
+                                    _ = DisplayToast($"La valeur {n} doit être supérieur à {m}.", 3000);
+                                }
                             }
                             else
+                            {
+                                MerklePriveStack.IsVisible = false;
                                 _= DisplayToast("Les valeurs doivent être différents de 0.", 3000);
+                            }
                         }
                         else
+                        {
+                            MerklePriveStack.IsVisible = false;
                             _= DisplayToast("La suite saisie n'est pas une super suite.", 3000);
+                        }
                     }
                     else
+                    {
+                        MerklePriveStack.IsVisible = false;
                         _= DisplayToast("La suite saisie ne doit contenire ques des valeurs numériques.", 3000);
+                    }
                 }
                 else
+                {
+                    MerklePriveStack.IsVisible = false;
                     _= DisplayToast("Erreur vous devez saisir toutes les valeurs.", 3000);
+                }
             }
             catch (Exception ex)
             {
@@ -975,13 +1065,22 @@ namespace CryptoAppV2.View.Home
                             await Task.Delay(2000);
                         }
                         else
+                        {
+                            RSASignature.IsVisible = false;
                             _= DisplayToast($"Les valeurs {n} et {Fonction.RSAPhi(n.ToString())} doivent être premiers entre eux.", 3000);
+                        }
                     }
                     else
-                        _= DisplayToast("Les valeurs doivent être différents de 0.", 3000);
+                    {
+                        RSASignature.IsVisible = false;
+                        _ = DisplayToast("Les valeurs doivent être différents de 0.", 3000);
+                    }
                 }
                 else
+                {
+                    RSASignature.IsVisible = false;
                     _= DisplayToast("Erreur vous devez saisir toutes les valeurs.", 3000);
+                }
 
             }
             catch (Exception ex)
@@ -999,7 +1098,7 @@ namespace CryptoAppV2.View.Home
                 if (!String.IsNullOrEmpty(AffineBonneCleEntry.Text))
                 {
                     int nbr = int.Parse(AffineBonneCleEntry.Text.SubstringInteger());
-                    if (nbr != 0)
+                    if (nbr != 0 && nbr != 1)
                     {
                         if (nbr < 0) nbr *= -1;
                         AffineBonneCleStack.IsVisible = true;
@@ -1024,10 +1123,19 @@ namespace CryptoAppV2.View.Home
                         });
                     }
                     else
-                        _= DisplayToast("L'entrée doit être différente de 0", 3000);
+                    {
+                        AffineBonneCleStack.IsVisible = false;
+                        if(nbr == 0)
+                            _ = DisplayToast("L'entrée doit être différente de 0", 3000);
+                        else
+                            _ = DisplayToast("L'entrée doit être différente de 1", 3000);
+                    }
                 }
                 else
-                    _= DisplayToast("Erreur vous devez saisir une valeur.", 3000);
+                {
+                    AffineBonneCleStack.IsVisible = false;
+                    _ = DisplayToast("Erreur vous devez saisir une valeur.", 3000);
+                }
 
             }
             catch (Exception)
@@ -1072,14 +1180,23 @@ namespace CryptoAppV2.View.Home
 
                         }
                         else
+                        {
+                            MatriceDeterminantStack.IsVisible = false;
                             _= DisplayToast("Erreur vous devez saisir une matrice 2x2 ou 3x3.", 3000);
+                        }
                     }
                     else
+                    {
+                        MatriceDeterminantStack.IsVisible = false;
                         _= DisplayToast("Erreur vous devez saisir une matrice carrée.", 3000);
+                    }
 
                 }
                 else
+                {
+                    MatriceDeterminantStack.IsVisible = false;
                     _= DisplayToast("Erreur vous devez saisir une valeur.", 3000);
+                }
 
             }
             catch (Exception ex)
@@ -1127,16 +1244,28 @@ namespace CryptoAppV2.View.Home
                                 });
                             }
                             else
+                            {
+                                MatriceInverseStack.IsVisible = false;
                                 _= DisplayToast($"Erreur l'inverse du déterminant {det} n'existe pas dans la base {n}.", 3000);
+                            }
                         }
                         else
-                            _= DisplayToast("Erreur vous devez saisir matrice 2x2.", 3000);
+                        {
+                            MatriceInverseStack.IsVisible = false;
+                            _ = DisplayToast("Erreur vous devez saisir matrice 2x2.", 3000);
+                        }
                     }
                     else
+                    {
+                        MatriceInverseStack.IsVisible = false;
                         _= DisplayToast("Erreur vous devez saisir une matrice carrée.", 3000);
+                    }
                 }
                 else
-                    _= DisplayToast("Erreur vous devez saisir une valeur.", 3000);
+                {
+                    MatriceInverseStack.IsVisible = false;
+                    _ = DisplayToast("Erreur vous devez saisir une valeur.", 3000);
+                }
 
             }
             catch (Exception)
@@ -1156,40 +1285,64 @@ namespace CryptoAppV2.View.Home
                     string binaire = BinaireEntry.Text.SubstringInteger();
                     if (binaire.IsOnlyInteger())
                     {
-                        BinaireStack.IsVisible = true;
-                        var result = Fonction.Binaire(int.Parse(binaire));
-                        BinaireResult.Text = $"Le bianire de {binaire} est {String.Join(",", result)}";
-                        var etapes = Etapes.Binaire(binaire);
-                        BinaireEtape.BindingContext = this;
-                        BinaireEtape.ItemsSource = etapes;
-                        BinaireListeResult.Text = $"La solution est donc {String.Join(", ", result)}.";
-                        BinaireEtape.ScrollTo(etapes.Last(), ScrollToPosition.End, true);
-                        await Task.Delay(2000);
-                        BinaireEtape.ScrollTo(etapes.First(), ScrollToPosition.MakeVisible | ScrollToPosition.Start, true);
-                        await Task.Delay(2000);
-                        BinaireResult.GestureRecognizers.Add(new TapGestureRecognizer()
+                        if(int.Parse(binaire) < 327268)
                         {
-                            NumberOfTapsRequired = 2,
-                            Command = new Command(async () =>
+                            BinaireActivityIndicator.IsVisible = true;
+                            BinaireActivityIndicator.IsRunning = true;
+                            BinaireStack.IsVisible = true;
+                            var result = Fonction.Binaire(int.Parse(binaire));
+                            BinaireResult.Text = $"Le bianire de {binaire} est {String.Join(",", result)}";
+                            var etapes = Etapes.Binaire(binaire);
+                            BinaireEtape.BindingContext = this;
+                            BinaireEtape.ItemsSource = etapes;
+                            BinaireListeResult.Text = $"La solution est donc {String.Join(", ", result)}.";
+                            BinaireEtape.ScrollTo(etapes.Last(), ScrollToPosition.End, true);
+                            await Task.Delay(2000);
+                            BinaireEtape.ScrollTo(etapes.First(), ScrollToPosition.MakeVisible | ScrollToPosition.Start, true);
+                            await Task.Delay(2000);
+                            BinaireResult.GestureRecognizers.Add(new TapGestureRecognizer()
                             {
-                                await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
-                                  _= DisplayToast("Résultat copié avec succès.", 3000));
-                            })
-                        });
+                                NumberOfTapsRequired = 2,
+                                Command = new Command(async () =>
+                                {
+                                    await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
+                                      _= DisplayToast("Résultat copié avec succès.", 3000));
+                                })
+                            });
+                            BinaireActivityIndicator.IsVisible = false;
+                            BinaireActivityIndicator.IsRunning = false;
+                        }
+                        else
+                        {
+                            BinaireStack.IsVisible = false;
+                            BinaireActivityIndicator.IsVisible = false;
+                            BinaireActivityIndicator.IsRunning = false;
+                            _ = DisplayToast("Erreur vous devez saisir une plus petite valeur (inférieur à 327268).", 3000);
+                        }
                     }
                     else
                     {
-                        _= DisplayToast("Erreur vous devez saisir que des entiers.", 3000);
+                        BinaireStack.IsVisible = false;
+                        BinaireActivityIndicator.IsVisible = false;
+                        BinaireActivityIndicator.IsRunning = false;
+                        _ = DisplayToast("Erreur vous devez saisir que des entiers.", 3000);
                     }
                 }
                 else
-                    _= DisplayToast("Erreur vous devez saisir une valeur.", 3000);
+                {
+                    BinaireStack.IsVisible = false;
+                    BinaireActivityIndicator.IsVisible = false;
+                    BinaireActivityIndicator.IsRunning = false;
+                    _ = DisplayToast("Erreur vous devez saisir une valeur.", 3000);
+                }
 
             }
             catch (Exception)
             {
                 BinaireStack.IsVisible = false;
-                _= DisplayToast("Erreur, un problème est survenu.", 3000);
+                BinaireActivityIndicator.IsVisible = false;
+                BinaireActivityIndicator.IsRunning = false;
+                _ = DisplayToast("Erreur, un problème est survenu.", 3000);
 
             }
 
@@ -1205,32 +1358,44 @@ namespace CryptoAppV2.View.Home
                     {
                         TrouverPEtQStack.IsVisible = true;
                         var result = Fonction.RSAPEtQ(n);
-                        TrouverPEtQResult.Text = $"La solution est {String.Join(",", result)}";
-                        var etapes = Etapes.RSAPEtQ(n);
-                        TrouverPEtQEtape.BindingContext = this;
-                        TrouverPEtQEtape.ItemsSource = etapes;
-                        TrouverPEtQListeResult.Text = $"La solution est donc {String.Join(", ", result)}.";
-                        TrouverPEtQEtape.ScrollTo(etapes.Last(), ScrollToPosition.End, true);
-                        await Task.Delay(2000);
-                        TrouverPEtQEtape.ScrollTo(etapes.First(), ScrollToPosition.MakeVisible | ScrollToPosition.Start, true);
-                        await Task.Delay(2000);
-                        TrouverPEtQResult.GestureRecognizers.Add(new TapGestureRecognizer()
+                        if (!String.IsNullOrEmpty(result))
                         {
-                            NumberOfTapsRequired = 2,
-                            Command = new Command(async () =>
+                            TrouverPEtQResult.Text = $"La solution est {String.Join(",", result)}";
+                            var etapes = Etapes.RSAPEtQ(n);
+                            TrouverPEtQEtape.BindingContext = this;
+                            TrouverPEtQEtape.ItemsSource = etapes;
+                            TrouverPEtQListeResult.Text = $"La solution est donc {String.Join(", ", result)}.";
+                            TrouverPEtQEtape.ScrollTo(etapes.Last(), ScrollToPosition.End, true);
+                            await Task.Delay(2000);
+                            TrouverPEtQEtape.ScrollTo(etapes.First(), ScrollToPosition.MakeVisible | ScrollToPosition.Start, true);
+                            await Task.Delay(2000);
+                            TrouverPEtQResult.GestureRecognizers.Add(new TapGestureRecognizer()
                             {
-                                await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
-                                  _= DisplayToast("Résultat copié avec succès.", 3000));
-                            })
-                        });
+                                NumberOfTapsRequired = 2,
+                                Command = new Command(async () =>
+                                {
+                                    await Clipboard.SetTextAsync(String.Join(",", result)).ContinueWith((ord) =>
+                                      _= DisplayToast("Résultat copié avec succès.", 3000));
+                                })
+                            });
+                        }
+                        else
+                            {
+                                TrouverPEtQStack.IsVisible = false;
+                                _ = DisplayToast("Il n'y a pas de solution.", 3000);
+                            }
                     }
                     else
                     {
-                        _= DisplayToast("Erreur vous devez saisir une valeur supérieure à 0.", 3000);
+                        TrouverPEtQStack.IsVisible = false;
+                        _ = DisplayToast("Erreur vous devez saisir une valeur supérieure à 0.", 3000);
                     }
                 }
                 else
-                    _= DisplayToast("Erreur vous devez saisir une valeur.", 3000);
+                {
+                    TrouverPEtQStack.IsVisible = false;
+                    _ = DisplayToast("Erreur vous devez saisir une valeur.", 3000);
+                }
 
             }
             catch (Exception)
@@ -1262,11 +1427,15 @@ namespace CryptoAppV2.View.Home
                     }
                     else
                     {
-                        _= DisplayToast("Erreur vous devez saisir que des alphabets.", 3000);
+                        FrequenceCaractereStack.IsVisible = false;
+                        _ = DisplayToast("Erreur vous devez saisir que des alphabets.", 3000);
                     }
                 }
                 else
+                {
+                    FrequenceCaractereStack.IsVisible = false;
                     _= DisplayToast("Erreur vous devez saisir une valeur.", 3000);
+                }
 
             }
             catch (Exception)
@@ -1309,11 +1478,15 @@ namespace CryptoAppV2.View.Home
                     }
                     else
                     {
-                        _= DisplayToast("Erreur vous devez saisir une valeur supérieur à 0.", 3000);
+                        DecompositionFacteurStack.IsVisible = false;
+                        _ = DisplayToast("Erreur vous devez saisir une valeur supérieur à 0.", 3000);
                     }
                 }
                 else
+                {
+                    DecompositionFacteurStack.IsVisible = false;
                     _= DisplayToast("Erreur vous devez saisir une valeur.", 3000);
+                }
 
             }
             catch (Exception)
@@ -1367,10 +1540,16 @@ namespace CryptoAppV2.View.Home
                         */
                     }
                     else
-                        _= DisplayToast("Les valeurs doivent être différents de 0.", 3000);
+                    {
+                        ExponentiationModulaireStack.IsVisible = false;
+                        _ = DisplayToast("Les valeurs doivent être différents de 0.", 3000);
+                    }
                 }
                 else
+                {
+                    ExponentiationModulaireStack.IsVisible = false;
                     _= DisplayToast("Erreur vous devez saisir toutes les valeurs.", 3000);
+                }
 
             }
             catch (Exception ex)

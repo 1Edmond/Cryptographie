@@ -55,9 +55,9 @@ namespace CryptoAppV2.ViewModel
                 },
                 new MesFonctions() {
                     Button1 = new BtnFonction() {
-                        Text = "Chiffrement d'un caractère ou d'un mot",
+                        Text = "Valeur d'un caractère ou d'un mot.",
                         Navigation = new Command(() => {
-                            navigation.ShowPopup(new PopUpPage("Chhiffrement")); // Fait
+                            navigation.ShowPopup(new PopUpPage("Valeur")); // Fait
                         })
                     },
                     Button2 = new BtnFonction() {

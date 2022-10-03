@@ -58,34 +58,74 @@ namespace CryptoAppV2
             InitializeComponent();
             UserHistoriqueManager = new UserHistoriqueManager(database);
             UserModeleManager = new UserModeleManager(database);
-            //var navigationPage = new ProfilPage();
-            //MainPage = navigationPage;
+            UpdateInscriptionTest();
             CheckInscriptionValidation();
-            if(UserSettings.UserInscriptionId == "")
+
+            if (UserSettings.UserInscriptionId == "")
                 MainPage = new NavigationPage(new SignInPage());
             else
             {
-                if(UserSettings.UserInscriptionValide == "")
-                    MainPage = new NavigationPage(new PayementPage());
+                if (!DateTime.TryParse(UserSettings.UserInscriptionTest, out _))
+                {
+                    if (UserSettings.UserInscriptionValide == "")
+                        MainPage = new NavigationPage(new PayementPage());
+                    else
+                        MainPage = new ShellPage();
+                }
                 else
-                    MainPage = new ShellPage();
+                {
+                    if (DateTime.Parse(UserSettings.UserInscriptionTest).CompareTo(DateTime.Now) < 0)
+                        MainPage = new NavigationPage(new PayementPage());
+                    else
+                        MainPage = new ShellPage();
+                }
             }
-            
-                  //  MainPage = new ShellPage();
-               
-           // ApiService.GetInscription();
         }
 
+        public void UpdateInscriptionTest()
+        {
+            if(DateTime.TryParse(UserSettings.UserInscriptionTest, out _))
+            {
+                if(DateTime.Parse(UserSettings.UserInscriptionTest).CompareTo(DateTime.Now) < 0)
+                    UserSettings.UserInscriptionTest = "Expirée";
+            }
+        }
         public void CheckInscriptionValidation()
         {
             if (UserSettings.UserInscriptionId != "")
             {
-                if(Connectivity.NetworkAccess == NetworkAccess.Internet)
+                if (Connectivity.NetworkAccess == NetworkAccess.Internet)
                 {
-                    var result = ApiService.GetInscription();
-                    if(result.Result.ELement != null)
-                        if(result.Result.ELement.Etat == 2)
-                            UserSettings.UserInscriptionValide = "true";
+                    if(UserSettings.UserInscriptionTest == "")
+                    {
+                        var result = ApiService.GetInscription();
+                        if (result.Result.ELement != null)
+                            if (result.Result.ELement.Etat == 3)
+                            {
+                                UserSettings.UserInscriptionTest = result.Result.ELement.DateInscription.ToString();
+                                return;
+                            }
+                            else
+                                if(result.Result.ELement.Etat == 2)
+                                {
+                                    UserSettings.UserInscriptionValide = "true";
+                                    return;
+                                }
+                    }
+                    else
+                    if(UserSettings.UserInscriptionTest == "Expirée")
+                        {
+                        if (UserSettings.UserInscriptionValide == "")
+                        {
+                            var result = ApiService.GetInscription();
+                            if (result.Result.ELement != null)
+                                if (result.Result.ELement.Etat == 2)
+                                {
+                                    UserSettings.UserInscriptionValide = "true";
+                                    return;
+                                }
+                        }
+                        }
                 }
             }
         }

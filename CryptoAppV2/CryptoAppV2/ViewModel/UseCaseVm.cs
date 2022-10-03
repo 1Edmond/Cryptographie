@@ -128,7 +128,7 @@ namespace CryptoAppV2.ViewModel
                     NumberVisibility = false,
                     HasBoxView = true,
                     BoxViewMargin = new Thickness() { Bottom = 0, Left = 50, Right = 0, Top = 0},
-                    Description = "Calculer la clé privée (Merkle-Hellman).",
+                    Description = "Calculer la clé publique (Merkle-Hellman).",
                 },
                     new UseCase()
                 {

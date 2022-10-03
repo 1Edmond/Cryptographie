@@ -347,6 +347,7 @@
                             </Frame>
                         </StackLayout>
                     </StackLayout>
+                    <ActivityIndicator Color="#178FEB" IsVisible="False" x:Name="BinaireActivityIndicator" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" />
                     <StackLayout Grid.Row="1" Margin="10" x:Name="BinaireStack" HorizontalOptions="FillAndExpand" IsVisible="false" >
                         <Label Text="" HorizontalOptions="CenterAndExpand" TextColor="{AppThemeBinding Dark=Black, Light=Black}" HorizontalTextAlignment="Center" x:Name="BinaireResult" FontSize="20" />
                         <ListView x:Name="BinaireEtape" SelectionMode="None" SeparatorVisibility="Default" SeparatorColor="Gray" >

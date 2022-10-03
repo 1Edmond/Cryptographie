@@ -228,7 +228,7 @@ namespace CryptoAppV2.View.Home
                             }
                             else
                             {
-                                await DisplayAlert("Erreur", $"La variable n : {n} n'admet pas de decompositon en facteur premier.", "Ok");
+                                await DisplayAlert("Erreur", $"La variable n : {n} n'admet pas de decompositon en facteur premier utilisable dans ce contexte.", "Ok");
                                 await DeleteAnimation(BtnDecodage, EtapeDecodageBtn);
                             }
                         }
@@ -319,7 +319,7 @@ namespace CryptoAppV2.View.Home
                             }
                             else
                             {
-                                await DisplayAlert("Erreur", $"La variable n : {n} n'admet pas de decompositon en facteur premier .", "Ok");
+                                await DisplayAlert("Erreur", $"La variable n : {n} n'admet pas de decompositon en facteur premier utilisable dans ce contexte .", "Ok");
                                 await DeleteAnimation(BtnCodage, EtapeCodageBtn);
                             }
 
@@ -405,22 +405,21 @@ namespace CryptoAppV2.View.Home
             };
         }
 
-        private async Task ActivateAndAnimeBtn(Button btnCodage, ImageButton btn)
+        private Task ActivateAndAnimeBtn(Button btnCodage, ImageButton btn)
         {
-            await btnCodage.FadeTo(0, 3000);
-            // btnCodage.Margin = new Thickness() { Left = 20, Bottom = 20 };
-            btnCodage.HorizontalOptions = new LayoutOptions() { Alignment = LayoutAlignment.Start, Expands = true };
-            await Task.Delay(500);
-            _ = btnCodage.FadeTo(1, 3000);
-            _ = btn.FadeTo(1, 3000);
-            // btn.Margin = new Thickness() { Right = 20, Bottom = 20 };
+            _ = btnCodage.TranslateTo(-95, 0, 3000);
             btn.IsVisible = true;
+            _ = btn.FadeTo(1, 3000);
+            return Task.CompletedTask;
         }
-        private async Task DeleteAnimation(Button btnCodage, ImageButton btn)
+
+        private Task DeleteAnimation(Button btnCodage, ImageButton btn)
         {
-            // btnCodage.Margin = new Thickness() { Left = 0,Bottom = 0 };
+            btnCodage.Margin = new Thickness() { Left = 0 };
+            btnCodage.TranslationX = 0;
             btnCodage.HorizontalOptions = new LayoutOptions() { Alignment = LayoutAlignment.Center, Expands = true };
-            await btn.FadeTo(0);
+            btn.FadeTo(0);
+            return Task.CompletedTask;
         }
     }
 }

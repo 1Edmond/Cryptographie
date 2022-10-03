@@ -192,31 +192,39 @@ namespace CryptoAppV2.View.Home
                             }
                             if (String.IsNullOrEmpty(specialCaractere))
                                 specialCaractere = "x";
-                            string result = cryptoCode.DecodageHill(text, DecodageMatriceEntry.Text,  specialCaractere,tem.Nom);
-                            decodageResult = result;
-                            var etapes = cryptoEtape.DecodageDeHill(text, DecodageMatriceEntry.Text, specialCaractere,tem.Nom);
-                            etapesDecodage.Clear();
-                            DecodageResult.Text = $"La solution du décodage est : {result}";
-                            etapes.ForEach(x =>
+                            if (specialCaractere.IsOnlyAphabet())
                             {
-                                etapesDecodage.Add(x);
-                            });
-                            await App.UserHistoriqueManager.Add(new UserHistorique()
+                                string result = cryptoCode.DecodageHill(text, DecodageMatriceEntry.Text,  specialCaractere,tem.Nom);
+                                decodageResult = result;
+                                var etapes = cryptoEtape.DecodageDeHill(text, DecodageMatriceEntry.Text, specialCaractere,tem.Nom);
+                                etapesDecodage.Clear();
+                                DecodageResult.Text = $"La solution du décodage est : {result}";
+                                etapes.ForEach(x =>
+                                {
+                                    etapesDecodage.Add(x);
+                                });
+                                await App.UserHistoriqueManager.Add(new UserHistorique()
+                                {
+                                    DateOperation = DateTime.Now,
+                                    Libelle = "Décodage de Hill",
+                                    Description = $"Décodage de Hill avec la matrice = {DecodageMatriceEntry.Text} modèle = {tem.Nom}",
+                                    Data = text.TransformHistoriqueData(
+                                      "Hill", "Decodage",
+                                      new Dictionary<string, string>()
+                                          {
+                                                { "matrice" , $"{DecodageMatriceEntry.Text}" },
+                                                { "special" , $"{specialCaractere}" },
+                                                { "modele" , $"{tem.Nom}" },
+                                          })
+                                });
+                                await ActivateAndAnimeBtn(BtnDecodage, EtapeDecodageBtn);
+                                DecodageResult.IsVisible = true;
+                            }
+                            else
                             {
-                                DateOperation = DateTime.Now,
-                                Libelle = "Décodage de Hill",
-                                Description = $"Décodage de Hill avec la matrice = {DecodageMatriceEntry.Text} modèle = {tem.Nom}",
-                                Data = text.TransformHistoriqueData(
-                                  "Hill", "Decodage",
-                                  new Dictionary<string, string>()
-                                      {
-                                            { "matrice" , $"{DecodageMatriceEntry.Text}" },
-                                            { "special" , $"{specialCaractere}" },
-                                            { "modele" , $"{tem.Nom}" },
-                                      })
-                            });
-                            await ActivateAndAnimeBtn(BtnDecodage, EtapeDecodageBtn);
-                            DecodageResult.IsVisible = true;
+                                await DisplayAlert("Erreur", "Le caractère spécial doit être un alphabet.", "Ok");
+                                await DeleteAnimation(BtnDecodage, EtapeDecodageBtn);
+                            }
                         }
                         else
                         {
@@ -296,32 +304,41 @@ namespace CryptoAppV2.View.Home
                             }
                             if (String.IsNullOrEmpty(specialCaractere))
                                 specialCaractere = "x";
-                            text = text.ToUpper();
-                            string result = cryptoCode.CodageHill(text, CodageMatriceEntry.Text, specialCaractere,tem.Nom);
-                            codageResult = result;
-                            var etapes = cryptoEtape.CodageDeHill(text, CodageMatriceEntry.Text, specialCaractere,tem.Nom);
-                            etapesCodage.Clear();
-                            CodageResult.Text = $"La solution du codage est : {result}";
-                            etapes.ForEach(x =>
+                            if (specialCaractere.IsOnlyAphabet())
                             {
-                                etapesCodage.Add(x);
-                            });
-                            await App.UserHistoriqueManager.Add(new UserHistorique()
+                                text = text.ToUpper();
+                                string result = cryptoCode.CodageHill(text, CodageMatriceEntry.Text, specialCaractere,tem.Nom);
+                                codageResult = result;
+                                var etapes = cryptoEtape.CodageDeHill(text, CodageMatriceEntry.Text, specialCaractere,tem.Nom);
+                                etapesCodage.Clear();
+                                CodageResult.Text = $"La solution du codage est : {result}";
+                                etapes.ForEach(x =>
+                                {
+                                    etapesCodage.Add(x);
+                                });
+                                await App.UserHistoriqueManager.Add(new UserHistorique()
+                                {
+                                    DateOperation = DateTime.Now,
+                                    Libelle = "Codage de Hill",
+                                    Description = $"Codage de Hill avec la matrice = {CodageMatriceEntry.Text} modèle = {tem.Nom}",
+                                    Data = text.TransformHistoriqueData(
+                                     "Hill", "Codage",
+                                     new Dictionary<string, string>()
+                                         {
+                                                { "matrice" , $"{CodageMatriceEntry.Text}" },
+                                                { "special" , $"{specialCaractere}" },
+                                                { "modele" , $"{tem.Nom}" },
+                                         })
+                                });
+                                await ActivateAndAnimeBtn(BtnCodage, EtapeCodageBtn);
+                                CodageResult.IsVisible = true;
+
+                            }
+                            else
                             {
-                                DateOperation = DateTime.Now,
-                                Libelle = "Codage de Hill",
-                                Description = $"Codage de Hill avec la matrice = {CodageMatriceEntry.Text} modèle = {tem.Nom}",
-                                Data = text.TransformHistoriqueData(
-                                 "Hill", "Codage",
-                                 new Dictionary<string, string>()
-                                     {
-                                            { "matrice" , $"{CodageMatriceEntry.Text}" },
-                                            { "special" , $"{specialCaractere}" },
-                                            { "modele" , $"{tem.Nom}" },
-                                     })
-                            });
-                            await ActivateAndAnimeBtn(BtnCodage, EtapeCodageBtn);
-                            CodageResult.IsVisible = true;
+                                await DisplayAlert("Erreur", "Le caractère spécial doit être un alphabet.", "Ok");
+                                await DeleteAnimation(BtnCodage, EtapeCodageBtn);
+                            }
                         }
                         else
                         {
@@ -401,22 +418,21 @@ namespace CryptoAppV2.View.Home
                 };
                 await this.DisplayToastAsync(options);
             });
-        private async Task ActivateAndAnimeBtn(Button btnCodage, ImageButton btn)
+        private Task ActivateAndAnimeBtn(Button btnCodage, ImageButton btn)
         {
-            await btnCodage.FadeTo(0, 3000);
-            // btnCodage.Margin = new Thickness() { Left = 20, Bottom = 20 };
-            btnCodage.HorizontalOptions = new LayoutOptions() { Alignment = LayoutAlignment.Start, Expands = true };
-            await Task.Delay(500);
-            _ = btnCodage.FadeTo(1, 3000);
-            _ = btn.FadeTo(1, 3000);
-            // btn.Margin = new Thickness() { Right = 20, Bottom = 20 };
+            _ = btnCodage.TranslateTo(-95, 0, 3000);
             btn.IsVisible = true;
+            _ = btn.FadeTo(1, 3000);
+            return Task.CompletedTask;
         }
-        private async Task DeleteAnimation(Button btnCodage, ImageButton btn)
+
+        private Task DeleteAnimation(Button btnCodage, ImageButton btn)
         {
-            // btnCodage.Margin = new Thickness() { Left = 0,Bottom = 0 };
+            btnCodage.Margin = new Thickness() { Left = 0 };
+            btnCodage.TranslationX = 0;
             btnCodage.HorizontalOptions = new LayoutOptions() { Alignment = LayoutAlignment.Center, Expands = true };
-            await btn.FadeTo(0);
+            btn.FadeTo(0);
+            return Task.CompletedTask;
         }
     }
 }

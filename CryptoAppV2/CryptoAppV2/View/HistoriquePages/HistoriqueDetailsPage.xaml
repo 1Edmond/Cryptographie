@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:ht="clr-namespace:CryptoAppV2.ViewModel"
              x:Class="CryptoAppV2.View.HistoriquePages.HistoriqueDetailsPage">
     <Shell.TitleView>
         <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand"
@@ -10,9 +9,6 @@
                    HorizontalTextAlignment="Center" TextColor="White" FontSize="18"/>
         </StackLayout>
     </Shell.TitleView>
-    <ContentPage.BindingContext>
-        <ht:UserHistoriqueDetailsVm />
-    </ContentPage.BindingContext>
     <ContentPage.Resources>
         <Style TargetType="Label">
             <Setter Property="TextColor" Value="{AppThemeBinding Dark=Gray, Light=Black}" />

@@ -55,7 +55,7 @@ namespace CryptoAppV2.View.SettingsPages
         }
         private void DeleteAll_Tapped(object sender, EventArgs e)
         { 
-            DeleteAllDate();
+           _= DeleteAllData();
             ModeleCount.Text = "1";
             HistoriqueCount.Text = "0";
         }
@@ -106,7 +106,7 @@ namespace CryptoAppV2.View.SettingsPages
         }
 
         private async void UseCase_Tapped(object sender, EventArgs e) => await Shell.Current.GoToAsync("UseCasePage");
-        private async Task DeleteAllDate()
+        private async Task DeleteAllData()
         {
            _= App.UserHistoriqueManager.DeleteAll();
            _= App.UserModeleManager.DeleteAll();

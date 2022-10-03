@@ -72,14 +72,15 @@ namespace CryptoAppV2.CrAlgorithme
                     return j;
             return -1;
         }
-        public bool Premier(int nbr) => Diviseur(nbr).Count() == 2 ? true : false;
+        public bool Premier(int nbr) => Diviseur(nbr).Count() == 2;
         public bool PremierEntreEux(int nbr1, int nbr2)
         {
             bool test = true;
             Diviseur(nbr1).ForEach(x =>
             {
-                if (Diviseur(nbr2).Contains(x) && x != 1)
-                    test = false;
+                if(x != 1)
+                    if (Diviseur(nbr2).Contains(x))
+                        test = false;
             });
 
             if (nbr1 == 1 || nbr2 == 1)
@@ -191,11 +192,11 @@ namespace CryptoAppV2.CrAlgorithme
             diviseur.ForEach(x =>
             {
                 if (Premier(x))
-                    result += $"{x},";
+                    result += $"{x}, ";
             });
             if (result.Equals(""))
                 return result; // Modiification aportée
-            return result.Remove(result.Length - 1);
+            return result.Remove(result.Length - 2);
         }
         public string RSAPhi(String texte) => texte.Split(',').ToList().ProduitRSaList().ToString();
         public string RSASignature(string message, string n, string e) =>

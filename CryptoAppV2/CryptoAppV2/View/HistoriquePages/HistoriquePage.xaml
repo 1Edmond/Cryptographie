@@ -53,64 +53,86 @@
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical" ItemSpacing="20" />
                 </CollectionView.ItemsLayout>
+                <CollectionView.EmptyView>
+                    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                        <Label Text="Aucun historique pour le moment" FontSize="20"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <SwipeView BackgroundColor="#F1F1F1" xct:CornerRadiusEffect.CornerRadius="30">
-                            <SwipeView.LeftItems>
-                                <SwipeItems Mode="Execute">
-                                    <SwipeItemView Command="{Binding Path=BindingContext.OnHistoriqueDetailsSwipe,
+                        <Grid>
+                            <SwipeView BackgroundColor="#F1F1F1" xct:CornerRadiusEffect.CornerRadius="30">
+                                <SwipeView.LeftItems>
+                                    <SwipeItems Mode="Execute">
+                                        <SwipeItemView Command="{Binding Path=BindingContext.OnHistoriqueDetailsSwipe,
                                         Source={x:Reference Name=MyCollection}}" CommandParameter="{Binding .}">
-                                        <StackLayout Margin="10"
+                                            <StackLayout Margin="10"
                                                      VerticalOptions="CenterAndExpand"
                                                      HorizontalOptions="StartAndExpand">
-                                            <Label Text="Détails"
+                                                <Label Text="Détails"
                                                    FontAttributes="Bold" 
                                                    VerticalOptions="CenterAndExpand"
                                                    HorizontalOptions="Start" />
-                                        </StackLayout>
-                                    </SwipeItemView>
-                                </SwipeItems>
-                            </SwipeView.LeftItems>
-                            <SwipeView.RightItems>
-                                <SwipeItems Mode="Execute">
-                                    <SwipeItemView Command="{Binding Path=BindingContext.OnHistoriqueDeleteSwipe,
+                                            </StackLayout>
+                                        </SwipeItemView>
+                                    </SwipeItems>
+                                </SwipeView.LeftItems>
+                                <SwipeView.RightItems>
+                                    <SwipeItems Mode="Execute">
+                                        <SwipeItemView Command="{Binding Path=BindingContext.OnHistoriqueDeleteSwipe,
                                         Source={x:Reference Name=MyCollection}}" CommandParameter="{Binding .}">
-                                        <StackLayout Margin="10"
+                                            <StackLayout Margin="10"
                                                      VerticalOptions="CenterAndExpand"
                                                      HorizontalOptions="StartAndExpand">
-                                            <Label Text="Supprimer"
+                                                <Label Text="Supprimer"
                                                    FontAttributes="Bold"
                                                    TextColor="#B72355"
                                                    VerticalOptions="CenterAndExpand"
                                                    HorizontalOptions="Start" />
-                                        </StackLayout>
-                                    </SwipeItemView>
-                                </SwipeItems>
-                            </SwipeView.RightItems>
-                            <Frame HasShadow="True" BackgroundColor="#F1F1F1" Padding="0" x:Name="Myframe" HeightRequest="115"
-                               CornerRadius="30">
-                                <Grid RowDefinitions="*,*" Margin="20,20,20,0"
-                                  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                                    <StackLayout Orientation="Horizontal">
-                                        <StackLayout
-                                                 HorizontalOptions="StartAndExpand">
-                                            <Label Text="Date de l'opération" FontSize="16" />
-                                            <Label Text="{Binding DateOperation}" FontAttributes="Bold" />
-                                        </StackLayout>
-                                        <StackLayout HorizontalOptions="EndAndExpand">
-                                            <Label Text="Libelle" HorizontalOptions="CenterAndExpand" FontSize="16" />
-                                            <Label Text="{Binding Libelle}" FontAttributes="Bold" />
-                                        </StackLayout>
-                                    </StackLayout>
-                                    <StackLayout Grid.Row="1" Orientation="Horizontal">
-                                        <Label Text="Description" />
-                                        <Label Text="{Binding Description}" FontAttributes="Bold"
+                                            </StackLayout>
+                                        </SwipeItemView>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <SwipeView.Content>
+                                    <xct:Expander ExpandAnimationLength="1500" ExpandAnimationEasing="CubicInOut"
+                                                  CollapseAnimationEasing="SpringOut" CollapseAnimationLength="1500">
+                                        <xct:Expander.Header>
+                                            <Grid>
+                                                <Frame HasShadow="True" BackgroundColor="Transparent" Padding="0" x:Name="Myframe" HeightRequest="115"
+                                                        CornerRadius="30">
+                                                    <Grid  Padding="0"
+                                                        HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                                        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" >
+                                                            <xct:AvatarView Margin="10,0,20,0" Text="{Binding AvatarText}" Color="{Binding AvatarColor}"  
+                                                                            HeightRequest="35" WidthRequest="35" CornerRadius="30"/>
+                                                            <StackLayout Margin="10,0,20,0" 
+                                                                    HorizontalOptions="StartAndExpand">
+                                                                <Label Text="Date de l'opération" FontSize="16" />
+                                                                <Label Text="{Binding DateOperation}" FontAttributes="Bold" />
+                                                            </StackLayout>
+                                                            <StackLayout HorizontalOptions="EndAndExpand" Margin="0,0,20,0">
+                                                                <Label Text="Libelle" HorizontalOptions="CenterAndExpand" FontSize="16" />
+                                                                <Label Text="{Binding Libelle}" FontAttributes="Bold" />
+                                                            </StackLayout>
+                                                        </StackLayout>
+                                                    </Grid>
+                                                </Frame>
+                                            </Grid>
+                                        </xct:Expander.Header>
+                                        <Grid HeightRequest="100">
+                                            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="CenterAndExpand">
+                                                <Label Text="Description" HorizontalOptions="Center" />
+                                                <Label Text="{Binding Description}" FontAttributes="Bold"
                                            HorizontalTextAlignment="Center"
                                            HorizontalOptions="CenterAndExpand" />
-                                    </StackLayout>
-                                </Grid>
-                            </Frame>
-                        </SwipeView>
+                                            </StackLayout>
+                                        </Grid>
+                                    </xct:Expander>
+                                </SwipeView.Content>
+                            </SwipeView>
+                        </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

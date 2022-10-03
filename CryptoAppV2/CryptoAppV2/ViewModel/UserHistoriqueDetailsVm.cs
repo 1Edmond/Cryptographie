@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace CryptoAppV2.ViewModel
 {
-    [QueryProperty(nameof(HistoriqueLibelle), nameof(HistoriqueLibelle))]
+   
     public class UserHistoriqueDetailsVm : BaseViewModel
     {
         UserHistoriqueManager UserHistoriqueManager { get; set; }
@@ -25,13 +25,6 @@ namespace CryptoAppV2.ViewModel
 
         }
 
-        public ICommand OnHistoriqueSelected = new Command(async (ord) =>
-        {
-            if (ord == null)
-                return;
-            var userHistorique = ord as UserHistorique;
-            await Shell.Current.GoToAsync($"{nameof(HistoriqueDetailsPage)}?HistoriqueId={userHistorique.Id}");
-        });
         public string HistoriqueLibelle { 
             get => UserHistorique.Libelle;
             set

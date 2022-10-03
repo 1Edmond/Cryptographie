@@ -59,6 +59,7 @@ namespace CryptoAppV2.View
             {
                 Environment.Exit(0);
             };
+            UserName.Text = $"{UserSettings.UserName} {UserSettings.UserPrenom}";
         }
 
     }

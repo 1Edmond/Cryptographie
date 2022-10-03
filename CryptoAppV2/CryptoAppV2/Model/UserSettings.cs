@@ -160,6 +160,29 @@ namespace CryptoAppV2.Model
             }
 
         }
+        
+        private const string InscriptionTest = "InscriptionTest";
+        public static string UserInscriptionTest
+        {
+            get
+            {
+                if (!Application.Current.Properties.ContainsKey(InscriptionTest))
+                {
+                    Application.Current.Properties.Add(InscriptionTest, "");
+                    Application.Current.SavePropertiesAsync();
+                }
+                return (string)Application.Current.Properties[InscriptionTest];
+            }
+            set
+            {
+                if (Application.Current.Properties.ContainsKey(InscriptionTest))
+                    Application.Current.Properties[InscriptionTest] = value;
+                else
+                    Application.Current.Properties.Add(InscriptionTest, value);
+                Application.Current.SavePropertiesAsync();
+            }
+
+        }
 
     }
 }

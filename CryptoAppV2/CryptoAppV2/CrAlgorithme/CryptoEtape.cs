@@ -434,7 +434,7 @@ namespace CryptoAppV2.CrAlgorithme
                     n = n.Replace(n[i], ' ');
                 }
             }
-
+            result.OrderByDescending(x => x.Info.Substring(x.Info.LastIndexOf("e") + 2 ,1)).ToList();
             return result;
         }
         public List<Etape> DecompositionFacteur(string n)
