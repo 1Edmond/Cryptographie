@@ -58,8 +58,8 @@ En plus de ces différents cryptosystèmes l'application vous fournit une liste 
         <img src="https://drive.google.com/uc?export=download&id=1W2l3JcoCXXf_DmYTjobLRIgGu8beD_fE" width="300" heigth="200" class="card-img-top" title="djdkjkdj" alt="Page des historiques" />
       </div>
   </div>
-   
-#Testez l'applcation
+
+# Testez l'application
 Vous pouvez tester l'application en le téléchargeant gratuitement via ce lien
    <a href="https://mega.nz/file/OF0SkDyT#KQIsqUS0WScTsSMAU4tWoj3L4cwyUmlWAckiOYoI9Qw"> ✔✔ </a>
    </br>
