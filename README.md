@@ -61,7 +61,7 @@ En plus de ces différents cryptosystèmes l'application vous fournit une liste 
 
 # Testez l'application
 Vous pouvez tester l'application en le téléchargeant gratuitement via ce lien
-   <a href="https://mega.nz/file/OF0SkDyT#KQIsqUS0WScTsSMAU4tWoj3L4cwyUmlWAckiOYoI9Qw"> ✔✔ </a>
+   <a href="https://mega.nz/file/vJlSHBDS#z6cPgWuLEHi5EfwDpMIXF92YukaC2AWkKY9K8WlF1-4"> ✔✔ </a>
    </br>
 Une fois l'application téléchargée et installée vous devez vous inscrire.
 </br>
