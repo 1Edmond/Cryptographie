@@ -61,10 +61,6 @@ En plus de ces différents cryptosystèmes l'application vous fournit une liste 
 
 # Testez l'application
 Vous pouvez tester l'application en le téléchargeant gratuitement via ce lien
-   <a href="https://mega.nz/file/vJlSHBDS#z6cPgWuLEHi5EfwDpMIXF92YukaC2AWkKY9K8WlF1-4"> ✔✔ </a>
+   <a href="https://mega.nz/file/7dN3HK7K#QjB5a7Xj1BXUJUflAjCGdT0CjMB1B4LBIbEHVdPzDRs"> ✔✔ </a>
    </br>
-Une fois l'application téléchargée et installée vous devez vous inscrire.
-</br>
-Une fois cette étape réalisée, vous pouvez me contacter au numéro +228 92 08 07 70 par Whatsapp pour valider immédiatement votre inscription ou soit patienter que cela se fasse automatiquement.
-</br>
 NB : Vous aurez accès à l'application que pour un temps donné.
