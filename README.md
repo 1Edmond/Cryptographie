@@ -8,6 +8,10 @@ L'application fournit plusieurs fonctionnalités comme :
 - Les animations
 - La génération des différents étapes pour chaque opération réalisée
 
+## Technologies utilisées.
+* Xamarin : Framework de Microsoft pour le développement mobile multiplateforme.
+* SqlLite : Gestion des historiques d'activités de l'utilisateur.
+
 ## Les différents cryptosystèmes diponibles
 - Le code affine
 - Le code de Vigenère
